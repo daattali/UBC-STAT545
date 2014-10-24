@@ -1,0 +1,559 @@
+---
+title: "Analysis of Global Terrorism Activity"
+author: Dean Attali
+date: October 2013
+output:
+  html_document:
+    keep_md: true
+---
+
+```{r include = FALSE}
+## This markdown file is mainly meant to serve as an HTML report to visualize the results
+## of all the scripts in one place.  To get a better understanding of how the code works,
+## look at the actual scripts available on Github https://github.com/daattali/statsTerrorismProject
+
+suppressWarnings(library(knitr))
+opts_chunk$set(tidy = FALSE)
+source('common.R')
+library(xtable)
+library(maps)
+library(mapdata)
+data(world.cities)
+library(fBasics)
+library(reshape)
+
+printTable <- function(x, truncateNums = TRUE) {
+  x <- xtable(x)
+  if(truncateNums) {
+    digits(x) <- c(0)
+  }
+  print(x, type = 'html', include.rowname = FALSE)
+}
+```
+
+_Dean Attali  
+October 2013  
+UBC STAT545A Final Project_
+
+**Note:** All the data and code required to create this report are available on [GitHub](https://github.com/daattali/statsTerrorismProject).
+
+Summary
+---------
+
+In this project, I explored a dataset containing information about global terrorism acts since 1970, and attempted to make the findings as visual as possible.  The dataset used is called the Global Terrorism Database ([available here](http://www.start.umd.edu/gtd/)), and contains over 100,000 terrorist incidents worldwide, with over 100 different attributes for each incident.  Most of the analysis is done globally, but one of the scripts focuses on terrorism in Israel since it is very relevant to me.  Another dataset that is used to retrieve some additional information about countries is the GapMinder data ([available here](http://www.gapminder.org/)).
+
+While there are dozens of interesting ideas to explore within the dataset, I had to choose only a small subset of them to implement. There is much more that can be done with this database. In order to simplify and make the analysis much more efficient, I chose to discard over 100 attributes, and only retain a few of the key variables such as date, attack type, location, and casualties.  It should also be noted that all information from 1993 is missing from this database as a result of human error (more information is available [here](http://www.start.umd.edu/gtd/faq/#q9)).
+
+This report focuses on displaying and anlyzing the results, but de-emphasizes the underlying process and code. Numerous hours were spent on getting this done, including several all-night coding sessions that ended after the birds got up. To get a better understanding of how the data was manipulated and how all the scripts work, feel free to look at the [Git repository for this project](https://github.com/daattali/statsTerrorismProject).  You can also download the raw data and code to run the analysis from there.
+
+### Global Terrorism
+
+Let's start with a very basic, yet upsetting, statistic in the data: the number of people wounded and killed by each attack type overall.
+
+```{r fig.width=9, fig.height=6, fig.align='center', echo=FALSE}
+attacktypeDamage <- ddply(dat, ~attacktype, function(x){
+  df <- data.frame(c("nkill", "nwound"), c(sum(x$nkill), sum(x$nwound)));
+  colnames(df)<-c("stat","value");
+  return(df)
+})
+
+ggplot(attacktypeDamage, aes(x = attacktype, y = value, fill = stat)) +
+  geom_bar(stat = "identity", position = position_dodge(width=0.9)) +
+  coord_flip() +
+  ggtitle("Number of People Wounded or Killed by Terrorist Attacks Since 1970") +
+  xlab("") +
+  ylab("# of People") +
+  scale_fill_manual(name = "Injury Type", values = c("black", "red"), labels = c('Killed', 'Wounded')) +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  theme(panel.grid.major.y = element_blank(),
+        plot.title = element_text(face="bold"))
+```
+
+It is immediately visible that bombings and armed assaults are the attacks that have killed and injured the most people.  With bombings, there are far more people getting injured than killed, while with armed assault the fatalities are the highest.
+
+---
+
+Now let's look at some region-level statistics.  
+Let's get a quick overview of the regions, and see how many attacks happened in each.
+
+```{r fig.width=9, fig.height=7, fig.align='center', echo=FALSE}
+regionTotal <- ddply(dat, ~region, plyrFxCount)
+ggplot(regionTotal, aes(x = region, y = count, fill = region)) +
+  geom_bar(stat="identity", show_guide=FALSE) +
+  coord_flip() +
+  ggtitle("Terrorist Attacks in World Regions Since 1970") +
+  xlab("") +
+  ylab("# of Attacks") +
+  scale_fill_manual(values = regionCol) +
+  theme(panel.grid.major.y = element_blank(),
+        plot.title = element_text(face="bold"))
+```
+
+It looks like overall since 1970, there hasn't been one major region that suffered more than all others. Every successvie region has less terror attacks than its previous, but the gap is never massive.
+
+---
+
+Next we will zoom in and see what happens when we look at different years rather than combined history.
+
+```{r fig.width=11, fig.height=8, fig.align='center', echo=FALSE}
+# calculate the number of attacks in each region per year
+regionYear <- ddply(dat, region ~ year, plyrFxCount, "nattacks")
+
+# fix a little "problem" (well, a good problem), where some regions have years with 0 attacks
+# this will cause some missing points in the plots which doesn't look nice, so we will
+# just add a value of 0 for every region/year pair that doesn't exist
+regionYearPossibilities <- merge(regions, unique(dat$year))
+regionYear <- merge(regionYear, regionYearPossibilities,
+                    by.x = c('region','year'), by.y = c("x","y"), all.y = TRUE)
+regionYear$nattacks[is.na(regionYear$nattacks)] <- 0
+
+# let's look at the number of attacks per year in each world region
+ggplot(regionYear, aes(x = year, y = nattacks, color = region)) +
+  geom_line(show_guide=FALSE) +
+  geom_point(show_guide=FALSE) +
+  xlab("Year") + 
+  ggtitle("Number of Terrorist Attacks in World Regions Since 1970") + 
+  ylab("# of Attacks") +
+  facet_wrap(~region) +
+  scale_color_manual(values = regionCol) + 
+  theme(strip.text = element_text(face="bold"),
+        plot.title = element_text(face="bold"))
+```
+
+This already reveals some interesting patterns.  
+Central America seemed to be very unstable starting at the late 1970's and slowly got better with time, until almost eliminating terrorist attacks before the new millenium.  
+The Middle East and South Asia both had a surge of terrorist attacks since circa 2005, after both having "relative" quiet since the mid 90's.  
+South America was consistently pretty dangerous througout the 80's and 90's, and has calmed since.  
+Western Europe is another region worth mentioning, that had many attacks up until the new millenium.  
+The rest of the regions are worth glancing at, but are not as interesting.
+
+---
+
+Now let's look at the same plot, but with all the regions superposed.
+
+```{r fig.width=11, fig.height=7, fig.align='center', echo=FALSE}
+ggplot(regionYear, aes(x = year, y = nattacks, color = region)) +
+  geom_line() +
+  geom_point() +
+  xlab("Year") + 
+  ggtitle("Number of Terrorist Attacks in World Regions Since 1970") + 
+  ylab("# of Attacks") +
+  scale_color_manual(values = regionCol) + 
+  theme(legend.justification = c(0,1), legend.position = c(0,1), legend.title = element_blank(),
+        plot.title = element_text(face="bold")) +
+  guides(col = guide_legend(ncol = 2))
+```
+
+While this looks messy and a little harder to read, it is interesting to see global patterns.  
+We can see that from the late 70's til the late 90's, many regions experienced higher terror attacks, and by 2000 most have achieved relative peace. Interestingly, the Middle East and South Asia (both of which also seemed to have much lower terrorist activity around the turn of the millenium) have both seen a sharp increase in the past decade.
+
+---
+
+Another way to visualize this data would be to group the years into 5-year buckets, and see the different regions at each time frame.
+
+```{r fig.width=11, fig.height=8, fig.align='center', echo=FALSE}
+yearBucketSize <- 5
+breaks <- seq(from = min(regionYear$year), to = max(regionYear$year), by = yearBucketSize)
+bins <- cut(regionYear$year, breaks = breaks, include.lowest=TRUE, right=FALSE)
+regionYear$bin <- bins
+
+# since our buckets are 5-year intervals, data from 2011 did not fit into a bucket and will be discarded
+regionYear <- regionYear[complete.cases(regionYear), ]
+
+# now make a new data frame where the data is already grouped into 5-year bins
+regionYearBin <- ddply(regionYear, region ~ bin, plyrFxSum, "nattacks", "nattacks")
+ggplot(regionYearBin, aes(x = region, y = nattacks, fill = region)) +
+  geom_bar(stat = "identity", show_guide=FALSE) +
+  facet_wrap(~bin, ncol = 4) +
+  ylab("# of Attacks") + 
+  ggtitle("Number of Terrorist Attacks in World Regions in 5-Year Intervals Since 1970") + 
+  xlab("") +
+  coord_flip() +  # to make the bars horizontal so that reading the regions is easier
+  scale_fill_manual(values = regionCol) +
+  theme(panel.background = element_rect(fill='#EEEEEE'),
+        panel.grid.major.y = element_blank(),
+        strip.text = element_text(face="bold"),
+        plot.title = element_text(face="bold"))
+```
+
+From this set of plots it is much clearer what the terrorist activity situation was at different regions at different time periods. Similar patterns emerge (which makes sense because we are looking at the same data), but it's even more clear now how bad South Asia and the Middle East are getting recently, and how Central America has improved drastically since the 1980's.  
+We can also see how Oceania and East Asia are the "boring" observations once again, so if you're looking for a safe place, you know where to go.
+
+---
+
+One interesting question that could be asked is whether there is much variation within the different regions, ie. are a few countries the cause of most terrorism in a region. Let's see!
+
+```{r fig.width=10, fig.height=7, fig.align='center', echo=FALSE}
+countriesTotal <- ddply(dat, .(country, region), plyrFxCount, "nattacks")
+ggplot(countriesTotal, aes(x = nattacks, y = region, color = region, cex = 1.7)) +
+  geom_jitter(position = position_jitter(height = 0.4), show_guide=FALSE) +
+  ggtitle("Variation in Number of Attacks in Different Countries Within Each Region Since 1970") +
+  xlab("# of Attacks") +
+  ylab("") +
+  scale_color_manual(values = regionCol) +
+  theme(panel.grid.minor.x = element_blank(), panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(color = "#EEEEEE"),
+        panel.background = element_rect(fill = '#FCFCFC', colour = '#D3D3D3'),
+        plot.title = element_text(face="bold"))
+```
+
+Each point represents the number of terrorist attacks in a country, divided into regions. This does indeed show that usually there are just a few countries where most of the terrorism happens, whereas most other countries in the region are safer.
+
+---
+
+It would be interesting to see which countries are the ones that are hit the hardest.  By visual inspection, we can see that there are never more than 5 countries in a region that are extremely worse than the rest, so let's pick out the highest 5 per region. We'll also drop the 3 boring continents to make the resulting table a little bit easier to digest.
+
+```{r results='asis', echo=FALSE}
+boringRegions <- rev(levels(countriesTotal$region))[1:3]
+countriesTotalSubset <- subset(countriesTotal, !(region %in% boringRegions))
+topNcountries <- 5
+topNcountriesRegion <-
+  ddply(countriesTotalSubset, ~region, function(x) {
+    x <- arrange(x, -nattacks)
+    x <- head(x, n = topNcountries)
+    return(x)
+  })
+# rearrange the columns to have the region first, easier to look at in table format  
+topNcountriesRegion <- subset(topNcountriesRegion, select = c("region", "country", "nattacks"))
+colnames(topNcountriesRegion) <- c('Region', 'Country', '# Attacks')
+printTable(topNcountriesRegion)
+```
+
+Ouch. Looks like Iraq is the unlucky country that attracted the most terrorism acts in the world.  
+The rest of the Middle East isn't doing amazingly well, but no one is close to Iraq in that geographic area.  
+In South Asia, India and Pakistan, and to a lesser extend Afghanistan and Sri Lanka, are the ones responsible for most of the terrorism.  
+Colombia is the terrorist hotbed of South America, while Peru also got a lot of suffering.  
+In Western Europe, it is North Ireland and Spain that sustained most of the damage, while in Central America it is El Salvador.  
+In Sub-Saharan Africa, South Africa is the country that has the most terrorism activities.  
+The Philippines and Thailand are the two countries most prone to terror attacks in Southeast Asia, while in North America it is the United States.  
+Lastly, out of all the Soviet Union countries, Russia seems to be the one that suffered the most from terrorism.
+
+---
+
+Another possibly interesting piece of information to look at is what kinds of terror attacks are most common at each region.
+
+```{r fig.width=11, fig.height=9, fig.align='center', echo=FALSE}
+regionAttacktype <- ddply(dat, region ~ attacktype, plyrFxCount)
+ggplot(regionAttacktype, aes(x = attacktype, y = count, fill = attacktype)) +
+  geom_bar(stat="identity", show_guide=FALSE) +
+  facet_wrap(~region) +
+  coord_flip() +
+  ggtitle("Terrorist Attack Types in World Regions Since 1970") +
+  xlab("") +
+  ylab("# of Attacks") +
+  scale_fill_manual(values = attacktypeCol) +
+  theme(panel.grid.major.y = element_blank(),
+        strip.text = element_text(face="bold"),
+        plot.title = element_text(face="bold"))
+```
+
+These plots reveal a few interesting bits of information.  
+Firstly, we can see that almost everywhere in the world bombings are the most common, followed by armed assaults and assassinations. Facility attacks and hostake kidnappings are the next most common attacks, while the rest are very minimal. It is interesting to note that Central America is the only place where armed assault is more common than bombings, and that in Africa and Southeast Asia there are as many armed assaults as bombings.  
+Another observation that stands out is the facility attacks in North America. where it is almost the most common form of terrorism, slightly less than bombings.
+
+### A couple maps!
+
+First thing I would like to see is which cities in the world are the most dangerous (this turns out to be pretty complicated to extract, [go read the code!](https://github.com/daattali/statsTerrorismProject)).
+
+```{r results='asis', echo = FALSE}
+cities <- table(dat$city)
+cities <- sort(cities[cities > 100], decreasing = TRUE)
+cities <- cities[-which(names(cities) == 'Unknown')]  ## remove the 'Unknown' city
+cityNames <- names(cities)
+datcities <- subset(dat, city %in% cityNames)
+cityAttacks <- ddply(datcities, country~city, plyrFxCount, "totAttacks")
+# grab the top 20 cities with most terrorist attacks
+topNcities <- 20
+cityAttacks <- head(arrange(cityAttacks, totAttacks, decreasing = TRUE), n=topNcities)
+cityAttacksCopy <- cityAttacks
+colnames(cityAttacksCopy) <- c('Country', 'City', '# Attacks')
+printTable(cityAttacksCopy)
+```
+
+Once again, Iraq tops the list :(  Baghdad is by far the most terror-attacked city in the world...
+
+Next, I'd like to map the cities to get a better geographic idea of where they are.  We will colour each city with an intensity of red, with Baghdad being the most red (almost brown), and every successive city being a little lighter.
+```{r fig.width=10, fig.align='center', echo=FALSE}
+# To find the cities on a map, we need to merge data with the "world.cities" dataset. But the names
+# of the cities don't always match (world.cities tries to be clever and use non-English names), so
+# we need to do some manual conversion of city names so that the merging will work properly
+cityNameMapping <- c(Bayrut = "Beirut", "Guatemala" = "Guatemala City", "al-Mawsil" = "Mosul")
+world.cities <- within(world.cities,
+                       name <- revalue(name, cityNameMapping))
+cityAttacksFullInfo <- merge(cityAttacks, world.cities,
+                             by.x = c('country', 'city'),
+                             by.y = c('country.etc', 'name'))
+# we also need to manually add Belfast, because in world.cities its under UK whereas the GTD has it
+# as Norhtern Ireland
+belfast <- cbind(cityAttacks[cityAttacks$city == 'Belfast', ],
+                 world.cities[world.cities$name=='Belfast' & world.cities$country.etc == 'UK', ])
+belfast$capital <- 1  # world.cities considers only considers London to be a capital in the UK
+cityAttacksFullInfo <- rbind(cityAttacksFullInfo,
+                             subset(belfast, select = -c(country.etc, name)))
+
+# Now we have all the data we need, but just one last thing:
+# We will make a red colour palette where every city will get matches
+# with a successively more intense red, where super red (almost brown) = most attacks
+cityAttacksFullInfo <- arrange(cityAttacksFullInfo, totAttacks)
+cityHeatColorRank <- seqPalette(nrow(cityAttacksFullInfo), name = "Reds")
+cityAttacksFullInfo$col <- cityHeatColorRank
+# Note that the list is sorted with the most attacks LAST, so that cities with a higher
+# red intensity (more attacks) will get drawn on top of other cities
+
+# alright, no more data cleaning. Time to map!
+map('worldHires',fill = TRUE, col = '#FCFCFC')
+points(x = cityAttacksFullInfo$long,
+       y = cityAttacksFullInfo$lat, 
+       col = 'black', pch = 21, cex = 2,
+       bg = cityAttacksFullInfo$col)
+title(paste('Top', topNcities, 'Most Terror-Attacked Cities'))
+```
+
+The darkest spot, in the Middle East, is Baghdad, and the other fairly dark spot in the region (at the North-West corner of Europe) is Belfast. The rest of the high intensity reds are mostly in Central/South America, and the lighter ones are in Europe.  There is also a lone point in Southeast Asia, in Manila (Philippines).
+
+---
+
+Before continuing, one thing that I noticed when looking at the names of those 20 cities is that I recognize a lot of them as big/capital cities.  Just out of curiosity, let's see exactly how many of those top 20 are actually the capital city of their respective country.
+
+```{r fig.width=8, fig.height=5, fig.align='center', echo=FALSE}
+capitalCounts <- table(cityAttacksFullInfo$capital)
+names(capitalCounts) <- c('Non-Capital', 'Capital City')
+capitalCounts <- as.data.frame(capitalCounts)
+capitalCounts$Var1 <- factor(capitalCounts$Var1, levels = rev(levels(capitalCounts$Var1)))
+ggplot(capitalCounts, aes(x = Var1, y = Freq, fill = Var1)) +
+  geom_bar(stat = "identity", width=0.5, show_guide = FALSE) +
+  ggtitle(paste('Distribution of Capital Cities in Top', topNcities,
+                'Most Terror-Attacked Cities')) +
+  xlab('') +
+  ylab(paste('# of Cities in Top', topNcities)) +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.y = element_blank()) +
+  scale_fill_manual(values = c('cyan3', 'turquoise'))
+```
+
+Wow, 15 out of the 20 most terror filled cities are indeed capital cities. Looks like terrorists really choose cities of high impact (duh..).
+
+---
+
+Next I would like to plot the intensity of how dangerous each world region is recently. We will look at data since year 2000 (inclusive), and shade each region with an intensity of red. Unlike with the cities, where the intensities were divided into 20 uniform intervals, now I want to actually see how the regions compare in absolute terms, so the colour intensities will be given according to how many attacks happened, not just according to the region's rank. Think heatmap.
+```{r fig.width=10, fig.align='center', echo=FALSE}
+dangerYear <- 2000
+regionDanger <- ddply(subset(dat, year >= dangerYear), ~ region, plyrFxCount, "tot")
+heatColors <- seqPalette(max(regionDanger$tot), name = "Reds")
+regionDanger$col <- heatColors[regionDanger$tot]
+# we have the data, now map it!
+# note that since we are using names from the GTD and trying to use them on the "mapdata" data,
+# we do need to perform a few little hacks.
+#  - mapdata only knows about a country named 'USSR'
+#  - mapdata spells 'United States' as 'USA'
+#  - GTD does not have Greenland (maybe it's under Denmark?) and because of that, when shading
+#    the map, there is a huge unshaded area there, so I manually add Greenland to Europe
+map('worldHires')
+for(i in 1:nrow(regionDanger)){
+  regionCountries <- subset(dat, region == regionDanger[i,'region'])$country
+  regionCountries <- as.character(unique(regionCountries))
+  
+  # the little hackings we need to do just to get the map to look nice...
+  if (regionDanger[i, 'region'] == 'USSR') {
+    regionCountries <- 'USSR'
+  } else if (regionDanger[i, 'region'] == 'North America') {
+    regionCountries <- c(regionCountries, 'USA')
+  } else if (regionDanger[i, 'region'] == 'Western Europe') {
+    regionCountries <- c(regionCountries, 'Greenland')
+  }
+  
+  map('worldHires',
+      regions = regionCountries,
+      add = TRUE,
+      col = regionDanger[i, 'col'], 
+      fill = TRUE)
+}
+title('Heatmap of Terrorist Attacks in World Regions Since 2000')
+```
+
+This shows pretty clearly how the Middle East and South Asia are so much worse off in terms of terrorism than the rest of the world since the new millenium. The only good thing to take from this map is that at least terrorists didn't get to Anteractica yet! Although Oceania, East Asia, and North America also seem fairly safe since 2000.
+
+### Adding GapMinder into the equation
+
+```{r echo=FALSE}
+# read the gap minder data
+gDat <- read.delim("gapminderDataFiveYear.txt")
+
+# we're mostly interested in the GDP of the countries at just one timepoint,
+# so keep a subset of gapminder data with only the latest year
+gDatLast <- subset(gDat, year == max(year))
+```
+
+Earlier we looked at which countries had the most terrorist attacks. Another way to look at that could be to see which countries had the most attacks relative to how big the country is. For example, if two countries have the same number of terrorism acts, but one country has 100x the population of the other, then that could be seen as valuable information. We merge data with [GapMinder](http://www.gapminder.org/) for this.  Here are the top 5.
+
+```{r results='asis', echo = FALSE}
+countryAttacks <- ddply(dat, ~ country + region, plyrFxCount, "totAttacks")
+countryAttacks <- merge(countryAttacks,
+                        subset(gDatLast, select = c('country', 'pop')),
+                        by.x = 'country',
+                        by.y = 'country')
+countryAttacks$popPerAttack <- round(countryAttacks$pop / countryAttacks$totAttacks)
+countryAttacks <- arrange(countryAttacks, popPerAttack)
+countryAttacksCopy <- subset(countryAttacks, select = c('country', 'totAttacks', 'pop', 'popPerAttack'))
+countryAttacksCopy$pop = round(countryAttacksCopy$pop)
+countryAttacksCopy$popPerAttack = round(countryAttacksCopy$popPerAttack)
+colnames(countryAttacksCopy) <- c('Country', '# Attacks', 'Population', 'Population Per Attack')
+
+printTable(head(countryAttacksCopy, n = 5))
+```
+
+Iraq seems to be the only country that is both in the top 5 most attacked and top 5 most attacked per population. Note also how all these countries are either in the Middle East or South America.
+
+---
+
+Now let's see if there's any correlation between a country's GDP and its terrorism history.
+
+```{r fig.width=10, fig.height=6, fig.align='center', echo=FALSE}
+countryAttacksGapMinder <-
+  merge(countryAttacks,
+  gDatLast,
+  by.x = c('country'),
+  by.y = c('country'))
+ggplot(countryAttacksGapMinder, aes(x = gdpPercap, y = totAttacks, color = region)) +
+  geom_point() +
+  geom_point(aes(cex = 1.5), show_guide = FALSE) +  # little hack necessary to now show cex in legend
+  xlab("GDP / Capita") + 
+  ggtitle("Terrorist Attacks Since 1970 vs GDP of Attacked Country") + 
+  ylab("# of Attacks") +
+  scale_color_manual(name = 'Region', values = regionCol)
+```
+
+This plot reveals, perhaps as we would have expected, that the countries with the most terrorist attacks are usually poorer countries. We can see that there are perhaps two outliers here, I would say that the two dots above 2000 attacks that are at the richer side seem to be outliers. By running `subset(countryAttacksGapMinder, totAttacks > 2000 & gdpPercap > 27000))`, we get to see which countries those are: Spain and the US. This means that the US and Spain have a fairly high number of terror acts compared to other countries with a similarly high GDP.
+
+---
+
+Next, I'd like to see the 100 deadliest terror attacks worldwide, and again see the correlation with GDP (since most attacks happen in poorer countriest, it is statistically expected to see more deadly attacks there as well).
+
+```{r fig.width=10, fig.height=6, fig.align='center', echo=FALSE}
+mostNdeadly <- 100
+deadliest <- head(arrange(dat, desc(nkill)), n = mostNdeadly)
+deadliest <- merge(deadliest,
+                   subset(gDatLast, select = c('country', 'gdpPercap')))
+ggplot(deadliest, aes(x = gdpPercap, y = nkill, color = attacktype)) +
+  geom_point() +
+  geom_point(aes(cex = 1.5), show_guide = FALSE) +
+  xlab("GDP / Capita") + 
+  ggtitle(paste(mostNdeadly, "Most Deadly Terrorist Attacks vs. GDP of Attacked Country")) + 
+  ylab("# Killed in Attack") +
+  scale_color_manual(name = "Attack Type", values = attacktypeCol)
+```
+
+Looking at this plot, we see (as suspected) that most of the 100 deadliest attacks were in poorer countries. It seems like with the exception of 4 attacks, the rest are all in countries with a lower GDP/cap than 15000. The few clear intereting outliers here are the two hijackings and two bombings/explosions that we see on the right at 2 rich countries, and the single armed assault with over 1000 fatalities.  
+Let's take a look at what attacks these were.
+
+```{r results='asis', echo = FALSE}
+deadliestOutliers <- subset(deadliest, nkill > 1000 | gdpPercap > 35000)
+deadliestOutliers <- subset(deadliestOutliers, select = c('country', 'year', 'month', 'day', 'city', 'attacktype', 'nkill', 'nwound'))
+colnames(deadliestOutliers) <- c('Country', 'Year', 'Month', 'Day', 'City', 'Attack Type', '# Killed', '# Wounded')
+printTable(deadliestOutliers, truncateNums = FALSE)
+```
+
+We will analyze these one by one:
+- First, the single outlier among the poor counties is Rwanda. This is part of the Rwandan genocide in 1994. I'm not sure why this specific point is there, but the other 100,000s of people killed in that time are not in the data.  
+- Looking at the other 4 points, we realize they are actually 5 rows -- not 4 -- but two of them are the exactly same point and therefore are hiding each other. These 5 rows are only 3 separate events though.  
+- Three of these come from 9/11 - the two towers are represented as two events, and the crash into the Pentagon is the third one.  Looking at the actual data, we see that the authors of the database chose to take a reported number of casualties from the two towers and simply divide it by 2 to assign each tower an equal number of people. This is probably why the number of people killed is a fraction (1381.5).  
+- The other attack was also in the US; it's the Oklahoma City Bombing.  
+- The last very deadly attack in a developed country comes from Canada, and it is the 1985 Air India flight bombing. This is the largest mass murder in Canadian history.
+
+### Terrorism in Israel
+
+```{r echo=FALSE}
+israelDat <- subset(dat, country == 'Israel')
+
+# reorder the levels of the attacktype factor according to which attack type was most frequent
+attackTypeOrder = order(table(israelDat$attacktype), decreasing = TRUE)
+attackTypeLevels = names(table(israelDat$attacktype))[attackTypeOrder]
+israelDat$attacktype <- factor(israelDat$attacktype, levels = attackTypeLevels)
+```
+
+Here I chose to look into some statistics about terrorism in Israel, and mainly suicide bombings.  This data is interesting to me because I grew up in Tel Aviv and would always hear about bombings or other terrorist activity nearby.  Around the beginning of 2001, what is known as the "Second Intifada" started, and that period of violence can be clearly seen in the plots as large spikes in bombing activity. Since the situation got a little scary, my parents decided to leave the country and move to Canada in 2002.
+
+---
+
+First I want to look at the frequency of each type of terrorist attack. We will use a pie chart to visualize this.
+
+```{r fig.width=11, fig.height=5, fig.align='center', echo=FALSE}
+# make a pie chart of frequency of attack
+ggplot(israelDat, aes(x = "", fill = attacktype)) +
+  geom_bar(width = 1) +
+  coord_polar(theta = "y") +
+  scale_fill_brewer("Attack Type", type = "qual", palette = 6) +
+  ggtitle("Terrorist attacks in Israel since 1970") +
+  theme(panel.grid = element_blank(),
+        axis.text = element_blank(), axis.ticks = element_blank(),
+        axis.title = element_blank(), panel.background = element_blank())
+```
+
+We can see bombings are by far the #1 most common attack, with armed assault and assassinations as the only significant runner ups.
+
+---
+
+Another important piece of information to look at is which attacks resulted in the most casualties.
+
+```{r fig.width=11, fig.height=5, fig.align='center', echo=FALSE}
+attackDamage <- ddply(israelDat, ~year + attacktype,
+                      summarize,
+                      killed = sum(nkill, na.rm = TRUE),
+                      wounded = sum(nwound, na.rm = TRUE))
+ggplot(attackDamage, aes(x = year, y = killed, fill = attacktype)) +
+  geom_bar(stat = "identity") +
+  scale_fill_brewer("Attack Type", type = "qual", palette = 6) +
+  ggtitle("Deaths in Israel by attack type") + xlab("Year") + ylab("Number killed") +
+  theme(panel.grid.minor.x = element_blank(), panel.grid.major.x = element_blank())
+```
+
+We can see that bombings indeed killed the most people over the years (although it seems like there were a few big deadly hostage situations in the 70's). The onstart of the Intifada in the early 2000's is esily seen in this plot, in the columns representing bombings and assaults.
+
+---
+
+Since suicide bombing is the most prominent terrorist attack in Israel with the most casualties resulting from it, I want to see how many people got wounded and killed from such bombings.
+
+```{r fig.width=11, fig.height=5, fig.align='center', echo=FALSE}
+bombingDamage <- subset(attackDamage, attacktype == 'Bombing/Explosion')
+bombingDamage <- melt(data = bombingDamage, id.vars = c('year', 'attacktype'))
+ggplot(bombingDamage, aes(x = year, y = value, color = variable)) +
+  geom_line() +
+  scale_x_continuous(name = "Year", breaks = seq(min(israelDat$year), max(israelDat$year), by = 5)) +
+  ggtitle("Killed and wounded by suicide bombings in Israel") + 
+  ylab("Number of people") +
+  scale_color_manual("Injury Type", values = c("black", "red")) +
+  guides(color = guide_legend(reverse = TRUE)) +
+  geom_point() +
+  theme(panel.grid.minor.x = element_blank())
+```
+
+This plot reveals again the escalation in bombings in the early 2000's, just before my dad decided to leave.
+
+---
+
+The last thing I want to look at is how many bombings happened in the city where I grew up, while I was growing up there. I make a bar graph for this, comparing bombings in Tel Aviv vs the rest of Israel each year since my birth until my arrival to Canada.
+
+```{r fig.width=11, fig.height=5, fig.align='center', echo=FALSE}
+israelBombings <- subset(israelDat, attacktype == 'Bombing/Explosion')
+israelBombings <- droplevels(israelBombings)
+myYearsBombings <- subset(israelBombings, year %in% seq(1988, 2002))
+myYearsBombings <- myYearsBombings[,c('year','city')]
+myYearsBombings <- droplevels(myYearsBombings)
+myYearsBombings$inTA <- ifelse(myYearsBombings$city == 'Tel Aviv', 'Tel Aviv', 'Rest of Israel')
+
+ggplot(myYearsBombings, aes(x = year, fill = inTA)) +
+  geom_bar(binwidth = 1, origin = min(myYearsBombings$year) - 0.5, position = "identity") +
+  geom_bar(binwidth = 1, color = "darkgrey", origin = min(myYearsBombings$year) - 0.5,
+           position = "identity", show_guide = FALSE) +
+  scale_x_continuous(name = "Year", breaks = seq(1988, 2002, by = 1)) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  scale_fill_brewer("Location", type = "qual", palette = 3) +
+  ylab("Number of bombings") +
+  ggtitle("Sucide bombings in Israel between 1988-2002") +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+```
+
+It looks like out of almost 100 bombings in 2001-2002, over 10 of them were in Tel Aviv.
+
+---
+
+_Just as a side note, 1993 was NOT some magical year of peace. All data from 1993 was lost and not recovered by the providers of this dataset._

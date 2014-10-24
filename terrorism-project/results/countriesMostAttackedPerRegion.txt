@@ -1,0 +1,44 @@
+Region	Country	# Attacks
+Middle East	Iraq	7807
+Middle East	Turkey	2820
+Middle East	Algeria	2630
+Middle East	Lebanon	2036
+Middle East	Israel	1618
+South Asia	India	6905
+South Asia	Pakistan	5510
+South Asia	Afghanistan	3039
+South Asia	Sri Lanka	2935
+South Asia	Bangladesh	764
+South America	Colombia	7453
+South America	Peru	6046
+South America	Chile	2313
+South America	Argentina	799
+South America	Bolivia	313
+Western Europe	Northern Ireland	3974
+Western Europe	Spain	3233
+Western Europe	Italy	1515
+Western Europe	Corsica	1351
+Western Europe	France	1140
+Central America	El Salvador	5320
+Central America	Guatemala	2043
+Central America	Nicaragua	1968
+Central America	Honduras	318
+Central America	Puerto Rico	246
+Sub-Saharan Africa	South Africa	1933
+Sub-Saharan Africa	Somalia	969
+Sub-Saharan Africa	Nigeria	577
+Sub-Saharan Africa	Angola	492
+Sub-Saharan Africa	Burundi	397
+Southeast Asia	Philippines	3363
+Southeast Asia	Thailand	1888
+Southeast Asia	Indonesia	558
+Southeast Asia	Myanmar	270
+Southeast Asia	Cambodia	256
+North America	United States	2362
+North America	Mexico	451
+North America	Canada	64
+USSR	Russia	1744
+USSR	Georgia	204
+USSR	Tajikistan	175
+USSR	Soviet Union	76
+USSR	Azerbaijan	42

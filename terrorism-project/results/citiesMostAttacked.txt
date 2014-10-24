@@ -1,0 +1,21 @@
+country	city	totAttacks
+Iraq	Baghdad	3358
+Peru	Lima	2226
+Northern Ireland	Belfast	1925
+El Salvador	San Salvador	1547
+Chile	Santiago	1494
+Pakistan	Karachi	1478
+Colombia	Bogota	908
+Turkey	Istanbul	905
+Colombia	Medellin	856
+Lebanon	Beirut	793
+Greece	Athens	760
+Guatemala	Guatemala City	753
+Iraq	Mosul	737
+France	Paris	578
+Italy	Rome	540
+Somalia	Mogadishu	491
+Iraq	Kirkuk	489
+Philippines	Manila	453
+Israel	Jerusalem	439
+Argentina	Buenos Aires	438

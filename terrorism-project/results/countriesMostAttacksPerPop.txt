@@ -1,0 +1,129 @@
+country	region	totAttacks	pop	popPerAttack
+El Salvador	Central America	5320	6939688	1304
+Lebanon	Middle East	2036	3921278	1926
+Nicaragua	Central America	1968	5675356	2884
+Iraq	Middle East	7807	27499638	3522
+Israel	Middle East	1618	6426679	3972
+Peru	South America	6046	28674757	4743
+Colombia	South America	7453	44227550	5934
+Guatemala	Central America	2043	12572928	6154
+Sri Lanka	South Asia	2935	20378239	6943
+Chile	South America	2313	16284741	7041
+Somalia	Sub-Saharan Africa	969	9118773	9410
+Greece	Western Europe	1071	10706290	9997
+Afghanistan	South Asia	3039	31889923	10494
+Spain	Western Europe	3233	40448191	12511
+Algeria	Middle East	2630	33333216	12674
+Namibia	Sub-Saharan Africa	144	2055080	14271
+Bahrain	Middle East	45	708573	15746
+Puerto Rico	Central America	246	3942491	16026
+Burundi	Sub-Saharan Africa	397	8390505	21135
+South Africa	Sub-Saharan Africa	1933	43997828	22761
+Honduras	Central America	318	7483763	23534
+Turkey	Middle East	2820	71158647	25234
+Angola	Sub-Saharan Africa	492	12420476	25245
+Panama	Central America	126	3242173	25732
+Djibouti	Sub-Saharan Africa	19	496374	26125
+Ireland	Western Europe	157	4109086	26173
+Philippines	Southeast Asia	3363	91077287	27082
+Bolivia	South America	313	9119152	29135
+Pakistan	South Asia	5510	169270617	30721
+Kuwait	Middle East	73	2505559	34323
+Thailand	Southeast Asia	1888	65068149	34464
+Italy	Western Europe	1515	58147733	38381
+Nepal	South Asia	721	28901790	40086
+Haiti	Central America	212	8502814	40108
+Uruguay	South America	75	3447496	45967
+Argentina	South America	799	40301927	50440
+Albania	Eastern Europe	70	3600523	51436
+France	Western Europe	1140	61083916	53582
+Cambodia	Southeast Asia	256	14131858	55203
+Trinidad and Tobago	Central America	18	1056608	58700
+Rwanda	Sub-Saharan Africa	145	8860588	61108
+Costa Rica	Central America	67	4133884	61700
+Sierra Leone	Sub-Saharan Africa	97	6144562	63346
+Ecuador	South America	211	13755680	65193
+Switzerland	Western Europe	105	7554661	71949
+Jordan	Middle East	82	6053193	73819
+Belgium	Western Europe	139	10392226	74764
+Swaziland	Sub-Saharan Africa	15	1133066	75538
+Portugal	Western Europe	139	10642836	76567
+Austria	Western Europe	105	8199783	78093
+Lesotho	Sub-Saharan Africa	25	2012649	80506
+Jamaica	Central America	33	2780132	84246
+Uganda	Sub-Saharan Africa	346	29170398	84308
+Croatia	Eastern Europe	53	4493312	84779
+Mozambique	Sub-Saharan Africa	224	19951656	89070
+Syria	Middle East	200	19314747	96574
+Venezuela	South America	261	26084662	99941
+Liberia	Sub-Saharan Africa	31	3193942	103030
+Dominican Republic	Central America	87	9319622	107122
+Iran	Middle East	636	69453570	109204
+Togo	Sub-Saharan Africa	48	5701579	118783
+Central African Republic	Sub-Saharan Africa	36	4369038	121362
+Senegal	Sub-Saharan Africa	99	12267493	123914
+United States	North America	2362	301139947	127494
+Zimbabwe	Sub-Saharan Africa	94	12311143	130970
+Netherlands	Western Europe	122	16570613	135825
+Comoros	Sub-Saharan Africa	5	710960	142192
+Germany	Western Europe	564	82400996	146101
+Sudan	Sub-Saharan Africa	286	42292929	147877
+Iceland	Western Europe	2	301931	150966
+Denmark	Western Europe	36	5468120	151892
+Sweden	Western Europe	59	9031088	153069
+Egypt	Middle East	507	80264543	158313
+India	South Asia	6905	1110396331	160810
+Paraguay	South America	41	6667147	162613
+Bulgaria	Eastern Europe	43	7322858	170299
+Mauritania	Sub-Saharan Africa	19	3270065	172109
+Myanmar	Southeast Asia	270	47761980	176896
+Guinea-Bissau	Sub-Saharan Africa	8	1472041	184005
+Zambia	Sub-Saharan Africa	60	11746035	195767
+Chad	Sub-Saharan Africa	52	10238807	196900
+Bangladesh	South Asia	764	150448339	196922
+Niger	Sub-Saharan Africa	64	12894865	201482
+Mali	Sub-Saharan Africa	59	12031795	203929
+Kenya	Sub-Saharan Africa	174	35610177	204656
+Botswana	Sub-Saharan Africa	8	1639131	204891
+New Zealand	Oceania	18	4115771	228654
+Hungary	Eastern Europe	43	9956108	231537
+Nigeria	Sub-Saharan Africa	577	135031164	234023
+Mexico	North America	451	108700891	241022
+Norway	Western Europe	18	4627926	257107
+Australia	Oceania	76	20434176	268871
+Equatorial Guinea	Sub-Saharan Africa	2	551201	275600
+Slovak Republic	Eastern Europe	17	5447502	320441
+Japan	East Asia	386	127467972	330228
+Slovenia	Eastern Europe	6	2009245	334874
+Libya	Middle East	18	6036914	335384
+Montenegro	Eastern Europe	2	684736	342368
+Gabon	Sub-Saharan Africa	4	1454867	363717
+Cuba	Central America	30	11416987	380566
+Tunisia	Middle East	26	10276158	395237
+Indonesia	Southeast Asia	558	223547000	400622
+Saudi Arabia	Middle East	64	27601038	431266
+Eritrea	Sub-Saharan Africa	10	4906585	490658
+Guinea	Sub-Saharan Africa	20	9947814	497391
+Taiwan	East Asia	45	23174294	514984
+Canada	North America	64	33390141	521721
+Malaysia	Southeast Asia	47	24821286	528112
+Gambia	Sub-Saharan Africa	3	1688359	562786
+Ethiopia	Sub-Saharan Africa	133	76511887	575277
+Czech Republic	Eastern Europe	17	10228744	601691
+Cameroon	Sub-Saharan Africa	28	17696293	632010
+Singapore	Southeast Asia	7	4553009	650430
+Brazil	South America	256	190010647	742229
+Madagascar	Sub-Saharan Africa	22	19167654	871257
+Finland	Western Europe	6	5238460	873077
+Morocco	Middle East	35	33757175	964491
+Benin	Sub-Saharan Africa	8	8078314	1009789
+Poland	Eastern Europe	34	38518241	1132889
+Mauritius	South Asia	1	1250882	1250882
+Ghana	Sub-Saharan Africa	17	22873338	1345490
+Serbia	Eastern Europe	6	10150265	1691711
+Tanzania	Sub-Saharan Africa	18	38139640	2118869
+Malawi	Sub-Saharan Africa	4	13327079	3331770
+Romania	Eastern Europe	6	22276056	3712676
+Burkina Faso	Sub-Saharan Africa	3	14326203	4775401
+China	East Asia	173	1318683096	7622446
+Vietnam	Southeast Asia	10	85262356	8526236

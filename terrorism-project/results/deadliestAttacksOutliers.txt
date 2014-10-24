@@ -1,0 +1,7 @@
+country	year	month	day	region	city	attacktype	nkill	nwound	gdpPercap
+Canada	1985	6	23	North America	Toronto	Bombing/Explosion	329	0	36319.23501
+Rwanda	1994	4	13	Sub-Saharan Africa	Gikoro	Armed Assault	1180	0	863.0884639
+United States	2001	9	11	North America	New York City	Hijacking	1381.5	0	42951.65309
+United States	2001	9	11	North America	New York City	Hijacking	1381.5	0	42951.65309
+United States	1995	4	19	North America	Oklahoma City	Bombing/Explosion	168	650	42951.65309
+United States	2001	9	11	North America	Arlington	Hijacking	189	0	42951.65309
