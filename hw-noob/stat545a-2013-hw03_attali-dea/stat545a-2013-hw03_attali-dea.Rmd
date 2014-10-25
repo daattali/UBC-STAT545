@@ -1,0 +1,102 @@
+Dean Attali
+=================================
+**STAT 545A hw 3**  
+**Sept 22 2013**
+
+Exercises done:
+* Average GDP/cap in each continent when the data was first and last collected **(easy)**
+* Trimmed mean statistics for life expectancy in each continent for every year **(fun)**
+* Absolute and relative world population in each of the continents **(very fun)**
+* A list of all countries that at some point had their population size decrease **(very fun)**
+
+### Data initialization
+
+```{r}
+# load required libraries
+library(plyr)
+library(xtable)
+# import the data
+gDat <- read.delim("gapminderDataFiveYear.txt")
+# sanity check that import was successful
+str(gDat)
+```
+
+### Average GDP/cap in each continent when the data was first and last collected **(easy)**
+In my previous assignment I worked out the GDP/cap in every continent per year using the 'aggregate' function. The goal here was just to show myself how awesome and easy plyr is to get the same data. We just look at the first and last year data.
+
+```{r results='asis'}
+# get the data that only has the first and last years
+firstLastYears = subset(gDat, year == min(year) | year == max(year))
+# use plyr to pull out the wanted information
+avgGdpContinent <- ddply(firstLastYears, ~ year + continent, summarize, gdp = mean(gdpPercap))
+avgGdpContinent <- xtable(avgGdpContinent)
+print(avgGdpContinent, type = "html", include.rownames = FALSE)
+```
+
+We can see from the table above that Oceania and Asia are the big winners of the 50 years, while Africa is the loser. Of course, visualizing it would be much nicer, but it is forbidden.
+
+### Trimmed mean statistics for life expectancy in each continent for every year **(fun)**
+Here, we comapre the mean life expectancy in eahc continent per year with the trimmed mean after removing 15% of lowest/highest values. We compute the difference between the trimmed mean and the regular mean, and calculate the percent difference between them.
+
+```{r results='asis'}
+# compute the means and arrange the data by the highest percent difference
+lifeExpMeans <- arrange(ddply(gDat, .(continent,year), summarize, mean0 = mean(lifeExp), mean15 = mean(lifeExp, trim = 0.15), meanDiff = abs(mean0 - mean15), percentDiff = round(meanDiff / mean0 * 100,2)), desc(percentDiff))
+lifeExpMeans <- xtable(lifeExpMeans)
+print(lifeExpMeans, type = "html", include.rownames = FALSE)
+```
+
+We can see that even after trimming 15% from both ends of the life expectancies in each continent, the most difference between the trimmed mean and the real mean is less than 2.5%. This means (pun non-intended) that there isn't a huge variability in lif expectancies between the different countries within each continent in a given year. It's visible that Africa has the largest such variability, as 3 of the top 5 rows belong to Africa. It's also nice to see how Oceania has 0% difference because there are not enough countries in it to trim, so the trimmed mean uses the same data as the real mean.
+
+### Absolute and relative world population in each of the continents **(very fun)**
+Here we look at the total population of each continent in every year, and compare that to the world's total population. The data is arranged by year, where in each year group the continents are arranged from most populous to least.
+
+```{r results='asis'}
+worldRelativePop <- ddply(gDat, .(continent, year),
+  function(.data) {
+    .data <- as.list(.data)
+    .data['continentPop'] <- sum(.data$pop)
+    .data['worldPop'] <- sum(subset(gDat, year == .data$year[1])[['pop']])
+    .data['percent'] <- round(as.numeric(.data['continentPop'])/as.numeric(.data['worldPop'])*100,2) 
+    quickdf(.data[c("continentPop","worldPop",'percent')])
+  }
+)
+worldRelativePop <- arrange(worldRelativePop, year, desc(percent))
+worldRelativePop <- xtable(worldRelativePop)
+print(worldRelativePop, type = "html", include.rownames = FALSE)
+```
+
+There might be a nicer, easier way to achieve this, but I didn't know how. I was trying to use plain old 'summarize', but summarize did not let me aggregate the total population of all continents in each of the years. I'm not sure if this kinf of splitting is available with plyr. Since I couldn't get what I wanted with pylr, I looked at the source code of the summarize function and was able to alter it a little bit to get what I needed.  
+We can see that Asia is consistently by far the most populated continent, always making up ~60% of the world population.  
+__One very interesting observation is how Europe, America, and Africa changed spots over time. In the 1950's, Europe was the most populated, followed by America and Africa. As the years go by, America's relative population remains fairly constant at around 14.5%, Europe's relative population decreases, and Africa's increases. This trend consistently continues throughout the years without exception, until at the last data point in 2007 the rankings of the three continents is completely flipped from the beginning - Africa followed by America followed by Europe__
+
+### A list of all countries that at some point had their population size decrease (very fun)
+The world can be a very cruel place. Many countries have gone through genocides, massive natural disasters, or other events that have caused them to lose a significant portion of their population. For example, the Khmer Rouge in Cambodia killed off a large fraction of the Cambodian population in the 1970's. As a result, the country's population actually shrank from 1972 to 1977. It is interesting to see what other countries went through a population decrease at some point.
+
+```{r}
+# get all the years that we have data for
+years <- unique(gDat$year)
+# get a list of all countries
+allCountries = levels(gDat$country)
+#initialize a vector for the poor countries that experienced a population decrease
+resultCountries = vector(mode = "character")
+
+# go through every country, and see if its population in the previous data year is larger than the current population. If that is true for any given year, add the country to our results list
+for (iCountry in allCountries) {
+  for (idxYear in seq(years)[-1]) {
+    prevYear = years[idxYear - 1]
+    curYear = years[idxYear]
+    prevYearData = gDat[intersect(which(gDat$year == prevYear), which(gDat$country == iCountry)),]
+    curYearData = gDat[intersect(which(gDat$year == curYear), which(gDat$country == iCountry)),]
+    prevPop = prevYearData[['pop']]
+    curPop = curYearData[['pop']]
+    if(prevPop >= curPop) {
+      resultCountries = append(resultCountries, iCountry)
+      break
+    }
+  }
+}
+print(resultCountries)
+```
+There might be a non-forloop way to do this, but I couldn't figure it out.  
+As we can see, there are 27 countries that as some point had their population decrease, and Cambodia is indeed one of them.  
+I wanted to show this data in a dataframe, but I'm on a plane without WiFi at midnight before this is due, and I can't find out how to build a data frame from scratch, so I'll just leave it as a list :)

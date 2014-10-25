@@ -1,0 +1,106 @@
+gDat <- read.delim("gapminderDataFiveYear.txt")
+hDat <- subset(gDat, year %in% c(1952,2007))
+
+library(lattice)
+library(plyr)
+
+###################### 1 DIMENSIONAL
+
+# multiple plots on same page
+strplt1 <- stripplot(lifeExp ~ continent, hDat)
+hstgrm1 <- histogram(~pop, gDat, subset = (continent == 'Europe' & year == 2007))
+plot(strplt1, split = c(1,1,1,2))
+plot(hstgrm1, split = c(1,2,1,2), newpage=FALSE)
+
+# some strip plots. Avoid overplotting in 1D with jitter/densityplot
+stripplot(lifeExp ~ continent, hDat)
+stripplot(lifeExp ~ continent, hDat, jitter.data = TRUE, grid = "h", type = c("p", "a"),
+          group = year)
+stripplot(lifeExp ~ continent, hDat, jitter.data = TRUE, grid = "h", type = c("p", "a"),
+          group = year, fun = min, auto.key = list(reverse.rows = TRUE))
+
+# get rid of useless oceania
+iDat <- subset(hDat, continent != "Oceania")
+iDat <- droplevels(iDat)
+jDat <- droplevels(subset(gDat, continent != "Oceania"))
+
+# reorder the continents based on life expectancy
+iDat <- within(iDat, continent <- reorder(continent, lifeExp))
+ddply(iDat, ~continent, summarize, avgLifeExp = mean(lifeExp))
+
+# density plot (~smooth histogram)
+densityplot(~lifeExp, iDat)
+densityplot(~lifeExp, iDat, plot.points = FALSE, ref = TRUE,
+            group = continent, auto.key = list(columns=nlevels(iDat$continent)))
+densityplot(~lifeExp | factor(year), iDat)
+hardCorners <- densityplot(~lifeExp, iDat, n = 20, main = "n = 20")
+softCorners <- densityplot(~lifeExp, iDat, n = 200, main = "n = 200")
+# make the plot smoother wish more line segments (n=)
+print(hardCorners, position = c(0, 0, 0.55, 1), more = TRUE)
+print(softCorners, position = c(0.45, 0, 1, 1))
+# adjust the bandwidth to make the plot less/more sensitive
+wiggly <- densityplot(~lifeExp, iDat, adjust = 0.5, main = "default bw * 0.5")
+rolling <- densityplot(~lifeExp, iDat, adjust = 2, main = "default bw * 2")
+print(wiggly, position = c(0, 0, 0.55, 1), more = TRUE)
+print(rolling, position = c(0.45, 0, 1, 1))
+
+# histogram
+histogram(~lifeExp, gDat)
+histogram(~lifeExp, gDat, nint = 50)
+
+# box plot/violin plot
+bwplot(lifeExp ~ continent, iDat)
+bwplot(lifeExp ~ continent, iDat, panel = panel.violin)
+bwplot(lifeExp ~ as.factor(year) | continent, subset(gDat, continent != "Oceania"))
+
+# using panel function to have multiple plots on same panel
+bwplot(lifeExp ~ reorder(continent, lifeExp), subset(gDat, continent != "Oceania"), 
+       panel = function(..., box.ratio) {
+         panel.violin(..., col = "transparent", border = "grey60", varwidth = FALSE, box.ratio = box.ratio)
+         panel.bwplot(..., fill = NULL, box.ratio = 0.1)
+       })
+
+# cool titanic survival example showing some advanced features
+bc.titanic <- barchart(Class ~ Freq | Sex + Age, as.data.frame(Titanic),
+                       groups = Survived, stack = TRUE, layout = c(4, 1),
+                       auto.key = list(title = "Survived", columns = 2),
+                       scales = list(x = "free"))
+plot(bc.titanic)
+
+########################### 2 DIMENSIONAL
+
+# too much data clustered, we need to log this!
+xyplot(lifeExp ~ gdpPercap, iDat, grid = TRUE)
+xyplot(lifeExp ~ gdpPercap, iDat, grid = TRUE,
+       scales = list(x = list(log = 10, equispaced.log = FALSE)),
+       type = c("p", "smooth"), lwd = 2,
+       group = continent,
+       auto.key = list(columns = nlevels(iDat$continent)))
+
+# avoiding overplotting in 2D with smoothscatter/hexagonal bins
+xyplot(lifeExp ~ gdpPercap | continent, iDat,
+       grid = TRUE,
+       scales = list(x = list(log = 10, equispaced.log = FALSE)),
+       panel = panel.smoothScatter)
+
+library(hexbin)
+hexbinplot(lifeExp ~ gdpPercap, iDat,
+           scales = list(x = list(log = 10, equispaced.log = FALSE)),
+           aspect = 1, xbins = 30)
+
+xyplot(sdGdpPercap + iqrGdpPercap + madGdpPercap ~ year, lifeExpSpread,
+ subset = continent == "Africa", type = "b", ylab = "measure of spread",
+  auto.key = list(x = 0.07, y = 0.85, corner = c(0, 1)))
+
+
+lifeExpSpread <- ddply(jDat, ~ continent + year, summarize,
+                       sdGdpPercap = sd(gdpPercap), iqrGdpPercap = IQR(gdpPercap),
+                       madGdpPercap = mad(gdpPercap))
+xyplot(sdGdpPercap + iqrGdpPercap + madGdpPercap ~ year, lifeExpSpread,
+       group = reorder(continent, sdGdpPercap), layout = c(3, 1),
+       type = "b", ylab = "measure of spread",
+       auto.key = list(x = 0.35, y = 0.85, corner = c(0, 1),
+       reverse.rows = TRUE))
+xyplot(sdGdpPercap + iqrGdpPercap + madGdpPercap ~ year, lifeExpSpread,
+       subset = continent == "Africa", type = "b", ylab = "measure of spread",
+       outer = TRUE, layout = c(3, 1), aspect = 1)

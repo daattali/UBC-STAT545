@@ -1,0 +1,7 @@
+gDat <- read.delim("gapminderDataFiveYear.txt")
+str(gDat)
+levels(gDat$continent)
+length(unique(gDat$year))
+library("lattice")
+continentGdpByYear <- aggregate( gdpPercap ~ continent + year, data = gDat, FUN = mean )
+xyplot(gdpPercap ~ year, continentGdpByYear, group = continent, type = c("p","r"), auto.key = TRUE)

@@ -1,0 +1,69 @@
+gDat <- read.delim("gapminderDataFiveYear.txt")
+str(gDat)
+
+library(ggplot2)
+
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # error!
+p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # just initializes
+p + layer(geom = "point")
+p + geom_point()
+
+ggplot(gDat, aes(x = log10(gdpPercap), y = lifeExp)) + geom_point() # the usual crappy axis tick marks that come from "direct" log transform
+p + geom_point() + scale_x_log10() # a bit better
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp, color = continent)) + geom_point() +
+  scale_x_log10()
+p + geom_point() + scale_x_log10() + aes(color = continent)
+p + geom_point(size=3) + scale_x_log10() + aes(color = continent, shape = continent)
+
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) + geom_point(alpha = (1/8)) + scale_x_log10()
+
+p + geom_point() + scale_x_log10() + aes(color = continent) + geom_smooth()
+p + geom_point() + scale_x_log10() + aes(color = continent) + geom_smooth(method = "lm")
+
+ggplot(subset(gDat, country == "Zimbabwe"), aes(x = year, y = lifeExp)) + geom_line() + geom_point(shape=3)
+
+# stripplots of lifeExp by continent
+ggplot(gDat, aes(x = continent, y = lifeExp)) + geom_point()
+ggplot(gDat, aes(x = continent, y = lifeExp)) + geom_jitter(position = position_jitter(width = .2))
+ggplot(gDat, aes(x = continent, y = lifeExp)) + geom_boxplot()
+
+# distribution of a quant var
+ggplot(gDat, aes(x = lifeExp)) + geom_histogram(binwidth = 3, fill = "blue", colour = "darkblue")
+ggplot(gDat, aes(x = lifeExp)) + geom_density()
+ggplot(gDat, aes(x = lifeExp, fill = continent)) + geom_histogram() +
+  scale_fill_brewer(palette = "Set1")
+ggplot(gDat, aes(x = lifeExp, color = continent)) + geom_density() +
+  scale_color_manual(values = c("red", "green", "blue", "black", "yellow"))
+
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) + scale_x_log10() + geom_bin2d()
+ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) + geom_point() + scale_x_log10() + facet_wrap(~ continent)
+ggplot(subset(gDat, year == 2007),
+       aes(x = gdpPercap, y = lifeExp,
+           colour=continent, size = sqrt(pop))) + geom_point() +
+  scale_x_log10()
+
+notheme <-
+  ggplot(subset(gDat, year == 2007),
+         aes(x = gdpPercap, y = lifeExp, color = continent)) +
+  geom_point(shape = 3, size = 1.5) +
+  facet_wrap(~continent) +
+  scale_x_log10()
+my_theme <- theme(legend.key = element_rect(fill = NA),
+                  legend.position = "bottom",
+                  strip.background = element_rect(fill = NA),
+                  axis.title.y = element_text(angle = 0))
+notheme
+notheme + my_theme
+library(ggthemes)
+notheme + theme_stata()
+notheme + theme_excel()
+notheme + theme_wsj()
+notheme + theme_solarized()
+
+library(plyr)
+library(reshape)
+contGdps <- ddply(subset(gDat, year == 2007 & continent != 'Oceania'), ~continent, summarize,
+                  minGdp = min(gdpPercap), meanGdp = mean(gdpPercap), maxGdp = max(gdpPercap))
+contGdps <- melt(contGdps, id.vars = "continent")
+ggplot(contGdps, aes(continent, value, fill = variable)) + geom_bar(stat = "identity")
+ggplot(contGdps, aes(continent, value, fill = variable)) + geom_bar(stat = "identity", position = "dodge")

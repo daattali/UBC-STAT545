@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Dean Attali</title>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body {
+   font-family: Helvetica, arial, sans-serif;
+   font-size: 14px;
+   line-height: 1.6;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   background-color: white;
+   padding: 30px; }
+
+body > *:first-child {
+   margin-top: 0 !important; }
+body > *:last-child {
+   margin-bottom: 0 !important; }
+
+a {
+   color: #4183C4; }
+a.absent {
+   color: #cc0000; }
+a.anchor {
+   display: block;
+   padding-left: 30px;
+   margin-left: -30px;
+   cursor: pointer;
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+   margin: 20px 0 10px;
+   padding: 0;
+   font-weight: bold;
+   -webkit-font-smoothing: antialiased;
+   cursor: text;
+   position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+   text-decoration: none; }
+
+h1 tt, h1 code {
+   font-size: inherit; }
+
+h2 tt, h2 code {
+   font-size: inherit; }
+
+h3 tt, h3 code {
+   font-size: inherit; }
+
+h4 tt, h4 code {
+   font-size: inherit; }
+
+h5 tt, h5 code {
+   font-size: inherit; }
+
+h6 tt, h6 code {
+   font-size: inherit; }
+
+h1 {
+   font-size: 28px;
+   color: black; }
+
+h2 {
+   font-size: 24px;
+   border-bottom: 1px solid #cccccc;
+   color: black; }
+
+h3 {
+   font-size: 18px; }
+
+h4 {
+   font-size: 16px; }
+
+h5 {
+   font-size: 14px; }
+
+h6 {
+   color: #777777;
+   font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+   margin: 15px 0; }
+
+hr {
+   border: 0 none;
+   color: #cccccc;
+   height: 4px;
+   padding: 0;
+}
+
+body > h2:first-child {
+   margin-top: 0;
+   padding-top: 0; }
+body > h1:first-child {
+   margin-top: 0;
+   padding-top: 0; }
+body > h1:first-child + h2 {
+   margin-top: 0;
+   padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+   margin-top: 0;
+   padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+   margin-top: 0;
+   padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+   margin-top: 0; }
+
+li p.first {
+   display: inline-block; }
+li {
+   margin: 0; }
+ul, ol {
+   padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+   margin-top: 0; }
+
+dl {
+   padding: 0; }
+dl dt {
+   font-size: 14px;
+   font-weight: bold;
+   font-style: italic;
+   padding: 0;
+   margin: 15px 0 5px; }
+dl dt:first-child {
+   padding: 0; }
+dl dt > :first-child {
+   margin-top: 0; }
+dl dt > :last-child {
+   margin-bottom: 0; }
+dl dd {
+   margin: 0 0 15px;
+   padding: 0 15px; }
+dl dd > :first-child {
+   margin-top: 0; }
+dl dd > :last-child {
+   margin-bottom: 0; }
+
+blockquote {
+   border-left: 4px solid #dddddd;
+   padding: 0 15px;
+   color: #777777; }
+blockquote > :first-child {
+   margin-top: 0; }
+blockquote > :last-child {
+   margin-bottom: 0; }
+
+table {
+   padding: 0;border-collapse: collapse; }
+table tr {
+   border-top: 1px solid #cccccc;
+   background-color: white;
+   margin: 0;
+   padding: 0; }
+table tr:nth-child(2n) {
+   background-color: #f8f8f8; }
+table tr th {
+   font-weight: bold;
+   border: 1px solid #cccccc;
+   margin: 0;
+   padding: 6px 13px; }
+table tr td {
+   border: 1px solid #cccccc;
+   margin: 0;
+   padding: 6px 13px; }
+table tr th :first-child, table tr td :first-child {
+   margin-top: 0; }
+table tr th :last-child, table tr td :last-child {
+   margin-bottom: 0; }
+
+img {
+   max-width: 100%; }
+
+span.frame {
+   display: block;
+   overflow: hidden; }
+span.frame > span {
+   border: 1px solid #dddddd;
+   display: block;
+   float: left;
+   overflow: hidden;
+   margin: 13px 0 0;
+   padding: 7px;
+   width: auto; }
+span.frame span img {
+   display: block;
+   float: left; }
+span.frame span span {
+   clear: both;
+   color: #333333;
+   display: block;
+   padding: 5px 0 0; }
+span.align-center {
+   display: block;
+   overflow: hidden;
+   clear: both; }
+span.align-center > span {
+   display: block;
+   overflow: hidden;
+   margin: 13px auto 0;
+   text-align: center; }
+span.align-center span img {
+   margin: 0 auto;
+   text-align: center; }
+span.align-right {
+   display: block;
+   overflow: hidden;
+   clear: both; }
+span.align-right > span {
+   display: block;
+   overflow: hidden;
+   margin: 13px 0 0;
+   text-align: right; }
+span.align-right span img {
+   margin: 0;
+   text-align: right; }
+span.float-left {
+   display: block;
+   margin-right: 13px;
+   overflow: hidden;
+   float: left; }
+span.float-left span {
+   margin: 13px 0 0; }
+span.float-right {
+   display: block;
+   margin-left: 13px;
+   overflow: hidden;
+   float: right; }
+span.float-right > span {
+   display: block;
+   overflow: hidden;
+   margin: 13px auto 0;
+   text-align: right; }
+
+code, tt {
+   margin: 0 2px;
+   padding: 0 5px;
+   white-space: nowrap;
+   border: 1px solid #eaeaea;
+   background-color: #f8f8f8;
+   border-radius: 3px; }
+
+pre code {
+   margin: 0;
+   padding: 0;
+   white-space: pre;
+   border: none;
+   background: transparent; }
+
+.highlight pre {
+   background-color: #f8f8f8;
+   border: 1px solid #cccccc;
+   font-size: 13px;
+   line-height: 19px;
+   overflow: auto;
+   padding: 6px 10px;
+   border-radius: 3px; }
+
+pre {
+   background-color: #f8f8f8;
+   border: 1px solid #cccccc;
+   font-size: 13px;
+   line-height: 19px;
+   overflow: auto;
+   padding: 6px 10px;
+   border-radius: 3px; }
+pre code, pre tt {
+   background-color: transparent;
+   border: none; }
+
+sup {
+   font-size: 0.83em;
+   vertical-align: super;
+   line-height: 0;
+}
+* {
+	 -webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+   body {
+      width: 854px;
+      margin:0 auto;
+   }
+}
+@media print {
+	 table, pre {
+		  page-break-inside: avoid;
+	 }
+	 pre {
+		  word-wrap: break-word;
+	 }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Dean Attali</h1>
+
+<p><strong>STAT 545A hw 3</strong><br/>
+<strong>Sept 22 2013</strong></p>
+
+<p>Exercises done:</p>
+
+<ul>
+<li>Average GDP/cap in each continent when the data was first and last collected <strong>(easy)</strong></li>
+<li>Trimmed mean statistics for life expectancy in each continent for every year <strong>(fun)</strong></li>
+<li>Absolute and relative world population in each of the continents <strong>(very fun)</strong></li>
+<li>A list of all countries that at some point had their population size decrease <strong>(very fun)</strong></li>
+</ul>
+
+<h3>Data initialization</h3>
+
+<pre><code class="r"># load required libraries
+library(plyr)
+</code></pre>
+
+<pre><code>## Warning: package &#39;plyr&#39; was built under R version 3.0.2
+</code></pre>
+
+<pre><code class="r">library(xtable)
+# import the data
+gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+# sanity check that import was successful
+str(gDat)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+</code></pre>
+
+<h3>Average GDP/cap in each continent when the data was first and last collected <strong>(easy)</strong></h3>
+
+<p>In my previous assignment I worked out the GDP/cap in every continent per year using the &#39;aggregate&#39; function. The goal here was just to show myself how awesome and easy plyr is to get the same data. We just look at the first and last year data.</p>
+
+<pre><code class="r"># get the data that only has the first and last years
+firstLastYears = subset(gDat, year == min(year) | year == max(year))
+# use plyr to pull out the wanted information
+avgGdpContinent &lt;- ddply(firstLastYears, ~year + continent, summarize, gdp = mean(gdpPercap))
+avgGdpContinent &lt;- xtable(avgGdpContinent)
+print(avgGdpContinent, type = &quot;html&quot;, include.rownames = FALSE)
+</code></pre>
+
+<!-- html table generated in R 3.0.1 by xtable 1.7-1 package -->
+
+<!-- Sat Oct 19 13:30:24 2013 -->
+
+<TABLE border=1>
+<TR> <TH> year </TH> <TH> continent </TH> <TH> gdp </TH>  </TR>
+  <TR> <TD align="right"> 1952 </TD> <TD> Africa </TD> <TD align="right"> 1252.57 </TD> </TR>
+  <TR> <TD align="right"> 1952 </TD> <TD> Americas </TD> <TD align="right"> 4079.06 </TD> </TR>
+  <TR> <TD align="right"> 1952 </TD> <TD> Asia </TD> <TD align="right"> 5195.48 </TD> </TR>
+  <TR> <TD align="right"> 1952 </TD> <TD> Europe </TD> <TD align="right"> 5661.06 </TD> </TR>
+  <TR> <TD align="right"> 1952 </TD> <TD> Oceania </TD> <TD align="right"> 10298.09 </TD> </TR>
+  <TR> <TD align="right"> 2007 </TD> <TD> Africa </TD> <TD align="right"> 3089.03 </TD> </TR>
+  <TR> <TD align="right"> 2007 </TD> <TD> Americas </TD> <TD align="right"> 11003.03 </TD> </TR>
+  <TR> <TD align="right"> 2007 </TD> <TD> Asia </TD> <TD align="right"> 12473.03 </TD> </TR>
+  <TR> <TD align="right"> 2007 </TD> <TD> Europe </TD> <TD align="right"> 25054.48 </TD> </TR>
+  <TR> <TD align="right"> 2007 </TD> <TD> Oceania </TD> <TD align="right"> 29810.19 </TD> </TR>
+   </TABLE>
+
+<p>We can see from the table above that Oceania and Asia are the big winners of the 50 years, while Africa is the loser. Of course, visualizing it would be much nicer, but it is forbidden.</p>
+
+<h3>Trimmed mean statistics for life expectancy in each continent for every year <strong>(fun)</strong></h3>
+
+<p>Here, we comapre the mean life expectancy in eahc continent per year with the trimmed mean after removing 15% of lowest/highest values. We compute the difference between the trimmed mean and the regular mean, and calculate the percent difference between them.</p>
+
+<pre><code class="r"># compute the means and arrange the data by the highest percent difference
+lifeExpMeans &lt;- arrange(ddply(gDat, .(continent, year), summarize, mean0 = mean(lifeExp), 
+    mean15 = mean(lifeExp, trim = 0.15), meanDiff = abs(mean0 - mean15), percentDiff = round(meanDiff/mean0 * 
+        100, 2)), desc(percentDiff))
+lifeExpMeans &lt;- xtable(lifeExpMeans)
+print(lifeExpMeans, type = &quot;html&quot;, include.rownames = FALSE)
+</code></pre>
+
+<!-- html table generated in R 3.0.1 by xtable 1.7-1 package -->
+
+<!-- Sat Oct 19 13:30:24 2013 -->
+
+<TABLE border=1>
+<TR> <TH> continent </TH> <TH> year </TH> <TH> mean0 </TH> <TH> mean15 </TH> <TH> meanDiff </TH> <TH> percentDiff </TH>  </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 2002 </TD> <TD align="right"> 53.33 </TD> <TD align="right"> 52.04 </TD> <TD align="right"> 1.29 </TD> <TD align="right"> 2.42 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 2007 </TD> <TD align="right"> 54.81 </TD> <TD align="right"> 53.75 </TD> <TD align="right"> 1.06 </TD> <TD align="right"> 1.93 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1977 </TD> <TD align="right"> 59.61 </TD> <TD align="right"> 60.55 </TD> <TD align="right"> 0.94 </TD> <TD align="right"> 1.57 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1997 </TD> <TD align="right"> 53.60 </TD> <TD align="right"> 52.85 </TD> <TD align="right"> 0.75 </TD> <TD align="right"> 1.40 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1952 </TD> <TD align="right"> 46.31 </TD> <TD align="right"> 45.79 </TD> <TD align="right"> 0.52 </TD> <TD align="right"> 1.13 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1952 </TD> <TD align="right"> 64.41 </TD> <TD align="right"> 65.11 </TD> <TD align="right"> 0.70 </TD> <TD align="right"> 1.09 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1957 </TD> <TD align="right"> 66.70 </TD> <TD align="right"> 67.34 </TD> <TD align="right"> 0.64 </TD> <TD align="right"> 0.95 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1987 </TD> <TD align="right"> 64.85 </TD> <TD align="right"> 65.45 </TD> <TD align="right"> 0.60 </TD> <TD align="right"> 0.93 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 2002 </TD> <TD align="right"> 69.23 </TD> <TD align="right"> 69.88 </TD> <TD align="right"> 0.64 </TD> <TD align="right"> 0.93 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1982 </TD> <TD align="right"> 66.23 </TD> <TD align="right"> 66.82 </TD> <TD align="right"> 0.59 </TD> <TD align="right"> 0.90 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 2007 </TD> <TD align="right"> 70.73 </TD> <TD align="right"> 71.33 </TD> <TD align="right"> 0.61 </TD> <TD align="right"> 0.86 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1982 </TD> <TD align="right"> 62.62 </TD> <TD align="right"> 63.15 </TD> <TD align="right"> 0.53 </TD> <TD align="right"> 0.84 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1992 </TD> <TD align="right"> 66.54 </TD> <TD align="right"> 67.09 </TD> <TD align="right"> 0.55 </TD> <TD align="right"> 0.83 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1972 </TD> <TD align="right"> 57.32 </TD> <TD align="right"> 57.79 </TD> <TD align="right"> 0.47 </TD> <TD align="right"> 0.82 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1962 </TD> <TD align="right"> 68.54 </TD> <TD align="right"> 69.10 </TD> <TD align="right"> 0.56 </TD> <TD align="right"> 0.82 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1987 </TD> <TD align="right"> 53.34 </TD> <TD align="right"> 52.92 </TD> <TD align="right"> 0.42 </TD> <TD align="right"> 0.80 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1972 </TD> <TD align="right"> 62.39 </TD> <TD align="right"> 62.89 </TD> <TD align="right"> 0.50 </TD> <TD align="right"> 0.80 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1987 </TD> <TD align="right"> 68.09 </TD> <TD align="right"> 68.63 </TD> <TD align="right"> 0.54 </TD> <TD align="right"> 0.79 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1957 </TD> <TD align="right"> 41.27 </TD> <TD align="right"> 40.95 </TD> <TD align="right"> 0.31 </TD> <TD align="right"> 0.76 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1977 </TD> <TD align="right"> 64.39 </TD> <TD align="right"> 64.88 </TD> <TD align="right"> 0.49 </TD> <TD align="right"> 0.76 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1997 </TD> <TD align="right"> 68.02 </TD> <TD align="right"> 68.54 </TD> <TD align="right"> 0.52 </TD> <TD align="right"> 0.76 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1992 </TD> <TD align="right"> 69.57 </TD> <TD align="right"> 70.05 </TD> <TD align="right"> 0.49 </TD> <TD align="right"> 0.70 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1997 </TD> <TD align="right"> 71.15 </TD> <TD align="right"> 71.63 </TD> <TD align="right"> 0.48 </TD> <TD align="right"> 0.68 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1967 </TD> <TD align="right"> 69.74 </TD> <TD align="right"> 70.20 </TD> <TD align="right"> 0.46 </TD> <TD align="right"> 0.66 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1962 </TD> <TD align="right"> 43.32 </TD> <TD align="right"> 43.04 </TD> <TD align="right"> 0.28 </TD> <TD align="right"> 0.65 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1982 </TD> <TD align="right"> 51.59 </TD> <TD align="right"> 51.26 </TD> <TD align="right"> 0.33 </TD> <TD align="right"> 0.65 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1957 </TD> <TD align="right"> 49.32 </TD> <TD align="right"> 49.00 </TD> <TD align="right"> 0.32 </TD> <TD align="right"> 0.65 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1967 </TD> <TD align="right"> 60.41 </TD> <TD align="right"> 60.79 </TD> <TD align="right"> 0.38 </TD> <TD align="right"> 0.63 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 2002 </TD> <TD align="right"> 72.42 </TD> <TD align="right"> 72.85 </TD> <TD align="right"> 0.43 </TD> <TD align="right"> 0.60 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1977 </TD> <TD align="right"> 49.58 </TD> <TD align="right"> 49.30 </TD> <TD align="right"> 0.28 </TD> <TD align="right"> 0.56 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1962 </TD> <TD align="right"> 51.56 </TD> <TD align="right"> 51.29 </TD> <TD align="right"> 0.27 </TD> <TD align="right"> 0.53 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1972 </TD> <TD align="right"> 70.78 </TD> <TD align="right"> 71.14 </TD> <TD align="right"> 0.37 </TD> <TD align="right"> 0.52 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 2007 </TD> <TD align="right"> 73.61 </TD> <TD align="right"> 73.99 </TD> <TD align="right"> 0.38 </TD> <TD align="right"> 0.51 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1967 </TD> <TD align="right"> 45.33 </TD> <TD align="right"> 45.11 </TD> <TD align="right"> 0.22 </TD> <TD align="right"> 0.49 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1972 </TD> <TD align="right"> 47.45 </TD> <TD align="right"> 47.22 </TD> <TD align="right"> 0.23 </TD> <TD align="right"> 0.49 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1962 </TD> <TD align="right"> 58.40 </TD> <TD align="right"> 58.68 </TD> <TD align="right"> 0.28 </TD> <TD align="right"> 0.48 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1952 </TD> <TD align="right"> 39.14 </TD> <TD align="right"> 38.95 </TD> <TD align="right"> 0.19 </TD> <TD align="right"> 0.47 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1997 </TD> <TD align="right"> 75.51 </TD> <TD align="right"> 75.85 </TD> <TD align="right"> 0.35 </TD> <TD align="right"> 0.46 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1992 </TD> <TD align="right"> 74.44 </TD> <TD align="right"> 74.77 </TD> <TD align="right"> 0.33 </TD> <TD align="right"> 0.45 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1987 </TD> <TD align="right"> 73.64 </TD> <TD align="right"> 73.97 </TD> <TD align="right"> 0.33 </TD> <TD align="right"> 0.44 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1982 </TD> <TD align="right"> 72.81 </TD> <TD align="right"> 73.09 </TD> <TD align="right"> 0.29 </TD> <TD align="right"> 0.39 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1952 </TD> <TD align="right"> 53.28 </TD> <TD align="right"> 53.10 </TD> <TD align="right"> 0.18 </TD> <TD align="right"> 0.34 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1977 </TD> <TD align="right"> 71.94 </TD> <TD align="right"> 72.18 </TD> <TD align="right"> 0.25 </TD> <TD align="right"> 0.34 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 2002 </TD> <TD align="right"> 76.70 </TD> <TD align="right"> 76.94 </TD> <TD align="right"> 0.24 </TD> <TD align="right"> 0.31 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 2007 </TD> <TD align="right"> 77.65 </TD> <TD align="right"> 77.89 </TD> <TD align="right"> 0.24 </TD> <TD align="right"> 0.31 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1957 </TD> <TD align="right"> 55.96 </TD> <TD align="right"> 56.02 </TD> <TD align="right"> 0.05 </TD> <TD align="right"> 0.10 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1967 </TD> <TD align="right"> 54.66 </TD> <TD align="right"> 54.71 </TD> <TD align="right"> 0.05 </TD> <TD align="right"> 0.09 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1992 </TD> <TD align="right"> 53.63 </TD> <TD align="right"> 53.66 </TD> <TD align="right"> 0.03 </TD> <TD align="right"> 0.06 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1952 </TD> <TD align="right"> 69.25 </TD> <TD align="right"> 69.25 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1957 </TD> <TD align="right"> 70.30 </TD> <TD align="right"> 70.30 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1962 </TD> <TD align="right"> 71.09 </TD> <TD align="right"> 71.09 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1967 </TD> <TD align="right"> 71.31 </TD> <TD align="right"> 71.31 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1972 </TD> <TD align="right"> 71.91 </TD> <TD align="right"> 71.91 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1977 </TD> <TD align="right"> 72.85 </TD> <TD align="right"> 72.85 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1982 </TD> <TD align="right"> 74.29 </TD> <TD align="right"> 74.29 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1987 </TD> <TD align="right"> 75.32 </TD> <TD align="right"> 75.32 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1992 </TD> <TD align="right"> 76.94 </TD> <TD align="right"> 76.94 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1997 </TD> <TD align="right"> 78.19 </TD> <TD align="right"> 78.19 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 2002 </TD> <TD align="right"> 79.74 </TD> <TD align="right"> 79.74 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 2007 </TD> <TD align="right"> 80.72 </TD> <TD align="right"> 80.72 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> </TR>
+   </TABLE>
+
+<p>We can see that even after trimming 15% from both ends of the life expectancies in each continent, the most difference between the trimmed mean and the real mean is less than 2.5%. This means (pun non-intended) that there isn&#39;t a huge variability in lif expectancies between the different countries within each continent in a given year. It&#39;s visible that Africa has the largest such variability, as 3 of the top 5 rows belong to Africa. It&#39;s also nice to see how Oceania has 0% difference because there are not enough countries in it to trim, so the trimmed mean uses the same data as the real mean.</p>
+
+<h3>Absolute and relative world population in each of the continents <strong>(very fun)</strong></h3>
+
+<p>Here we look at the total population of each continent in every year, and compare that to the world&#39;s total population. The data is arranged by year, where in each year group the continents are arranged from most populous to least.</p>
+
+<pre><code class="r">worldRelativePop &lt;- ddply(gDat, .(continent, year), function(.data) {
+    .data &lt;- as.list(.data)
+    .data[&quot;continentPop&quot;] &lt;- sum(.data$pop)
+    .data[&quot;worldPop&quot;] &lt;- sum(subset(gDat, year == .data$year[1])[[&quot;pop&quot;]])
+    .data[&quot;percent&quot;] &lt;- round(as.numeric(.data[&quot;continentPop&quot;])/as.numeric(.data[&quot;worldPop&quot;]) * 
+        100, 2)
+    quickdf(.data[c(&quot;continentPop&quot;, &quot;worldPop&quot;, &quot;percent&quot;)])
+})
+worldRelativePop &lt;- arrange(worldRelativePop, year, desc(percent))
+worldRelativePop &lt;- xtable(worldRelativePop)
+print(worldRelativePop, type = &quot;html&quot;, include.rownames = FALSE)
+</code></pre>
+
+<!-- html table generated in R 3.0.1 by xtable 1.7-1 package -->
+
+<!-- Sat Oct 19 13:30:24 2013 -->
+
+<TABLE border=1>
+<TR> <TH> continent </TH> <TH> year </TH> <TH> continentPop </TH> <TH> worldPop </TH> <TH> percent </TH>  </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1952 </TD> <TD align="right"> 1395357352.00 </TD> <TD align="right"> 2406957151.00 </TD> <TD align="right"> 57.97 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1952 </TD> <TD align="right"> 418120846.00 </TD> <TD align="right"> 2406957151.00 </TD> <TD align="right"> 17.37 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1952 </TD> <TD align="right"> 345152446.00 </TD> <TD align="right"> 2406957151.00 </TD> <TD align="right"> 14.34 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1952 </TD> <TD align="right"> 237640501.00 </TD> <TD align="right"> 2406957151.00 </TD> <TD align="right"> 9.87 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1952 </TD> <TD align="right"> 10686006.00 </TD> <TD align="right"> 2406957151.00 </TD> <TD align="right"> 0.44 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1957 </TD> <TD align="right"> 1562780599.00 </TD> <TD align="right"> 2664404580.00 </TD> <TD align="right"> 58.65 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1957 </TD> <TD align="right"> 437890351.00 </TD> <TD align="right"> 2664404580.00 </TD> <TD align="right"> 16.43 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1957 </TD> <TD align="right"> 386953916.00 </TD> <TD align="right"> 2664404580.00 </TD> <TD align="right"> 14.52 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1957 </TD> <TD align="right"> 264837738.00 </TD> <TD align="right"> 2664404580.00 </TD> <TD align="right"> 9.94 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1957 </TD> <TD align="right"> 11941976.00 </TD> <TD align="right"> 2664404580.00 </TD> <TD align="right"> 0.45 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1962 </TD> <TD align="right"> 1696357182.00 </TD> <TD align="right"> 2899782974.00 </TD> <TD align="right"> 58.50 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1962 </TD> <TD align="right"> 460355155.00 </TD> <TD align="right"> 2899782974.00 </TD> <TD align="right"> 15.88 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1962 </TD> <TD align="right"> 433270254.00 </TD> <TD align="right"> 2899782974.00 </TD> <TD align="right"> 14.94 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1962 </TD> <TD align="right"> 296516865.00 </TD> <TD align="right"> 2899782974.00 </TD> <TD align="right"> 10.23 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1962 </TD> <TD align="right"> 13283518.00 </TD> <TD align="right"> 2899782974.00 </TD> <TD align="right"> 0.46 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1967 </TD> <TD align="right"> 1905662900.00 </TD> <TD align="right"> 3217478384.00 </TD> <TD align="right"> 59.23 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1967 </TD> <TD align="right"> 481178958.00 </TD> <TD align="right"> 3217478384.00 </TD> <TD align="right"> 14.96 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1967 </TD> <TD align="right"> 480746623.00 </TD> <TD align="right"> 3217478384.00 </TD> <TD align="right"> 14.94 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1967 </TD> <TD align="right"> 335289489.00 </TD> <TD align="right"> 3217478384.00 </TD> <TD align="right"> 10.42 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1967 </TD> <TD align="right"> 14600414.00 </TD> <TD align="right"> 3217478384.00 </TD> <TD align="right"> 0.45 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1972 </TD> <TD align="right"> 2150972248.00 </TD> <TD align="right"> 3576977158.00 </TD> <TD align="right"> 60.13 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1972 </TD> <TD align="right"> 529384210.00 </TD> <TD align="right"> 3576977158.00 </TD> <TD align="right"> 14.80 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1972 </TD> <TD align="right"> 500635059.00 </TD> <TD align="right"> 3576977158.00 </TD> <TD align="right"> 14.00 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1972 </TD> <TD align="right"> 379879541.00 </TD> <TD align="right"> 3576977158.00 </TD> <TD align="right"> 10.62 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1972 </TD> <TD align="right"> 16106100.00 </TD> <TD align="right"> 3576977158.00 </TD> <TD align="right"> 0.45 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1977 </TD> <TD align="right"> 2384513556.00 </TD> <TD align="right"> 3930045807.00 </TD> <TD align="right"> 60.67 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1977 </TD> <TD align="right"> 578067699.00 </TD> <TD align="right"> 3930045807.00 </TD> <TD align="right"> 14.71 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1977 </TD> <TD align="right"> 517164531.00 </TD> <TD align="right"> 3930045807.00 </TD> <TD align="right"> 13.16 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1977 </TD> <TD align="right"> 433061021.00 </TD> <TD align="right"> 3930045807.00 </TD> <TD align="right"> 11.02 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1977 </TD> <TD align="right"> 17239000.00 </TD> <TD align="right"> 3930045807.00 </TD> <TD align="right"> 0.44 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1982 </TD> <TD align="right"> 2610135582.00 </TD> <TD align="right"> 4289436840.00 </TD> <TD align="right"> 60.85 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1982 </TD> <TD align="right"> 630290920.00 </TD> <TD align="right"> 4289436840.00 </TD> <TD align="right"> 14.69 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1982 </TD> <TD align="right"> 531266901.00 </TD> <TD align="right"> 4289436840.00 </TD> <TD align="right"> 12.39 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1982 </TD> <TD align="right"> 499348587.00 </TD> <TD align="right"> 4289436840.00 </TD> <TD align="right"> 11.64 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1982 </TD> <TD align="right"> 18394850.00 </TD> <TD align="right"> 4289436840.00 </TD> <TD align="right"> 0.43 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1987 </TD> <TD align="right"> 2871220762.00 </TD> <TD align="right"> 4691477418.00 </TD> <TD align="right"> 61.20 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1987 </TD> <TD align="right"> 682753971.00 </TD> <TD align="right"> 4691477418.00 </TD> <TD align="right"> 14.55 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1987 </TD> <TD align="right"> 574834110.00 </TD> <TD align="right"> 4691477418.00 </TD> <TD align="right"> 12.25 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1987 </TD> <TD align="right"> 543094160.00 </TD> <TD align="right"> 4691477418.00 </TD> <TD align="right"> 11.58 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1987 </TD> <TD align="right"> 19574415.00 </TD> <TD align="right"> 4691477418.00 </TD> <TD align="right"> 0.42 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1992 </TD> <TD align="right"> 3133292191.00 </TD> <TD align="right"> 5110710260.00 </TD> <TD align="right"> 61.31 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1992 </TD> <TD align="right"> 739274104.00 </TD> <TD align="right"> 5110710260.00 </TD> <TD align="right"> 14.47 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1992 </TD> <TD align="right"> 659081517.00 </TD> <TD align="right"> 5110710260.00 </TD> <TD align="right"> 12.90 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1992 </TD> <TD align="right"> 558142797.00 </TD> <TD align="right"> 5110710260.00 </TD> <TD align="right"> 10.92 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1992 </TD> <TD align="right"> 20919651.00 </TD> <TD align="right"> 5110710260.00 </TD> <TD align="right"> 0.41 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1997 </TD> <TD align="right"> 3383285500.00 </TD> <TD align="right"> 5515204472.00 </TD> <TD align="right"> 61.34 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1997 </TD> <TD align="right"> 796900410.00 </TD> <TD align="right"> 5515204472.00 </TD> <TD align="right"> 14.45 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1997 </TD> <TD align="right"> 743832984.00 </TD> <TD align="right"> 5515204472.00 </TD> <TD align="right"> 13.49 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1997 </TD> <TD align="right"> 568944148.00 </TD> <TD align="right"> 5515204472.00 </TD> <TD align="right"> 10.32 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 1997 </TD> <TD align="right"> 22241430.00 </TD> <TD align="right"> 5515204472.00 </TD> <TD align="right"> 0.40 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 2002 </TD> <TD align="right"> 3601802203.00 </TD> <TD align="right"> 5886977579.00 </TD> <TD align="right"> 61.18 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 2002 </TD> <TD align="right"> 849772762.00 </TD> <TD align="right"> 5886977579.00 </TD> <TD align="right"> 14.43 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 2002 </TD> <TD align="right"> 833723916.00 </TD> <TD align="right"> 5886977579.00 </TD> <TD align="right"> 14.16 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 2002 </TD> <TD align="right"> 578223869.00 </TD> <TD align="right"> 5886977579.00 </TD> <TD align="right"> 9.82 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 2002 </TD> <TD align="right"> 23454829.00 </TD> <TD align="right"> 5886977579.00 </TD> <TD align="right"> 0.40 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 2007 </TD> <TD align="right"> 3811953827.00 </TD> <TD align="right"> 6251013179.00 </TD> <TD align="right"> 60.98 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 2007 </TD> <TD align="right"> 929539692.00 </TD> <TD align="right"> 6251013179.00 </TD> <TD align="right"> 14.87 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 2007 </TD> <TD align="right"> 898871184.00 </TD> <TD align="right"> 6251013179.00 </TD> <TD align="right"> 14.38 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 2007 </TD> <TD align="right"> 586098529.00 </TD> <TD align="right"> 6251013179.00 </TD> <TD align="right"> 9.38 </TD> </TR>
+  <TR> <TD> Oceania </TD> <TD align="right"> 2007 </TD> <TD align="right"> 24549947.00 </TD> <TD align="right"> 6251013179.00 </TD> <TD align="right"> 0.39 </TD> </TR>
+   </TABLE>
+
+<p>There might be a nicer, easier way to achieve this, but I didn&#39;t know how. I was trying to use plain old &#39;summarize&#39;, but summarize did not let me aggregate the total population of all continents in each of the years. I&#39;m not sure if this kinf of splitting is available with plyr. Since I couldn&#39;t get what I wanted with pylr, I looked at the source code of the summarize function and was able to alter it a little bit to get what I needed.<br/>
+We can see that Asia is consistently by far the most populated continent, always making up ~60% of the world population.<br/>
+<strong>One very interesting observation is how Europe, America, and Africa changed spots over time. In the 1950&#39;s, Europe was the most populated, followed by America and Africa. As the years go by, America&#39;s relative population remains fairly constant at around 14.5%, Europe&#39;s relative population decreases, and Africa&#39;s increases. This trend consistently continues throughout the years without exception, until at the last data point in 2007 the rankings of the three continents is completely flipped from the beginning - Africa followed by America followed by Europe</strong></p>
+
+<h3>A list of all countries that at some point had their population size decrease (very fun)</h3>
+
+<p>The world can be a very cruel place. Many countries have gone through genocides, massive natural disasters, or other events that have caused them to lose a significant portion of their population. For example, the Khmer Rouge in Cambodia killed off a large fraction of the Cambodian population in the 1970&#39;s. As a result, the country&#39;s population actually shrank from 1972 to 1977. It is interesting to see what other countries went through a population decrease at some point.</p>
+
+<pre><code class="r"># get all the years that we have data for
+years &lt;- unique(gDat$year)
+# get a list of all countries
+allCountries = levels(gDat$country)
+# initialize a vector for the poor countries that experienced a population
+# decrease
+resultCountries = vector(mode = &quot;character&quot;)
+
+# go through every country, and see if its population in the previous data
+# year is larger than the current population. If that is true for any given
+# year, add the country to our results list
+for (iCountry in allCountries) {
+    for (idxYear in seq(years)[-1]) {
+        prevYear = years[idxYear - 1]
+        curYear = years[idxYear]
+        prevYearData = gDat[intersect(which(gDat$year == prevYear), which(gDat$country == 
+            iCountry)), ]
+        curYearData = gDat[intersect(which(gDat$year == curYear), which(gDat$country == 
+            iCountry)), ]
+        prevPop = prevYearData[[&quot;pop&quot;]]
+        curPop = curYearData[[&quot;pop&quot;]]
+        if (prevPop &gt;= curPop) {
+            resultCountries = append(resultCountries, iCountry)
+            break
+        }
+    }
+}
+print(resultCountries)
+</code></pre>
+
+<pre><code>##  [1] &quot;Afghanistan&quot;            &quot;Bosnia and Herzegovina&quot;
+##  [3] &quot;Bulgaria&quot;               &quot;Cambodia&quot;              
+##  [5] &quot;Croatia&quot;                &quot;Czech Republic&quot;        
+##  [7] &quot;Equatorial Guinea&quot;      &quot;Germany&quot;               
+##  [9] &quot;Guinea-Bissau&quot;          &quot;Hungary&quot;               
+## [11] &quot;Ireland&quot;                &quot;Kuwait&quot;                
+## [13] &quot;Lebanon&quot;                &quot;Lesotho&quot;               
+## [15] &quot;Liberia&quot;                &quot;Montenegro&quot;            
+## [17] &quot;Poland&quot;                 &quot;Portugal&quot;              
+## [19] &quot;Romania&quot;                &quot;Rwanda&quot;                
+## [21] &quot;Serbia&quot;                 &quot;Slovenia&quot;              
+## [23] &quot;Somalia&quot;                &quot;South Africa&quot;          
+## [25] &quot;Switzerland&quot;            &quot;Trinidad and Tobago&quot;   
+## [27] &quot;West Bank and Gaza&quot;
+</code></pre>
+
+<p>There might be a non-forloop way to do this, but I couldn&#39;t figure it out.<br/>
+As we can see, there are 27 countries that as some point had their population decrease, and Cambodia is indeed one of them.<br/>
+I wanted to show this data in a dataframe, but I&#39;m on a plane without WiFi at midnight before this is due, and I can&#39;t find out how to build a data frame from scratch, so I&#39;ll just leave it as a list :)</p>
+
+</body>
+
+</html>

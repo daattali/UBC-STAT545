@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Dean Attali</title>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body {
+   font-family: Helvetica, arial, sans-serif;
+   font-size: 14px;
+   line-height: 1.6;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   background-color: white;
+   padding: 30px; }
+
+body > *:first-child {
+   margin-top: 0 !important; }
+body > *:last-child {
+   margin-bottom: 0 !important; }
+
+a {
+   color: #4183C4; }
+a.absent {
+   color: #cc0000; }
+a.anchor {
+   display: block;
+   padding-left: 30px;
+   margin-left: -30px;
+   cursor: pointer;
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+   margin: 20px 0 10px;
+   padding: 0;
+   font-weight: bold;
+   -webkit-font-smoothing: antialiased;
+   cursor: text;
+   position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+   text-decoration: none; }
+
+h1 tt, h1 code {
+   font-size: inherit; }
+
+h2 tt, h2 code {
+   font-size: inherit; }
+
+h3 tt, h3 code {
+   font-size: inherit; }
+
+h4 tt, h4 code {
+   font-size: inherit; }
+
+h5 tt, h5 code {
+   font-size: inherit; }
+
+h6 tt, h6 code {
+   font-size: inherit; }
+
+h1 {
+   font-size: 28px;
+   color: black; }
+
+h2 {
+   font-size: 24px;
+   border-bottom: 1px solid #cccccc;
+   color: black; }
+
+h3 {
+   font-size: 18px; }
+
+h4 {
+   font-size: 16px; }
+
+h5 {
+   font-size: 14px; }
+
+h6 {
+   color: #777777;
+   font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+   margin: 15px 0; }
+
+hr {
+   border: 0 none;
+   color: #cccccc;
+   height: 4px;
+   padding: 0;
+}
+
+body > h2:first-child {
+   margin-top: 0;
+   padding-top: 0; }
+body > h1:first-child {
+   margin-top: 0;
+   padding-top: 0; }
+body > h1:first-child + h2 {
+   margin-top: 0;
+   padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+   margin-top: 0;
+   padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+   margin-top: 0;
+   padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+   margin-top: 0; }
+
+li p.first {
+   display: inline-block; }
+li {
+   margin: 0; }
+ul, ol {
+   padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+   margin-top: 0; }
+
+dl {
+   padding: 0; }
+dl dt {
+   font-size: 14px;
+   font-weight: bold;
+   font-style: italic;
+   padding: 0;
+   margin: 15px 0 5px; }
+dl dt:first-child {
+   padding: 0; }
+dl dt > :first-child {
+   margin-top: 0; }
+dl dt > :last-child {
+   margin-bottom: 0; }
+dl dd {
+   margin: 0 0 15px;
+   padding: 0 15px; }
+dl dd > :first-child {
+   margin-top: 0; }
+dl dd > :last-child {
+   margin-bottom: 0; }
+
+blockquote {
+   border-left: 4px solid #dddddd;
+   padding: 0 15px;
+   color: #777777; }
+blockquote > :first-child {
+   margin-top: 0; }
+blockquote > :last-child {
+   margin-bottom: 0; }
+
+table {
+   padding: 0;border-collapse: collapse; }
+table tr {
+   border-top: 1px solid #cccccc;
+   background-color: white;
+   margin: 0;
+   padding: 0; }
+table tr:nth-child(2n) {
+   background-color: #f8f8f8; }
+table tr th {
+   font-weight: bold;
+   border: 1px solid #cccccc;
+   margin: 0;
+   padding: 6px 13px; }
+table tr td {
+   border: 1px solid #cccccc;
+   margin: 0;
+   padding: 6px 13px; }
+table tr th :first-child, table tr td :first-child {
+   margin-top: 0; }
+table tr th :last-child, table tr td :last-child {
+   margin-bottom: 0; }
+
+img {
+   max-width: 100%; }
+
+span.frame {
+   display: block;
+   overflow: hidden; }
+span.frame > span {
+   border: 1px solid #dddddd;
+   display: block;
+   float: left;
+   overflow: hidden;
+   margin: 13px 0 0;
+   padding: 7px;
+   width: auto; }
+span.frame span img {
+   display: block;
+   float: left; }
+span.frame span span {
+   clear: both;
+   color: #333333;
+   display: block;
+   padding: 5px 0 0; }
+span.align-center {
+   display: block;
+   overflow: hidden;
+   clear: both; }
+span.align-center > span {
+   display: block;
+   overflow: hidden;
+   margin: 13px auto 0;
+   text-align: center; }
+span.align-center span img {
+   margin: 0 auto;
+   text-align: center; }
+span.align-right {
+   display: block;
+   overflow: hidden;
+   clear: both; }
+span.align-right > span {
+   display: block;
+   overflow: hidden;
+   margin: 13px 0 0;
+   text-align: right; }
+span.align-right span img {
+   margin: 0;
+   text-align: right; }
+span.float-left {
+   display: block;
+   margin-right: 13px;
+   overflow: hidden;
+   float: left; }
+span.float-left span {
+   margin: 13px 0 0; }
+span.float-right {
+   display: block;
+   margin-left: 13px;
+   overflow: hidden;
+   float: right; }
+span.float-right > span {
+   display: block;
+   overflow: hidden;
+   margin: 13px auto 0;
+   text-align: right; }
+
+code, tt {
+   margin: 0 2px;
+   padding: 0 5px;
+   white-space: nowrap;
+   border: 1px solid #eaeaea;
+   background-color: #f8f8f8;
+   border-radius: 3px; }
+
+pre code {
+   margin: 0;
+   padding: 0;
+   white-space: pre;
+   border: none;
+   background: transparent; }
+
+.highlight pre {
+   background-color: #f8f8f8;
+   border: 1px solid #cccccc;
+   font-size: 13px;
+   line-height: 19px;
+   overflow: auto;
+   padding: 6px 10px;
+   border-radius: 3px; }
+
+pre {
+   background-color: #f8f8f8;
+   border: 1px solid #cccccc;
+   font-size: 13px;
+   line-height: 19px;
+   overflow: auto;
+   padding: 6px 10px;
+   border-radius: 3px; }
+pre code, pre tt {
+   background-color: transparent;
+   border: none; }
+
+sup {
+   font-size: 0.83em;
+   vertical-align: super;
+   line-height: 0;
+}
+* {
+	 -webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+   body {
+      width: 854px;
+      margin:0 auto;
+   }
+}
+@media print {
+	 table, pre {
+		  page-break-inside: avoid;
+	 }
+	 pre {
+		  word-wrap: break-word;
+	 }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Dean Attali</h1>
+
+<p><strong>STAT 545A hw 4</strong><br/>
+<strong>Sept 28 2013</strong></p>
+
+<p>In this assignment, I will take data aggregation code written by other students, and create visuals that will complement their tabular data.  The two students&#39; work I will be using are <a href="http://rpubs.com/rljohn/stat545a-2013-hw03_johnston-reb"><strong>Rebecca Johnston</strong></a> and <a href="http://rpubs.com/danieldinsdale/stat545a-2013-hw03_dinsdale-dan"><strong>Daniel Dinsdale</strong></a>.</p>
+
+<h3>Data initialization</h3>
+
+<pre><code class="r"># load required libraries
+library(plyr)
+library(lattice)
+library(xtable)
+# import the data
+gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+# sanity check that import was successful
+str(gDat)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+</code></pre>
+
+<pre><code class="r"># drop Oceania because it has almost no data
+nlevels(gDat$continent)
+</code></pre>
+
+<pre><code>## [1] 5
+</code></pre>
+
+<pre><code class="r">gDat &lt;- droplevels(subset(gDat, continent != &#39;Oceania&#39;))
+nlevels(gDat$continent)
+</code></pre>
+
+<pre><code>## [1] 4
+</code></pre>
+
+<h3>Looking at every continent&#39;s min/max GDP in tall format (Rebecca)</h3>
+
+<p>Rebecca wrote some code to get her the minimum and maximum GDP/capita in each continent. Here it is.</p>
+
+<pre><code class="r"># ----- THE FOLLOWING PIECE OF CODE IS TAKEN FROM REBECCA
+
+# Write own function to produce a data frame in tall format
+minmax &lt;- function(x) {
+  ## Make character vector to specify min and max
+  factor = c(&quot;Min&quot;, &quot;Max&quot;)
+  ## Specify function to compute min and max (same order as line above)
+  value = c(min(x$gdpPercap), max(x$gdpPercap))
+  ## Make factor and value two columns in a data frame
+  data.frame(factor, value)
+}
+# Use ddply to apply the function by continent
+contMinMaxGdpTall &lt;- ddply(gDat, ~continent, minmax)
+</code></pre>
+
+<p>Let&#39;s look at the table that Rebecca&#39;s code produces. It shows, in tall format, the minimum and maximum GDP/cap of each continent.</p>
+
+<pre><code class="r">contMinMaxGdpTall &lt;- xtable(contMinMaxGdpTall)
+print(contMinMaxGdpTall, type = &quot;html&quot;, include.rownames = FALSE)
+</code></pre>
+
+<!-- html table generated in R 3.0.1 by xtable 1.7-1 package -->
+
+<!-- Sun Sep 29 00:17:31 2013 -->
+
+<TABLE border=1>
+<TR> <TH> continent </TH> <TH> factor </TH> <TH> value </TH>  </TR>
+  <TR> <TD> Africa </TD> <TD> Min </TD> <TD align="right"> 241.17 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD> Max </TD> <TD align="right"> 21951.21 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD> Min </TD> <TD align="right"> 1201.64 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD> Max </TD> <TD align="right"> 42951.65 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD> Min </TD> <TD align="right"> 331.00 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD> Max </TD> <TD align="right"> 113523.13 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD> Min </TD> <TD align="right"> 973.53 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD> Max </TD> <TD align="right"> 49357.19 </TD> </TR>
+   </TABLE>
+
+<p>This table looks like it contains good information, but it&#39;s a little bit hard to extract it ouf of it just by looking at the table. Let&#39;s try to visualize this data as a bar graph. Since we have two statistics for every continent, Max and Min, we will make two bar graphs, one for each of these.</p>
+
+<pre><code class="r">barchart(value ~ reorder(continent, value) | factor, contMinMaxGdpTall,
+         ylab = &quot;GDP / cap&quot;,
+         strip = strip.custom(factor.levels = c(&quot;Highest&quot;,&quot;Lowest&quot;)),
+         main = &quot;Highest and lowest GDP/capita per continent&quot;,
+         col = &quot;yellowgreen&quot;,
+         border = &quot;darkgreen&quot;
+)
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAxgAAAFoCAMAAADjHq2+AAAA/1BMVEUAAAAAAC4AADoAAFIAAGYAM1IAM3MAOjoAOpAAXHMAXJEAZAAAZrY6AAA6AC46ADo6AFI6AGY6M3M6Ojo6OpA6XJE6ZmY6ZrY6gK86kJA6kNtmAABmAC5mADpmAFJmAGZmMy5mOpBmXABmZjpmZmZmgHNmo8xmtrZmtv+QMwCQMy6QOgCQOjqQOmaQZgCQgFKQkDqQkLaQtpCQxcyQ2/+azTK2XAC2XC62ZgC2Zjq2tma2xXO225C25ZG25cy2/7a2/9u2///bgC7bkDrbtmbb25Db29vb5czb/7bb/9vb////o1L/tmb/xXP/25D/5ZH/5a//5cz//7b//9v///+V3FZ5AAAACXBIWXMAAAsSAAALEgHS3X78AAARiUlEQVR4nO2dDX/bVhWHtS5AWB3WQtmGwzqgY/OWlQENxRt7ywysZKrXxPr+nwXdqxfLzrUsW/fonls9z68/x43lv+Sj80i6smMlGQDcIQm9AAAaQQwAB4gB4AAxABwgBoADxABwMDYxbs9PrrJsdXFyVdwrMb/Y9ZT5rDXv9Hqd24k6b3WRJMm9S/PkxDBr3svmRfDuF9G6XN3JY/YuvKdZxcR4xdj4dYsY88SvGHXe8iwpLSh1SKbVvdyW1cW0Y04/usR4mlVUjFcMey/faJ98m/d2/ouvzhLb24tyi2369uTKbtUn9qlp1bEnXyZJkZIkH2+IsbDdbS1b2DbPH9yVl9+b2NvT6+LJaWIWysTN8+cuz2Z2BsUjm3POp/+uyCkfKfKq5apmubq496R8tEoql7CeuFgcM3/X05vTDLuawjNuMew6/8WZEcNuqSemKZvb7tP/1V1R/mI9aXmnIca8fGSR99Xctu10d97yzD5z+fCq2t3kG+a1GGm5dNaWjTlbkb4rO3q9BOvFqWZpf2MfrJLqJaxeRFOM7QpsThNofQVjfGIURy2FGMszu223PTe1rWrb1XhT9u3mcUTZQXnbJmbS8snVI8uzfPN8e37vcnk2vT3/8ORqYe7uykvXzVaKsTBiVIdS83IG5eT1nPMpZqWFs+aTs/rRepbFPslQJdVLWL8IG7P1stZPb0wzNsYthm3OW3soZTvm9DpNys60E9oxbt0V5lemX+pJJ5tjjKLVbXtPlm///e3Lufndrjw7dVovStYQwx42FTuczTkXh2vThhjFI2aa+tF6lnZJy3lN1/M086lfREOM7QpsTjM2xidG81CqIYY9dG+0RTE2NpvusiuKsXLZnu1iZPOTL/Ohy8fnxSBgV17+zA0x6kMpmzer9ykbc94Qo3rETNUuxqTx04pRvoiGGNsV2JxmbIxbjMahVNkE9RGPZW4HC0VXLOzBVqODdh9KZem9J6fX83fOZtnuPDvsbp45Xg++c1KrUjGIX895+1CqeqTMaxxKFb+pxKiSGodSO8VoPB0xxsPOwfe6CYohbL0xnpcjzzTZ2mPsHnyb/pzmjVgcOe3Iq0/XTjZO15ZdubAH+sVT1nNeD76LnOoR84ztwXd5fJitH9sYfDde72RDjMbTm9MMvqYCM24xTEtWp2vLJrB9YX6avjWNlf8smjV/YLpxFGLa7XeO07W2EWfFuLUlr3jIPK35Bl91imlSTmCesp7zlzbLzszmlI8UTykfrWe5FqNOapyuLV+EiXmxIcb66c1pdr7b+JoyNjEcpLGs9ba35/c9CgcybjHKTfWe95i1gBgDMm4xioFDLMfPiDEgIxcDwA1iADhADAAHiAHgADEAHCAGgAPEAHCAGAAOEAPAAWIAOEAMAAeIAeAAMQAcIAaAA8QAcIAYAA4QA8ABYgA4QAwAB4gB4MCnGAlARAwnxg1IQF1FQIzYoa4iIEbsUFcRxi7GywffFLfFnfWvnNNpRGdduxVMb1URoxJj+1fO6TSis66I8bqIYe78dJ787A/PXj74U5J8dGP+92b+4I9J/qO8rxGdda173lbu1Scf3bz81bObH3/+QyRVRYymGM/fu/nxjWcvz94za9D87/u3bn56/I35oXfbprOudcGe22J+n9cy39jkPyKpKmIU12d504hh1tarT5+ZtWX+9/tnZv2ZHzead/o661oVzNQ0L+HLX//wz8/fyosbS1URo7HHyNdeUwxzEYA3nhl1zK3aVaizrlXBzA/jw+OvH//rwdePo6kqYjTE2NpjPK5XWn4soHcV6qzr1h7j5vmff/vq08+LY6gS1VVFDMcYoxCjPDo2ow3Vq1BnXbfGGPlguxhlxFJVxNg6K/XLeo9h/pfv7W+emxHIzatPtJ4/0VnXcvD2VnVuz56TMnciqeroxdhG8TZsB3HUNToGFAMgIoYTw2MWrKGuIiBG7FBXEYYQo8u+CY6FuorQ3rTsMfRDXUXgUCp2qKsIiBE71FUExIgd6ioCYsQOdRUBMWKHuoqAGLFDXUVAjNihriIgRuxQVxEQI3aoqwiIETvUVQTEiB3qKgJixA51FQExAnD/SJxh1FUExAjA/X8cBWIMCGIEADH0gxgBQAz9IEYAEEM/iBEAxNAPYgQAMfSDGAFADP0gRgAQQz+IEQDE0A9iBAAx9IMYAUAM/SBGABBDP4gRAMTQD2IEADH0gxgBQAz9IEYAEEM/iBEAxNAPYgQAMfSDGAFADP0gRgAQQz+IEQDE0A9iBAAx9IMYAUAM/SBGABBDP4gRAMTQTx8xbj+4yrJ5cu9y923nrFGBGPrpIUaanFxl6el1y7/ucxoViKGf48VY/W319CpbTM2OY9dtmVLgb6FjBzH009607UW3YszMj1233bNGBWLop88Yo+seo0vWqEAM/fQVgzHGESCGfvqKwVmpI0AM/fA+RgAQQz+IEQDE0A9iBAAx9IMYAUAM/SBGABBDP4gRAMTQD2IEADH0gxgBQAz9IEYAEEM/iBEAxNAPYgQAMfSDGAFADP0gRgAQQz+IEQDE0A9iBAAx9IMYAUAM/SBGABBDP4gRAMTQD2IEADH0gxgBQAz9IEYAEEM/iBEAxNAPYgQAMfSDGAFADP0gRgAQQz+IEQDE0A9iBAAx9IMYAUAM/SBGABBDP4gRAMTQD2IEADH0gxgBQAz9IEYAEEM/iBEAxNBPbzG41NjhIIZ++orBxSmPADH001eM5aPrdLLzosZlSuu1xEcIYuinvWk7FD1N8h1D86L3zdsDs8YCYuin7x5jMcmWDx37iuYeo2vWaEAM/fQWwwrAGOMgEEM/fcVYXSTJjLNSh4EY+uF9jAAghn4QIwCIoR/ECABi6AcxAoAY+kGMACCGfhAjAIihH8QIAGLoBzECgBj6QYwAIIZ+ECMAiKEfxAgAYugHMQKAGPpBjAAghn4QIwCIoR/ECABi6AcxAoAY+kGMACCGfrqKYf5SL5nIzWlUIIZ+Ooqxuphm9psPpOY0KhBDPx3FKL7xY+t7P3zOaVQghn66HkrZnQV7DD8ghn667jHOy29mOzl6n8EKrEEM/XBWKgCIoR/ECABi6KfzGKPngRQrsAFi6KfrGOP9S/Ol5gy+vYAY+ul+urb4JzWnUYEY+un6Bt9nl/m/5UPE8AFi6KfrGCN3Ik2SqdicRgVi6IezUgFADP0gRgAQQz9dxUiTWbbYuuKFzzmNCsTQT/fTtZkdaEjNaVQghn46f+x8ltlrF0vNaVQghn66HkrZTxH2eeObFbgGMfTTe/C9sH/YxzX4DgEx9NNXjNRYMeOqrQeBGPrpK8biQ7PHaL/Od/mnHD4W9/UAMfTT3rT7iz7P9xiL2WKWrZ5e3b09LGs0IIZ+Ou0x8pH3bMcUuQBZOm3fY3SZ06hADP10Pl2b71ZcJ2tTu8dgjHEQiKGfQ8YYqet87cJ+tJCzUoeAGPrhs1IBQAz9IEYAEEM/iBEAxNAPYgQAMfTTTYzlWbLzhK2fOY0KxNBPJzHMZ2t7feR8/5xGBWLop9sbfB9cma9DkJzTqEAM/XQX46LnsRQrsAYx9IMYAUAM/XT9rFTf7zpnBTZADP1wujYAiKEfxAgAYuinoxjmjYx+f/LNClyDGPrpJkZqPym7POsz/mYF1iCGfrq9wVe+h7F8xNfn+AAx9NP5dG3zp8CcRgVi6AcxAoAY+kGMvdw/kpZExFAPb/DtxWsb+0+Mtq664X2MvSDGGEGMvSDGGOkoxmJivg5knF/qjBhjpJsYi9Nr8zWc47ycMWKMkW6Db3PZmFyMcV44BjHGCKdr94IYY6Tz33wbxnlFJcQYIx0/RGi/IyQd58UpEWOMHPKlziP92DlijBHex9gLYowRxNgLYoyR104M5R/585+IGCK8fmLobmP/iYghAmIM28b+ExFDBMQYto39JyKGCB7EWKi61JjyNvafiBgi9BcjTaaZootTKm9j/4mIIUJvMZaP/j3N2i9n3H4tcc8ob2P/iYghQnvT7i963v3pNGte9L55e1iWF5S3sf9ExBCh7x5jYbSatu8xumZ5QXkb+09EDBE8DL5TxhghExFDBD9icFYqXCJiiMD7GMO2sf9ExBABMYZtY/+JiCECYgzbxv4TEUMExBi2jf0nIoYIiDFsG/tPRAwREGPYNvafiBgiIMawbew/ETFEQIxh29h/ImKIgBjDtrH/RMQQATGGbWP/iYghAmIM28b+ExFDBMQYto39JyKGCIgxbBv7T0QMERBj2Db2n4gYIiDGsG3sPxExRECMYdvYfyJiiIAYw7ax/0TEEAExhm1j/4mIIQJiDNvG/hMRQwTEGLaN/ScihgiIMWwb+09EDBEQY9g29p+IGCIgxrBt7D8RMURAjGHb2H8iYoiAGMO2sf9ExBABMYZtY/+JiCECYgzbxv4TEUMExBi2jf0nIoYIiDFsG/tPRAwREGPYNvafiBgiIMawbew/ETFEQIxh29h/ImKIgBjDtrH/RMQQIbAY949k92yUt7H/RMQQIbQYupsuhkTEEKGvGKuLJDm9PvoafMqbLoZExBChrxjpJHdgdvRVW5U3XQyJiCGCj0Opxaz9Ot9JgeupypsuhkTEEKGlabOORc93GotZtnp6dfd2b5byposhETFE6L/HmOcHU+17jJYs5U0XQyJiiNB/8D3LbxljhEtEDBH6ijE3B2JTzkqFS0QMEXgfI/ZExBABMWJPRAwRECP2RMQQATFiT0QMERAj9kTEEAExYk9EDBEQI/ZExBABMWJPRAwRECP2RMQQATFiT0QMERAj9kTEEAExYk9EDBEQI/ZExBABMWJPRAwRECP2RMQQATFiT0QMERAj9kTEEAExYk9EDBEQI/ZExBABMWJPRAwRECP2RMQQATFiT0QMERAj9kTEEAExYk9EDBEQI/ZExBABMWJPRAwRECP2RMQQATFiT0QMERAj9kTEEAExYk9EDBEQI/ZExBABMWJPRAwRECP2RMQQATFiT0QMEcTE4FJjAyUOJMb9Ixky0SdSYnBxytdNDN1V8I6UGM3LGbdcSzyGcitPdNfV//ZddxW8v+qWps16iTHLVk+5zvcAidRVJHGIPUZLlu7iRJFIXUUSGWPEnkhdRRI5KxV7InUVSeR9jNgTqatIImLEnkhdRRIRI/ZE6iqSiBixJ1JXkUTEiD2RuookIkbsidRVJBExYk+kriKJiBF7InUVSUSM2BOpq0giYsSeSF1FEhEj9kTqKpI4oBgAETGYGACvDYgB4AAxABwgBoADxABwgBgADhADwMHgYiwfmm8WmZs/F9/6kpHjku7QK3V5Zk5wz44PaImuFrfny26Np66+GFyM+YdTT6/BJnlm+eh6/0THIbG42/HU1RtDi3H7xxf5ypsnJ3/9zcm3+b1Fkpxez5NkcmTS8p3zZDrPM/LMZJottlPTw7ZT5QpcvptlX1zmYVc2xMxkkhVzOJZicc3i3NoCHPGK98dTV291HVqMxcz8y1/DYmJuTcEW77ybrT67PC4p35Hens+y+SydmF/dSf3iMvvvAaF2l39yVa7AfP2b9TYze+tqDocu5ubimsUxC3jUK94fT1291XVgMW7PE7PRMSvQfpFhajcV+YZo6yuqOieZUjw15V2Yg9jpndR8jRyyNdrcsk3tCkun5r/ptJjDgYu5vbj54twWm96DX3GHeOrqra4Di2G2Dnm16xVoCpbmVTnc8zKpXoHlSrubetDhbbUCH13fvm9W4MaWrc+xbLm4JvqFffF+9xjU1XddhxWjWOr09EW1Ao3iJ1+dJfeeHLgvrZL+U61Ac3iZzO6kzg88FrZnT6ari+TkiVmB2dax8LEnVqrF/UtxLLw84hV3iaeu3urK+xgdMLt88I/muiJGBzSvwJjRXFfEAHCAGAAOEAPAAWIAOEAMAAeIAeAAMQAcIAaAA8QAcIAYAA4QA8ABYgA4QAwAB4gB4AAxABwgBoADxABwgBgADhADwAFiADhADAAH/wc1KwBv3S0QQwAAAABJRU5ErkJggg==" alt="plot of chunk unnamed-chunk-5"/> </p>
+
+<p>All the parameters to the barchart are fairly self-explanatory. I didn&#39;t like the names &ldquo;Max&rdquo; and &ldquo;Min&rdquo; as labels, so I changed them to &ldquo;Highest&rdquo; and &ldquo;Lowest&rdquo;.
+From these charts, we can clearly see that Africa has the lowest highest GDP/cap (if that sounds confusing, read it again), and that Asia has at least one country that is way twice as rich as the richest country in the rest of the continents. That looks interesting, I want to know what country that is.</p>
+
+<pre><code class="r">gDat[which(gDat$gdpPercap == max(contMinMaxGdpTall$value)),]
+</code></pre>
+
+<pre><code>##     country year    pop continent lifeExp gdpPercap
+## 854  Kuwait 1957 212846      Asia   58.03    113523
+</code></pre>
+
+<p>So Kuwait in 1957 was amazingly rich! Oil I guess?<br/>
+The next thing to notice about these charts is that it looks as though the lowest GDP/cap in all the continents is roughly the same. The visual here is misleading because what is happening is that the scale of the chart on the left is so big that it makes all the points on the other chart bunch up.  To get a better picture of what is happening on the lowest GDP/cap countries of each continent, it would be better to break the graphs up into two separate graphs.<br/>
+<em>Note: There might be a way to just change the scale of the separate panels, but I will show the use of the split panels function regardless</em></p>
+
+<pre><code class="r"># these first two lines are to figure out how many tick lines to show in the y axis
+numTicksFactor = 10000
+numTicks = ceiling(max(contMinMaxGdpTall$value) / numTicksFactor)
+
+# crate a Trellis object for the bar graph of the heighest GDP stat
+highestGdpBarchart &lt;-
+  barchart(value ~ reorder(continent, value), contMinMaxGdpTall,
+   subset = (factor == &#39;Max&#39;),
+   ylab = &quot;GDP / cap&quot;,
+   ylim = c(0, numTicks * numTicksFactor), # range of the y axis
+   scales = list(tick.number = numTicks), # where to show ticks along the axis
+   panel = function(...){
+     panel.barchart(...)
+     # I commented the next line out because I initially wanted to add grid lines
+     #panel.grid = panel.grid(h = -(numTicks/2), v = FALSE)
+   },
+   col = &quot;yellowgreen&quot;,
+   border=&quot;darkgreen&quot;,
+   main = &quot;Highest GDP/capita per continent&quot;
+)
+# create a Trellis object for the bar graph of the lowest GDP stat
+lowestGdpBarchart &lt;- barchart(value ~ reorder(continent, value, min), contMinMaxGdpTall,
+                              subset = (factor == &#39;Min&#39;),
+                              ylab = &quot;GDP / cap&quot;,
+                              col = &quot;yellowgreen&quot;,
+                              border=&quot;darkgreen&quot;,
+                              main = &quot;Lowest GDP/capita per continent&quot;
+                     )
+# plot the two bar graphs on the same panel
+plot(highestGdpBarchart, split = c(1, 1, 2, 1))
+plot(lowestGdpBarchart, split = c(2, 1, 2, 1), newpage = FALSE)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-7"/> </p>
+
+<p>Ah, much better! Now we can actually read the lowest GDP/cap graph.<br/>
+Looking at the two graphs side by side reveals some interesting information.  First, we can see that Africa has the worst of both - its highest GDP country is lower than all other continents, and it also has the poorest country in the world. Another interesting thing to note is that Asia seems to have a very dramatic difference between its rich and poor countries, since its richest country is by far richer than the rest, yet its poorest is almost as poor as Africa&#39;s.
+It&#39;s important to not forget that we&#39;re only looking at the extremes here (highest and lowest GDP in each continent).<br/>
+Just to put things in perspective, we should look at the density of the GDP of all countries in each continent.</p>
+
+<pre><code class="r">bwplot(gdpPercap ~ continent, gDat,
+       panel = panel.violin,
+       col = &quot;yellowgreen&quot;, border = &quot;darkgreen&quot;,
+       main = &quot;GDP/capita spread in each continent&quot;, ylab = &quot;GDP/cap&quot;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-8"/> </p>
+
+<p>Now we can see that not all of Asia is as rich as Kuwait; in fact, most of Europe and the Americas are doing much better than most of Asia. Just good to see the big picture again.</p>
+
+<h3>Looking at the mean life expectancy of each continent per year (Daniel)</h3>
+
+<p>Daniel wrote a one-liner to calculate the mean life expectancy of each continent for every year of data we have.</p>
+
+<pre><code class="r"># ----- THE FOLLOWING PIECE OF CODE IS TAKEN FROM DANIEL
+contLifeExp &lt;- ddply(gDat, continent ~ year, summarise, meanLifeExp = mean(lifeExp))
+</code></pre>
+
+<p>First, let&#39;s examine the data in a tabular format</p>
+
+<pre><code class="r">contLifeExp &lt;- xtable(contLifeExp)
+print(contLifeExp, type = &quot;html&quot;, include.rownames = FALSE)
+</code></pre>
+
+<!-- html table generated in R 3.0.1 by xtable 1.7-1 package -->
+
+<!-- Sun Sep 29 00:17:32 2013 -->
+
+<TABLE border=1>
+<TR> <TH> continent </TH> <TH> year </TH> <TH> meanLifeExp </TH>  </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1952 </TD> <TD align="right"> 39.14 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1957 </TD> <TD align="right"> 41.27 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1962 </TD> <TD align="right"> 43.32 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1967 </TD> <TD align="right"> 45.33 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1972 </TD> <TD align="right"> 47.45 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1977 </TD> <TD align="right"> 49.58 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1982 </TD> <TD align="right"> 51.59 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1987 </TD> <TD align="right"> 53.34 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1992 </TD> <TD align="right"> 53.63 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 1997 </TD> <TD align="right"> 53.60 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 2002 </TD> <TD align="right"> 53.33 </TD> </TR>
+  <TR> <TD> Africa </TD> <TD align="right"> 2007 </TD> <TD align="right"> 54.81 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1952 </TD> <TD align="right"> 53.28 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1957 </TD> <TD align="right"> 55.96 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1962 </TD> <TD align="right"> 58.40 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1967 </TD> <TD align="right"> 60.41 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1972 </TD> <TD align="right"> 62.39 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1977 </TD> <TD align="right"> 64.39 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1982 </TD> <TD align="right"> 66.23 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1987 </TD> <TD align="right"> 68.09 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1992 </TD> <TD align="right"> 69.57 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 1997 </TD> <TD align="right"> 71.15 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 2002 </TD> <TD align="right"> 72.42 </TD> </TR>
+  <TR> <TD> Americas </TD> <TD align="right"> 2007 </TD> <TD align="right"> 73.61 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1952 </TD> <TD align="right"> 46.31 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1957 </TD> <TD align="right"> 49.32 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1962 </TD> <TD align="right"> 51.56 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1967 </TD> <TD align="right"> 54.66 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1972 </TD> <TD align="right"> 57.32 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1977 </TD> <TD align="right"> 59.61 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1982 </TD> <TD align="right"> 62.62 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1987 </TD> <TD align="right"> 64.85 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1992 </TD> <TD align="right"> 66.54 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 1997 </TD> <TD align="right"> 68.02 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 2002 </TD> <TD align="right"> 69.23 </TD> </TR>
+  <TR> <TD> Asia </TD> <TD align="right"> 2007 </TD> <TD align="right"> 70.73 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1952 </TD> <TD align="right"> 64.41 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1957 </TD> <TD align="right"> 66.70 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1962 </TD> <TD align="right"> 68.54 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1967 </TD> <TD align="right"> 69.74 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1972 </TD> <TD align="right"> 70.78 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1977 </TD> <TD align="right"> 71.94 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1982 </TD> <TD align="right"> 72.81 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1987 </TD> <TD align="right"> 73.64 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1992 </TD> <TD align="right"> 74.44 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 1997 </TD> <TD align="right"> 75.51 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 2002 </TD> <TD align="right"> 76.70 </TD> </TR>
+  <TR> <TD> Europe </TD> <TD align="right"> 2007 </TD> <TD align="right"> 77.65 </TD> </TR>
+   </TABLE>
+
+<p>This table is very long, and extracting information by looking at it is not going to be fun or easy. Looks like we need to make some pretty pictures!<br/>
+First, let&#39;s see what the distribution of life expectancies in each of the continents is.</p>
+
+<pre><code class="r">stripplot(meanLifeExp ~ reorder(continent, meanLifeExp), contLifeExp,
+          ylab = &#39;mean life expectancy&#39;, main = &#39;Life expectancies in each continent&#39;)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-11"/> </p>
+
+<p>This is already a much nicer way to look at this data. We can easily see that Africa has the lowest life expectancies, and Europe has the highest. It would be nice to compare the continents at each given time, or to see if the life expectancies are generally increasing with time. From this graph we can only see what the different expectancies for a continent are, but we are losing the time dimension. However, this is a very nice, simple start and gives us a general idea of what&#39;s going on.<br/>
+Now let&#39;s add the time dimension</p>
+
+<pre><code class="r"># reorder the continents so that the legend on the right will match the position of the lines
+contLifeExp &lt;- within(contLifeExp, continent &lt;- reorder(continent,-meanLifeExp))
+xyplot(meanLifeExp ~ year, contLifeExp,
+       groups = continent,
+       type = c(&quot;a&quot;, &quot;p&quot;),
+       grid = &quot;h&quot;,
+       auto.key = list(lines = TRUE, points = FALSE, space = &quot;right&quot;), # make the legend prettier
+       ylab = &#39;Mean life expectancy (years)&#39;,
+       main = &#39;Mean life expectancy per continent&#39;
+)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-12"/> </p>
+
+<p>From this plot, we can see that life expectancy is indeed increasing with time in all continents, except for Africa in the late 1990&#39;s. That&#39;s an intereting observation. We can also very clearly see how Europe is consistently healthier than America, which is consistently healthier than Asia.  Another thing to note is how America and Asia closed the gap a little bit between themselves and Europe since 1952, and that nowadays Africa is lagging behind more so than it ever did.</p>
+
+</body>
+
+</html>
