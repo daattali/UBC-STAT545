@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Homework 7 - Data wrangling and manipulation</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Homework 7 - Data wrangling and manipulation</h1>
+
+<p>Dean Attali<br/>
+Oct 2014 </p>
+
+<p>Last updated: 2014-10-27 15:41:00</p>
+
+<h2>Overview</h2>
+
+<p>In this assignment, I found a dataset with information about cancer incidences
+and used various libraries (<code>plyr</code>, <code>dplyr</code>, <code>tidyr</code>, <code>ggplot2</code>) to manipulate
+the data and perform some basic data exploration</p>
+
+<h2>Datasets</h2>
+
+<p>I downloaded two datasets from <a href="http://wonder.cdc.gov/cancer.html">the United States CDC</a>
+that describe cancer occurrences in the US between 1999 to 2011. One dataset
+holds the number of cancer cases per cancer type, while the other dataset
+holds the number of deaths per cancer type.  </p>
+
+<p>I also downloaded data from <a href="http://data.worldbank.org/">The World Bank</a>
+that provides the population of every country in every year over the past several
+decades.  I only used the US data from it to know what the total US population
+was at every year that we have cancer data for.</p>
+
+<h2>Getting down to business</h2>
+
+<p>Less talkin&#39;, more codin&#39;!</p>
+
+<h3>Read and clean the datasets</h3>
+
+<h4>Dataset 1 - Number of cancer deaths</h4>
+
+<p>Read in the dataset that contains the number of deaths per cancer type per year
+(I convert the dataframe to a tbl_df just for better visualization purposes)</p>
+
+<pre><code class="r">(deathsDat &lt;- tbl_df(
+  read.table(file.path(DATA_DIR, &quot;cancerDeathsUS.txt&quot;), header = T)))
+</code></pre>
+
+<pre><code>## Source: local data frame [299 x 5]
+## 
+##    Leading.Cancer.Sites Leading.Cancer.Sites.Code Year Year.Code Deaths
+## 1    All Sites Combined                        00 1999      1999 549829
+## 2    All Sites Combined                        00 2000      2000 553080
+## 3    All Sites Combined                        00 2001      2001 553760
+## 4    All Sites Combined                        00 2002      2002 557264
+## 5    All Sites Combined                        00 2003      2003 556890
+## 6    All Sites Combined                        00 2004      2004 553880
+## 7    All Sites Combined                        00 2005      2005 559303
+## 8    All Sites Combined                        00 2006      2006 559880
+## 9    All Sites Combined                        00 2007      2007 562867
+## 10   All Sites Combined                        00 2008      2008 565460
+## ..                  ...                       ...  ...       ...    ...
+</code></pre>
+
+<pre><code class="r">(levels(deathsDat$Leading.Cancer.Sites))
+</code></pre>
+
+<pre><code>##  [1] &quot;All Sites Combined&quot;             &quot;Brain and Other Nervous System&quot;
+##  [3] &quot;Breast&quot;                         &quot;Cervix Uteri&quot;                  
+##  [5] &quot;Colon and Rectum&quot;               &quot;Corpus Uteri&quot;                  
+##  [7] &quot;Esophagus&quot;                      &quot;Gallbladder&quot;                   
+##  [9] &quot;Kidney and Renal Pelvis&quot;        &quot;Larynx&quot;                        
+## [11] &quot;Leukemias&quot;                      &quot;Liver&quot;                         
+## [13] &quot;Lung and Bronchus&quot;              &quot;Melanoma of the Skin&quot;          
+## [15] &quot;Myeloma&quot;                        &quot;Non-Hodgkin Lymphoma&quot;          
+## [17] &quot;Oral Cavity and Pharynx&quot;        &quot;Ovary&quot;                         
+## [19] &quot;Pancreas&quot;                       &quot;Prostate&quot;                      
+## [21] &quot;Stomach&quot;                        &quot;Thyroid&quot;                       
+## [23] &quot;Urinary Bladder&quot;
+</code></pre>
+
+<pre><code class="r">(unique(deathsDat$Year))
+</code></pre>
+
+<pre><code>##  [1] 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011
+</code></pre>
+
+<p>We can see the dataset has 299 observations and 5
+variables.  There are 23 different
+cancer sites for the years 1999 to 2011.</p>
+
+<p>I want to do a little bit of cleaning:  </p>
+
+<ul>
+<li>change the column names to begin with a lower-case letter (personal preference)
+(I&#39;m using a function that I wrote, look at the source of the script to see it)<br/></li>
+<li>drop the two columns that represent &ldquo;codes&rdquo;, they aren&#39;t needed</li>
+<li>rename the column that has periods in its name (personal preference)</li>
+<li>remove the &ldquo;All Sites Combined&rdquo; level</li>
+</ul>
+
+<pre><code class="r">dDatClean &lt;- deathsDat
+colnames(dDatClean) &lt;- tolowerfirst(colnames(dDatClean))
+dDatClean &lt;- dDatClean %&gt;%
+  dplyr::select(leading.Cancer.Sites, year, deaths) %&gt;%
+  rename(cancerLocation = leading.Cancer.Sites)
+dDatClean &lt;- dDatClean %&gt;%
+  filter(cancerLocation != &quot;All Sites Combined&quot;) %&gt;%
+  droplevels
+print(dDatClean)
+</code></pre>
+
+<pre><code>## Source: local data frame [286 x 3]
+## 
+##                    cancerLocation year deaths
+## 1  Brain and Other Nervous System 1999  12765
+## 2  Brain and Other Nervous System 2000  12655
+## 3  Brain and Other Nervous System 2001  12609
+## 4  Brain and Other Nervous System 2002  12830
+## 5  Brain and Other Nervous System 2003  12901
+## 6  Brain and Other Nervous System 2004  12829
+## 7  Brain and Other Nervous System 2005  13152
+## 8  Brain and Other Nervous System 2006  12886
+## 9  Brain and Other Nervous System 2007  13234
+## 10 Brain and Other Nervous System 2008  13724
+## ..                            ...  ...    ...
+</code></pre>
+
+<p>Looks good!</p>
+
+<h4>Dataset 2 - Number of cancer cases</h4>
+
+<p>Read in the dataset that contains the number of incidences per cancer type per year
+I will perform the same basic cleaning as on the previous dataset, since they
+both came from the same source and have the same structure</p>
+
+<pre><code class="r">casesDat &lt;- tbl_df(
+  read.table(file.path(DATA_DIR, &quot;cancerIncidenceUS.txt&quot;), header = T))
+cDatClean &lt;- casesDat
+colnames(cDatClean) &lt;- tolowerfirst(colnames(cDatClean))
+cDatClean &lt;- cDatClean %&gt;%
+  dplyr::select(leading.Cancer.Sites, year, count) %&gt;%
+  rename(cancerLocation = leading.Cancer.Sites,
+         cases = count)
+cDatClean &lt;- cDatClean %&gt;%
+  filter(cancerLocation != &quot;All Sites Combined&quot;) %&gt;%
+  droplevels
+print(cDatClean)
+</code></pre>
+
+<pre><code>## Source: local data frame [286 x 3]
+## 
+##                    cancerLocation year cases
+## 1  Brain and Other Nervous System 1999 17359
+## 2  Brain and Other Nervous System 2000 17979
+## 3  Brain and Other Nervous System 2001 17748
+## 4  Brain and Other Nervous System 2002 18495
+## 5  Brain and Other Nervous System 2003 19437
+## 6  Brain and Other Nervous System 2004 20427
+## 7  Brain and Other Nervous System 2005 20473
+## 8  Brain and Other Nervous System 2006 20701
+## 9  Brain and Other Nervous System 2007 21110
+## 10 Brain and Other Nervous System 2008 21456
+## ..                            ...  ...   ...
+</code></pre>
+
+<pre><code class="r">print(levels(cDatClean$cancerLocation))
+</code></pre>
+
+<pre><code>##  [1] &quot;Brain and Other Nervous System&quot;       
+##  [2] &quot;Breast&quot;                               
+##  [3] &quot;Cervix Uteri&quot;                         
+##  [4] &quot;Colon and Rectum&quot;                     
+##  [5] &quot;Corpus Uteri&quot;                         
+##  [6] &quot;Esophagus&quot;                            
+##  [7] &quot;Gallbladder&quot;                          
+##  [8] &quot;Kidney and Renal Pelvis&quot;              
+##  [9] &quot;Larynx&quot;                               
+## [10] &quot;Leukemias&quot;                            
+## [11] &quot;Liver&quot;                                
+## [12] &quot;Lung and Bronchus&quot;                    
+## [13] &quot;Melanoma of the Skin&quot;                 
+## [14] &quot;Myeloma&quot;                              
+## [15] &quot;Non-Hodgkin Lymphoma&quot;                 
+## [16] &quot;Oral Cavity and Pharynx&quot;              
+## [17] &quot;Ovary&quot;                                
+## [18] &quot;Pancreas&quot;                             
+## [19] &quot;Prostate&quot;                             
+## [20] &quot;Stomach&quot;                              
+## [21] &quot;Thyroid&quot;                              
+## [22] &quot;Urinary Bladder, invasive and in situ&quot;
+</code></pre>
+
+<p>Looks good! This dataset has the exact same dimensions as the deaths dataset,
+which is what we expected. </p>
+
+<h3>Get the two datasets ready to be merged</h3>
+
+<p>Next I&#39;d like to take these two datasets and merge them together.  Specifically,
+for every combination of cancer location + year, I want to merge the two datasets
+so that I will have the number of cases and deaths in the same dataframe.
+In order for this to work, we need to make sure that the two sources have exactly
+the same levels for the cancer location and year variables. But there is a small
+problem with the current data that you might have noticed - one of the cancer
+locations is represented with a different name in the two datasets.<br/>
+To demonstrate this, here is the set difference between the union of the cancer
+locations in both datasets and the intersection of them (ie. this shows
+which cancer locations are not shared by the two)</p>
+
+<pre><code class="r">setdiff(
+  union(levels(dDatClean$cancerLocation),
+        levels(cDatClean$cancerLocation)),
+  intersect(levels(dDatClean$cancerLocation),
+            levels(cDatClean$cancerLocation)))
+</code></pre>
+
+<pre><code>## [1] &quot;Urinary Bladder&quot;                      
+## [2] &quot;Urinary Bladder, invasive and in situ&quot;
+</code></pre>
+
+<p>There is an easy fix: just change the name of that level in one of the datasets
+to match the other</p>
+
+<pre><code class="r">identical(levels(cDatClean$cancerLocation), levels(dDatClean$cancerLocation))
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">cDatClean$cancerLocation &lt;-
+  cDatClean$cancerLocation %&gt;%
+  revalue(c(&quot;Urinary Bladder, invasive and in situ&quot; = &quot;Urinary Bladder&quot;))
+identical(levels(cDatClean$cancerLocation), levels(dDatClean$cancerLocation))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>Now we have proof that the levels are identical</p>
+
+<h3>Do the Join (aka merge)</h3>
+
+<p>Now the two datasets are ready to be merged together. There are many R ways
+to do this, but I will use the <code>dplyr::left_join</code> approach.</p>
+
+<pre><code class="r">cancerData &lt;- left_join(dDatClean, cDatClean, by = c(&quot;cancerLocation&quot;, &quot;year&quot;))
+print(cancerData)
+</code></pre>
+
+<pre><code>## Source: local data frame [286 x 4]
+## 
+##                    cancerLocation year deaths cases
+## 1  Brain and Other Nervous System 1999  12765 17359
+## 2  Brain and Other Nervous System 2000  12655 17979
+## 3  Brain and Other Nervous System 2001  12609 17748
+## 4  Brain and Other Nervous System 2002  12830 18495
+## 5  Brain and Other Nervous System 2003  12901 19437
+## 6  Brain and Other Nervous System 2004  12829 20427
+## 7  Brain and Other Nervous System 2005  13152 20473
+## 8  Brain and Other Nervous System 2006  12886 20701
+## 9  Brain and Other Nervous System 2007  13234 21110
+## 10 Brain and Other Nervous System 2008  13724 21456
+## ..                            ...  ...    ...   ...
+</code></pre>
+
+<p>Success! That was easy.</p>
+
+<h3>Tidying the data</h3>
+
+<p>Now that we have a dataset with the number of cases and deaths of every major
+cancer in the US per year, we need to get the data into a tidy form so that it
+will be easier to do compuations/visualization on it.  Right now the data is in
+a fat/wide format, and we want to get it to a long/tall format.  Another thing
+I want to do is to sort the observations by year instead of by cancer type.</p>
+
+<pre><code class="r">cancerData &lt;- cancerData %&gt;%
+  gather(stat, freq, deaths, cases) %&gt;%
+  arrange(year, cancerLocation)
+print(cancerData)
+</code></pre>
+
+<pre><code>## Source: local data frame [572 x 4]
+## 
+##                    cancerLocation year   stat   freq
+## 1  Brain and Other Nervous System 1999 deaths  12765
+## 2  Brain and Other Nervous System 1999  cases  17359
+## 3                          Breast 1999 deaths  41528
+## 4                          Breast 1999  cases 185254
+## 5                    Cervix Uteri 1999 deaths   4204
+## 6                    Cervix Uteri 1999  cases  12782
+## 7                Colon and Rectum 1999 deaths  57222
+## 8                Colon and Rectum 1999  cases 140888
+## 9                    Corpus Uteri 1999 deaths   3121
+## 10                   Corpus Uteri 1999  cases  31982
+## ..                            ...  ...    ...    ...
+</code></pre>
+
+<p>Hooray for <code>tidyr</code>! Also, doesn&#39;t this row ordering make you happier?
+(Perhaps for you it doesn&#39;t&hellip;.?)</p>
+
+<h3>Plot the data and save figure to file</h3>
+
+<p>I&#39;d like to plot the number of cases/deaths for every cancer type in each year
+as a line graph, with each cancer type being a line.</p>
+
+<h4>Re-order cancer type levels</h4>
+
+<p>In order to get the legend in the plot to nicely match up with the order
+of the data in the plot, we need to rearrange the order of the cancer type
+factor (currently it&#39;s alphabetical). To do this, I first construct a vector
+holding the order of the cancer types by which one had the most cases in the
+most recent timepoint, and then I recreate the factor using this ordering. </p>
+
+<pre><code class="r">cancerLocationsOrder &lt;- cancerData %&gt;%
+  filter(stat == &quot;cases&quot;,
+         year == max(year)) %&gt;%
+  arrange(desc(freq)) %&gt;%
+  first %&gt;%
+  as.character
+cancerData$cancerLocation &lt;-
+  factor(cancerData$cancerLocation, levels = cancerLocationsOrder)
+</code></pre>
+
+<p>For brevity, I am not printing out the new order, but the plot will give
+us confirmation that it worked</p>
+
+<h3>Plot (providing 22 custom colours)</h3>
+
+<p>I couldn&#39;t find a pre-defined colour palette that I was satisfied with that
+had so many colours, so I created one. Usually when dealing with less levels,
+it&#39;s better to use an existing palette, such as from <code>RColorBrewer</code>.<br/>
+After plotting, I also save the plot as a PDF</p>
+
+<pre><code class="r">c22 &lt;- c(&quot;dodgerblue2&quot;,&quot;#E31A1C&quot;, # red
+         &quot;green4&quot;,
+         &quot;#6A3D9A&quot;, # purple
+         &quot;#FF7F00&quot;, # orange
+         &quot;black&quot;,&quot;gold1&quot;,
+         &quot;skyblue2&quot;,&quot;#FB9A99&quot;, # lt pink
+         &quot;palegreen2&quot;,
+         &quot;#CAB2D6&quot;, # lt purple
+         &quot;#FDBF6F&quot;, # lt orange
+         &quot;gray70&quot;, &quot;khaki2&quot;, &quot;maroon&quot;, &quot;orchid1&quot;, &quot;deeppink1&quot;, &quot;blue1&quot;,
+         &quot;darkturquoise&quot;, &quot;green1&quot;, &quot;yellow4&quot;, &quot;brown&quot;)
+p &lt;-
+  ggplot(cancerData, aes(x = year, y = freq)) +
+  geom_point(aes(col = cancerLocation, group = cancerLocation), size = 2) +
+  geom_line(aes(col = cancerLocation, group = cancerLocation), size = 0.7) +
+  facet_wrap(~ stat) +
+  theme_bw(15) +
+  scale_colour_manual(values = c22)
+print(p)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" title="plot of chunk plot-basic-data" alt="plot of chunk plot-basic-data" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">ggsave(file.path(HW_DIR, &quot;cancerTypesStats.pdf&quot;), p)
+</code></pre>
+
+<pre><code>## Saving 11 x 7 in image
+</code></pre>
+
+<p>This is perhaps not the bestest way to show this data, but it suffices
+as a basic way to see the data.  It&#39;s interesting how lung and bronchus cancers
+have so many more deaths than any other cancer, even though there are two other
+cancers with similar incidences. I will not make any more comments about the
+plot since the purpose of this assignment is more about data manipulation than plotting</p>
+
+<h3>Practice with ddply, lapply, dlply, batch reading of files</h3>
+
+<p>Just as a fun exercise, now I will take the cancer data, split it up by
+cancer location, and write the output of every cancer type to a separate file.
+Then I will read all the files and concatenate them together to recreate the
+original data.
+First use <code>ddply</code> to write a file for every cancer type</p>
+
+<pre><code class="r">invisible( # invisible = I don&#39;t want to see the output from ddply
+  ddply(cancerData, ~cancerLocation,
+        function(x) {
+          fileName &lt;- file.path(
+            HW_DIR,
+            paste0(&quot;cDatTest-&quot;, gsub(&quot; &quot;, &quot;_&quot;, x$cancerLocation[1]), &quot;.csv&quot;))
+          write.table(dplyr::select(x, -cancerLocation),
+                      fileName,
+                      quote = F, sep = &quot;,&quot;, row.names = F)
+        }
+  )
+)
+</code></pre>
+
+<p>Now let&#39;s see that these files were actually created</p>
+
+<pre><code class="r">cancerFiles &lt;- list.files(HW_DIR, pattern = &quot;^cDatTest-.*csv$&quot;, full.names = T)
+print(basename(cancerFiles))
+</code></pre>
+
+<pre><code>##  [1] &quot;cDatTest-Brain_and_Other_Nervous_System.csv&quot;
+##  [2] &quot;cDatTest-Breast.csv&quot;                        
+##  [3] &quot;cDatTest-Cervix_Uteri.csv&quot;                  
+##  [4] &quot;cDatTest-Colon_and_Rectum.csv&quot;              
+##  [5] &quot;cDatTest-Corpus_Uteri.csv&quot;                  
+##  [6] &quot;cDatTest-Esophagus.csv&quot;                     
+##  [7] &quot;cDatTest-Gallbladder.csv&quot;                   
+##  [8] &quot;cDatTest-Kidney_and_Renal_Pelvis.csv&quot;       
+##  [9] &quot;cDatTest-Larynx.csv&quot;                        
+## [10] &quot;cDatTest-Leukemias.csv&quot;                     
+## [11] &quot;cDatTest-Liver.csv&quot;                         
+## [12] &quot;cDatTest-Lung_and_Bronchus.csv&quot;             
+## [13] &quot;cDatTest-Melanoma_of_the_Skin.csv&quot;          
+## [14] &quot;cDatTest-Myeloma.csv&quot;                       
+## [15] &quot;cDatTest-Non-Hodgkin_Lymphoma.csv&quot;          
+## [16] &quot;cDatTest-Oral_Cavity_and_Pharynx.csv&quot;       
+## [17] &quot;cDatTest-Ovary.csv&quot;                         
+## [18] &quot;cDatTest-Pancreas.csv&quot;                      
+## [19] &quot;cDatTest-Prostate.csv&quot;                      
+## [20] &quot;cDatTest-Stomach.csv&quot;                       
+## [21] &quot;cDatTest-Thyroid.csv&quot;                       
+## [22] &quot;cDatTest-Urinary_Bladder.csv&quot;
+</code></pre>
+
+<p>Next we use <code>ldply</code> to read all the files and form a dataframe by concatenating
+the information in each file.</p>
+
+<pre><code class="r">cancerFilesData &lt;- ldply(cancerFiles, function(x) {
+  tmpData &lt;- read.table(file.path(x), header = T, sep = &quot;,&quot;, row.names = NULL)
+  cancerLoc &lt;- gsub(&quot;.*cDatTest-(.*).csv$&quot;, &quot;\\1&quot;, x)
+  cancerLoc &lt;- gsub(&quot;_&quot;, &quot; &quot;, cancerLoc)
+  tmpData &lt;- tmpData %&gt;% mutate(cancerLocation = cancerLoc)
+})
+cancerFilesData$cancerLocation &lt;- as.factor(cancerFilesData$cancerLocation)
+</code></pre>
+
+<p>Note that we could have also used <code>lapply</code> instead of <code>ldply</code>, but the resulting
+object would be a list holding all the dataframes, and we would have to call
+<code>dplyr::rbind_all</code> on it in order to make a dataframe from it.  Using <code>ldply</code>
+is a nice convenient way to do it easier - it takes a list (of files), creates
+a dataframe from every item (the dataframe for a specific cancer type), and
+combines them all together into a dataframe. That&#39;s the plyr way!<br/>
+Let&#39;s just make sure our new dataset that we read matches the old one</p>
+
+<pre><code class="r">all.equal(cancerData, cancerFilesData)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>Awesome. Now to get rid of this huge mess, let&#39;s delete all these files</p>
+
+<pre><code class="r">file.remove(cancerFiles)
+</code></pre>
+
+<pre><code>##  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+</code></pre>
+
+<h3>Data manipulation and reshaping</h3>
+
+<p>Suppose I don&#39;t care about the specific cancer types, but I just want to know
+how many US citizens had or died from cancer each year.  I will show two
+equivalent ways to approach this: using <code>plyr::ddply</code> and <code>dplyr::group_by</code>.
+I personally perfer the <code>ddply</code> way, but I&#39;m not sure if it&#39;s because it&#39;s
+objectively more elegant or if it&#39;s because I&#39;m more used to it.</p>
+
+<pre><code class="r">cancersByYearPlyr &lt;- ddply(cancerData,
+                       .(year, stat),
+                       summarize,
+                       freq = sum(freq))
+cancersByYearDplyr &lt;- cancerData %&gt;%
+  group_by(year, stat) %&gt;%
+  summarize(freq = sum(freq)) %&gt;%
+  ungroup
+</code></pre>
+
+<p>Let&#39;s make sure that both methods resulted in the same dataframe</p>
+
+<pre><code class="r">identical(data.frame(cancersByYearPlyr), data.frame(cancersByYearDplyr))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>We should also see what they actually look like to ensure it&#39;s what we wanted</p>
+
+<pre><code class="r">print(head(cancersByYearDplyr))
+</code></pre>
+
+<pre><code>## Source: local data frame [6 x 3]
+## 
+##   year   stat    freq
+## 1 1999 deaths  479018
+## 2 1999  cases 1116438
+## 3 2000 deaths  485245
+## 4 2000  cases 1163306
+## 5 2001 deaths  485963
+## 6 2001  cases 1173494
+</code></pre>
+
+<p>Yup, looks good. 
+Now I want to calculate the mortality rate from cancer in each year. I can&#39;t
+figure out a nice way to do it within tidy data, so my solution is to reshape
+the data to be wide in order to perform the calculation.  I also add a
+<em>mortalityRateDrop</em> variable that shows how much mortality rate changed from
+the previous year, which isn&#39;t terribly useful but I just wanted to use the
+<code>dplyr::lag</code> function.</p>
+
+<pre><code class="r">cancersByYear &lt;- cancersByYearPlyr
+cancersByYear &lt;- tbl_df(cancersByYear) %&gt;%
+  spread(stat, freq) %&gt;%
+  mutate(mortalityRate = deaths/cases,
+         mortalityRateDrop = lag(mortalityRate) - mortalityRate)
+print(cancersByYear)
+</code></pre>
+
+<pre><code>## Source: local data frame [13 x 5]
+## 
+##    year deaths   cases mortalityRate mortalityRateDrop
+## 1  1999 479018 1116438     0.4290592                NA
+## 2  2000 485245 1163306     0.4171258      0.0119333579
+## 3  2001 485963 1173494     0.4141163      0.0030095408
+## 4  2002 488864 1198921     0.4077533      0.0063630008
+## 5  2003 488507 1248859     0.3911627      0.0165906516
+## 6  2004 486177 1290606     0.3767044      0.0144582214
+## 7  2005 490538 1313481     0.3734641      0.0032403315
+## 8  2006 490534 1346799     0.3642221      0.0092419707
+## 9  2007 493117 1384417     0.3561911      0.0080310398
+## 10 2008 495310 1397595     0.3544017      0.0017894212
+## 11 2009 496099 1407871     0.3523753      0.0020263444
+## 12 2010 501960 1389071     0.3613638     -0.0089884938
+## 13 2011 503039 1389143     0.3621218     -0.0007580082
+</code></pre>
+
+<h3>Add another source of data</h3>
+
+<p>One other thing I wanted to do is see how much of the population is affected
+relative to the population size. I will read the file containing country populations
+at different years, and extract from it only the US data for the relevant years,
+and tidy it up a bit.  This example shows some more ways to be fancy with
+<code>tidyr::gather</code>, <code>dplyr::mutate</code> and <code>dplyr::filter</code></p>
+
+<pre><code class="r">popData &lt;- tbl_df(read.csv(file.path(DATA_DIR, &quot;worldPopByYear.csv&quot;)))
+print(popData)
+</code></pre>
+
+<pre><code>## Source: local data frame [258 x 58]
+## 
+##            Country.Name Country.Code    Indicator.Name Indicator.Code
+## 1                 Aruba          ABW Population, total    SP.POP.TOTL
+## 2               Andorra          AND Population, total    SP.POP.TOTL
+## 3           Afghanistan          AFG Population, total    SP.POP.TOTL
+## 4                Angola          AGO Population, total    SP.POP.TOTL
+## 5               Albania          ALB Population, total    SP.POP.TOTL
+## 6         Andean Region          ANR Population, total    SP.POP.TOTL
+## 7            Arab World          ARB Population, total    SP.POP.TOTL
+## 8  United Arab Emirates          ARE Population, total    SP.POP.TOTL
+## 9             Argentina          ARG Population, total    SP.POP.TOTL
+## 10              Armenia          ARM Population, total    SP.POP.TOTL
+## ..                  ...          ...               ...            ...
+## Variables not shown: X1960 (dbl), X1961 (dbl), X1962 (dbl), X1963 (dbl),
+##   X1964 (dbl), X1965 (dbl), X1966 (dbl), X1967 (dbl), X1968 (dbl), X1969
+##   (dbl), X1970 (dbl), X1971 (dbl), X1972 (dbl), X1973 (dbl), X1974 (dbl),
+##   X1975 (dbl), X1976 (dbl), X1977 (dbl), X1978 (dbl), X1979 (dbl), X1980
+##   (dbl), X1981 (dbl), X1982 (dbl), X1983 (dbl), X1984 (dbl), X1985 (dbl),
+##   X1986 (dbl), X1987 (dbl), X1988 (dbl), X1989 (dbl), X1990 (dbl), X1991
+##   (dbl), X1992 (dbl), X1993 (dbl), X1994 (dbl), X1995 (dbl), X1996 (dbl),
+##   X1997 (dbl), X1998 (dbl), X1999 (dbl), X2000 (dbl), X2001 (dbl), X2002
+##   (dbl), X2003 (dbl), X2004 (dbl), X2005 (dbl), X2006 (dbl), X2007 (dbl),
+##   X2008 (dbl), X2009 (dbl), X2010 (dbl), X2011 (dbl), X2012 (dbl), X2013
+##   (dbl)
+</code></pre>
+
+<pre><code class="r">yearMin &lt;- min(cancerData$year)
+yearMax &lt;- max(cancerData$year)
+popDataClean &lt;- popData %&gt;%
+  filter(Country.Code == &quot;USA&quot;) %&gt;%
+  gather(year, population, starts_with(&quot;X&quot;)) %&gt;%
+  dplyr::select(year, population) %&gt;%
+  mutate(year = extract_numeric(year)) %&gt;%
+  filter(year %in% yearMin:yearMax)
+print(popDataClean)
+</code></pre>
+
+<pre><code>## Source: local data frame [13 x 2]
+## 
+##    year population
+## 1  1999  279040000
+## 2  2000  282162411
+## 3  2001  284968955
+## 4  2002  287625193
+## 5  2003  290107933
+## 6  2004  292805298
+## 7  2005  295516599
+## 8  2006  298379912
+## 9  2007  301231207
+## 10 2008  304093966
+## 11 2009  306771529
+## 12 2010  309326295
+## 13 2011  311582564
+</code></pre>
+
+<h3>Calculate deaths per million</h3>
+
+<p>Next we add the population of the US to every row, and now we can calculate
+cancer deaths per million people. I&#39;ll remove the <em>population</em> variable
+after using it because it won&#39;t be needed any more</p>
+
+<pre><code class="r">cancersByYear &lt;- cancersByYear %&gt;%
+  left_join(popDataClean, by = &quot;year&quot;) %&gt;%
+  mutate(deathsPerM = deaths / (population/1000000)) %&gt;%
+  dplyr::select(-population)
+print(cancersByYear)
+</code></pre>
+
+<pre><code>## Source: local data frame [13 x 6]
+## 
+##    year deaths   cases mortalityRate mortalityRateDrop deathsPerM
+## 1  1999 479018 1116438     0.4290592                NA   1716.664
+## 2  2000 485245 1163306     0.4171258      0.0119333579   1719.737
+## 3  2001 485963 1173494     0.4141163      0.0030095408   1705.319
+## 4  2002 488864 1198921     0.4077533      0.0063630008   1699.656
+## 5  2003 488507 1248859     0.3911627      0.0165906516   1683.880
+## 6  2004 486177 1290606     0.3767044      0.0144582214   1660.411
+## 7  2005 490538 1313481     0.3734641      0.0032403315   1659.934
+## 8  2006 490534 1346799     0.3642221      0.0092419707   1643.991
+## 9  2007 493117 1384417     0.3561911      0.0080310398   1637.005
+## 10 2008 495310 1397595     0.3544017      0.0017894212   1628.806
+## 11 2009 496099 1407871     0.3523753      0.0020263444   1617.161
+## 12 2010 501960 1389071     0.3613638     -0.0089884938   1622.752
+## 13 2011 503039 1389143     0.3621218     -0.0007580082   1614.465
+</code></pre>
+
+<p>Very nice (well, we&#39;re looking at numbers of deaths&hellip; so I guess &ldquo;nice&rdquo;
+isn&#39;t the right word to describe what we&#39;re seeing. But data-wise, very nice!)<br/>
+Now if we want to plot this information, it will be much easier to do so if we
+get it back into a tidy tall/long format. So let&#39;s do that.</p>
+
+<pre><code class="r">cancersByYear &lt;- cancersByYear %&gt;%
+  gather(stat, value, -year) %&gt;%
+  arrange(year)
+print(head(cancersByYear))
+</code></pre>
+
+<pre><code>## Source: local data frame [6 x 3]
+## 
+##   year              stat        value
+## 1 1999            deaths 4.790180e+05
+## 2 1999             cases 1.116438e+06
+## 3 1999     mortalityRate 4.290592e-01
+## 4 1999 mortalityRateDrop           NA
+## 5 1999        deathsPerM 1.716664e+03
+## 6 2000            deaths 4.852450e+05
+</code></pre>
+
+<p>Alright, we&#39;re ready to plot. In this tidy format, it&#39;s very trivial to plot
+all the pieces of information for a given year. I will be omitting the 
+mortalityRateDrop variable since it&#39;s not that informative and plotting
+4 variables looks much better than 5 (a 2x2 square vs &hellip; awkwardness) </p>
+
+<pre><code class="r">p &lt;-
+  ggplot(cancersByYear %&gt;% filter(stat != &quot;mortalityRateDrop&quot;)) +
+  geom_point(aes(x = as.factor(year), y = value), size = 3) + 
+  geom_line(aes(x = as.factor(year), y = value, group = 1)) + 
+  facet_wrap(~ stat, scales = &quot;free_y&quot;) +
+  theme_bw(20) +
+  theme(axis.text.x = element_text(angle = 270, vjust = 0.5)) +
+  xlab(&quot;year&quot;)
+print(p)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" title="plot of chunk plot-big-data" alt="plot of chunk plot-big-data" style="display: block; margin: auto;" /></p>
+
+<pre><code class="r">ggsave(file.path(HW_DIR, &quot;cancerCombinedStats.pdf&quot;), p)
+</code></pre>
+
+<pre><code>## Saving 11 x 7 in image
+</code></pre>
+
+<p>So pretty! And we&#39;re done!</p>
+
+</body>
+
+</html>

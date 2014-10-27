@@ -1,0 +1,432 @@
+
+```{r define-dirs, include = F}
+DATA_DIR <- file.path("data")
+HW_NAME <- "hw7_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin"
+HW_DIR <- file.path("hw", HW_NAME)
+
+```{r spin-code, eval = F, include = F}
+# Note for clarity:
+# Instead of manually creating both a .R and a .Rmd files that have almost
+# identical R code, this .R script is the only file I am writing manually.
+# I am using the `knitr::spin` function to turn this R script into Rmarkdown
+# and then converting it into markdown and HTML formats in the code. This code
+# is wrapped around an if(FALSE) so that it is not executed when the script is ran,
+# and it will only do this R -> markdown/HTML conversion when these lines are
+# ran explicitly. 
+if (FALSE) {
+  library(knitr)
+  library(markdown)
+  
+  spinMyR <- function() {
+    opts_knit$set(root.dir = getwd())
+    opts_knit$set(base.dir = HW_DIR)
+    opts_chunk$set(fig.path = "markdown-figs-")
+    opts_chunk$set(tidy = FALSE)
+    
+    spin(file.path(HW_DIR, paste0(HW_NAME, ".R")), knit = F)
+    knit(file.path(HW_DIR, paste0(HW_NAME, ".Rmd")),
+         file.path(HW_DIR, paste0(HW_NAME, ".md")))
+    markdownToHTML(file.path(HW_DIR, paste0(HW_NAME, ".md")),
+                   file.path(HW_DIR, paste0(HW_NAME, ".html")))
+  }
+  spinMyR()
+}
+```
+
+# Homework 7 - Data wrangling and manipulation
+Dean Attali  
+Oct 2014 
+
+Last updated: `r Sys.time()`
+
+## Overview
+In this assignment, I found a dataset with information about cancer incidences
+and used various libraries (`plyr`, `dplyr`, `tidyr`, `ggplot2`) to manipulate
+the data and perform some basic data exploration
+
+## Datasets
+I downloaded two datasets from [the United States CDC](http://wonder.cdc.gov/cancer.html)
+that describe cancer occurrences in the US between 1999 to 2011. One dataset
+holds the number of cancer cases per cancer type, while the other dataset
+holds the number of deaths per cancer type.  
+
+I also downloaded data from [The World Bank](http://data.worldbank.org/)
+that provides the population of every country in every year over the past several
+decades.  I only used the US data from it to know what the total US population
+was at every year that we have cancer data for.
+
+## Getting down to business
+Less talkin', more codin'!
+
+```{r load-libs, include = F}
+library(plyr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+```{r define-tolowerfirst, include = F}
+tolowerfirst <- function(x) {
+  return(paste0(tolower(substring(x, 1, 1)), substring(x, 2)))
+}
+```
+
+### Read and clean the datasets
+#### Dataset 1 - Number of cancer deaths
+
+```{r data-deaths-read}
+```
+
+Read in the dataset that contains the number of deaths per cancer type per year
+(I convert the dataframe to a tbl_df just for better visualization purposes)
+
+```{r }
+(deathsDat <- tbl_df(
+  read.table(file.path(DATA_DIR, "cancerDeathsUS.txt"), header = T)))
+(levels(deathsDat$Leading.Cancer.Sites))
+(unique(deathsDat$Year))
+```
+
+We can see the dataset has `r nrow(deathsDat)` observations and `r ncol(deathsDat)`
+variables.  There are `r length(levels(deathsDat$Leading.Cancer.Sites))` different
+cancer sites for the years `r min(deathsDat$Year)` to `r max(deathsDat$Year)`.
+
+```{r data-deaths-clean}
+```
+
+I want to do a little bit of cleaning:  
+- change the column names to begin with a lower-case letter (personal preference)
+(I'm using a function that I wrote, look at the source of the script to see it)  
+- drop the two columns that represent "codes", they aren't needed
+- rename the column that has periods in its name (personal preference)
+- remove the "All Sites Combined" level
+
+```{r }
+dDatClean <- deathsDat
+colnames(dDatClean) <- tolowerfirst(colnames(dDatClean))
+dDatClean <- dDatClean %>%
+  dplyr::select(leading.Cancer.Sites, year, deaths) %>%
+  rename(cancerLocation = leading.Cancer.Sites)
+dDatClean <- dDatClean %>%
+  filter(cancerLocation != "All Sites Combined") %>%
+  droplevels
+print(dDatClean)
+```
+
+Looks good!
+#### Dataset 2 - Number of cancer cases
+
+```{r data-cases-read}
+```
+
+Read in the dataset that contains the number of incidences per cancer type per year
+I will perform the same basic cleaning as on the previous dataset, since they
+both came from the same source and have the same structure
+
+```{r }
+casesDat <- tbl_df(
+  read.table(file.path(DATA_DIR, "cancerIncidenceUS.txt"), header = T))
+cDatClean <- casesDat
+colnames(cDatClean) <- tolowerfirst(colnames(cDatClean))
+cDatClean <- cDatClean %>%
+  dplyr::select(leading.Cancer.Sites, year, count) %>%
+  rename(cancerLocation = leading.Cancer.Sites,
+         cases = count)
+cDatClean <- cDatClean %>%
+  filter(cancerLocation != "All Sites Combined") %>%
+  droplevels
+print(cDatClean)
+print(levels(cDatClean$cancerLocation))
+```
+
+Looks good! This dataset has the exact same dimensions as the deaths dataset,
+which is what we expected. 
+### Get the two datasets ready to be merged
+Next I'd like to take these two datasets and merge them together.  Specifically,
+for every combination of cancer location + year, I want to merge the two datasets
+so that I will have the number of cases and deaths in the same dataframe.
+In order for this to work, we need to make sure that the two sources have exactly
+the same levels for the cancer location and year variables. But there is a small
+problem with the current data that you might have noticed - one of the cancer
+locations is represented with a different name in the two datasets.  
+To demonstrate this, here is the set difference between the union of the cancer
+locations in both datasets and the intersection of them (ie. this shows
+which cancer locations are not shared by the two)
+
+```{r show-diff-levels}
+setdiff(
+  union(levels(dDatClean$cancerLocation),
+        levels(cDatClean$cancerLocation)),
+  intersect(levels(dDatClean$cancerLocation),
+            levels(cDatClean$cancerLocation)))
+
+```{r fix-diff-levels}
+```
+
+There is an easy fix: just change the name of that level in one of the datasets
+to match the other
+
+```{r }
+identical(levels(cDatClean$cancerLocation), levels(dDatClean$cancerLocation))
+cDatClean$cancerLocation <-
+  cDatClean$cancerLocation %>%
+  revalue(c("Urinary Bladder, invasive and in situ" = "Urinary Bladder"))
+identical(levels(cDatClean$cancerLocation), levels(dDatClean$cancerLocation))
+```
+
+Now we have proof that the levels are identical
+### Do the Join (aka merge)
+Now the two datasets are ready to be merged together. There are many R ways
+to do this, but I will use the `dplyr::left_join` approach.
+
+```{r merge}
+cancerData <- left_join(dDatClean, cDatClean, by = c("cancerLocation", "year"))
+print(cancerData)
+```
+
+Success! That was easy.
+### Tidying the data
+Now that we have a dataset with the number of cases and deaths of every major
+cancer in the US per year, we need to get the data into a tidy form so that it
+will be easier to do compuations/visualization on it.  Right now the data is in
+a fat/wide format, and we want to get it to a long/tall format.  Another thing
+I want to do is to sort the observations by year instead of by cancer type.
+
+```{r tidy-cancer-data}
+cancerData <- cancerData %>%
+  gather(stat, freq, deaths, cases) %>%
+  arrange(year, cancerLocation)
+print(cancerData)
+```
+
+Hooray for `tidyr`! Also, doesn't this row ordering make you happier?
+(Perhaps for you it doesn't....?)
+### Plot the data and save figure to file
+I'd like to plot the number of cases/deaths for every cancer type in each year
+as a line graph, with each cancer type being a line.
+
+#### Re-order cancer type levels
+In order to get the legend in the plot to nicely match up with the order
+of the data in the plot, we need to rearrange the order of the cancer type
+factor (currently it's alphabetical). To do this, I first construct a vector
+holding the order of the cancer types by which one had the most cases in the
+most recent timepoint, and then I recreate the factor using this ordering. 
+
+```{r reorder-cancer-location}
+cancerLocationsOrder <- cancerData %>%
+  filter(stat == "cases",
+         year == max(year)) %>%
+  arrange(desc(freq)) %>%
+  first %>%
+  as.character
+cancerData$cancerLocation <-
+  factor(cancerData$cancerLocation, levels = cancerLocationsOrder)
+```
+
+For brevity, I am not printing out the new order, but the plot will give
+us confirmation that it worked
+### Plot (providing 22 custom colours)
+I couldn't find a pre-defined colour palette that I was satisfied with that
+had so many colours, so I created one. Usually when dealing with less levels,
+it's better to use an existing palette, such as from `RColorBrewer`.  
+After plotting, I also save the plot as a PDF
+
+```{r plot-basic-data, fig.width = 11, fig.align = "center"}
+c22 <- c("dodgerblue2","#E31A1C", # red
+         "green4",
+         "#6A3D9A", # purple
+         "#FF7F00", # orange
+         "black","gold1",
+         "skyblue2","#FB9A99", # lt pink
+         "palegreen2",
+         "#CAB2D6", # lt purple
+         "#FDBF6F", # lt orange
+         "gray70", "khaki2", "maroon", "orchid1", "deeppink1", "blue1",
+         "darkturquoise", "green1", "yellow4", "brown")
+p <-
+  ggplot(cancerData, aes(x = year, y = freq)) +
+  geom_point(aes(col = cancerLocation, group = cancerLocation), size = 2) +
+  geom_line(aes(col = cancerLocation, group = cancerLocation), size = 0.7) +
+  facet_wrap(~ stat) +
+  theme_bw(15) +
+  scale_colour_manual(values = c22)
+print(p)
+ggsave(file.path(HW_DIR, "cancerTypesStats.pdf"), p)
+```
+
+This is perhaps not the bestest way to show this data, but it suffices
+as a basic way to see the data.  It's interesting how lung and bronchus cancers
+have so many more deaths than any other cancer, even though there are two other
+cancers with similar incidences. I will not make any more comments about the
+plot since the purpose of this assignment is more about data manipulation than plotting
+### Practice with ddply, lapply, dlply, batch reading of files
+Just as a fun exercise, now I will take the cancer data, split it up by
+cancer location, and write the output of every cancer type to a separate file.
+Then I will read all the files and concatenate them together to recreate the
+original data.
+First use `ddply` to write a file for every cancer type
+
+```{r ddply-write-files}
+invisible( # invisible = I don't want to see the output from ddply
+  ddply(cancerData, ~cancerLocation,
+        function(x) {
+          fileName <- file.path(
+            HW_DIR,
+            paste0("cDatTest-", gsub(" ", "_", x$cancerLocation[1]), ".csv"))
+          write.table(dplyr::select(x, -cancerLocation),
+                      fileName,
+                      quote = F, sep = ",", row.names = F)
+        }
+  )
+)
+```
+
+Now let's see that these files were actually created
+
+```{r check-files}
+cancerFiles <- list.files(HW_DIR, pattern = "^cDatTest-.*csv$", full.names = T)
+print(basename(cancerFiles))
+```
+
+Next we use `ldply` to read all the files and form a dataframe by concatenating
+the information in each file.
+
+```{r batch-read-files}
+cancerFilesData <- ldply(cancerFiles, function(x) {
+  tmpData <- read.table(file.path(x), header = T, sep = ",", row.names = NULL)
+  cancerLoc <- gsub(".*cDatTest-(.*).csv$", "\\1", x)
+  cancerLoc <- gsub("_", " ", cancerLoc)
+  tmpData <- tmpData %>% mutate(cancerLocation = cancerLoc)
+})
+cancerFilesData$cancerLocation <- as.factor(cancerFilesData$cancerLocation)
+```
+
+Note that we could have also used `lapply` instead of `ldply`, but the resulting
+object would be a list holding all the dataframes, and we would have to call
+`dplyr::rbind_all` on it in order to make a dataframe from it.  Using `ldply`
+is a nice convenient way to do it easier - it takes a list (of files), creates
+a dataframe from every item (the dataframe for a specific cancer type), and
+combines them all together into a dataframe. That's the plyr way!  
+Let's just make sure our new dataset that we read matches the old one
+
+```{r cancer-files-equal-test}
+all.equal(cancerData, cancerFilesData)
+```
+
+Awesome. Now to get rid of this huge mess, let's delete all these files
+
+```{r remove-cancer-files}
+file.remove(cancerFiles)
+```
+
+### Data manipulation and reshaping
+Suppose I don't care about the specific cancer types, but I just want to know
+how many US citizens had or died from cancer each year.  I will show two
+equivalent ways to approach this: using `plyr::ddply` and `dplyr::group_by`.
+I personally perfer the `ddply` way, but I'm not sure if it's because it's
+objectively more elegant or if it's because I'm more used to it.
+
+```{r cancer-group-by-year}
+cancersByYearPlyr <- ddply(cancerData,
+                       .(year, stat),
+                       summarize,
+                       freq = sum(freq))
+cancersByYearDplyr <- cancerData %>%
+  group_by(year, stat) %>%
+  summarize(freq = sum(freq)) %>%
+  ungroup
+```
+
+Let's make sure that both methods resulted in the same dataframe
+
+```{r check-group-by-equality}
+identical(data.frame(cancersByYearPlyr), data.frame(cancersByYearDplyr))
+```
+
+We should also see what they actually look like to ensure it's what we wanted
+
+```{r print-grouped-data}
+print(head(cancersByYearDplyr))
+```
+
+Yup, looks good. 
+Now I want to calculate the mortality rate from cancer in each year. I can't
+figure out a nice way to do it within tidy data, so my solution is to reshape
+the data to be wide in order to perform the calculation.  I also add a
+_mortalityRateDrop_ variable that shows how much mortality rate changed from
+the previous year, which isn't terribly useful but I just wanted to use the
+`dplyr::lag` function.
+
+```{r add-mortalityRate}
+cancersByYear <- cancersByYearPlyr
+cancersByYear <- tbl_df(cancersByYear) %>%
+  spread(stat, freq) %>%
+  mutate(mortalityRate = deaths/cases,
+         mortalityRateDrop = lag(mortalityRate) - mortalityRate)
+print(cancersByYear)
+```
+
+### Add another source of data
+One other thing I wanted to do is see how much of the population is affected
+relative to the population size. I will read the file containing country populations
+at different years, and extract from it only the US data for the relevant years,
+and tidy it up a bit.  This example shows some more ways to be fancy with
+`tidyr::gather`, `dplyr::mutate` and `dplyr::filter`
+
+```{r read-pop-data}
+popData <- tbl_df(read.csv(file.path(DATA_DIR, "worldPopByYear.csv")))
+print(popData)
+yearMin <- min(cancerData$year)
+yearMax <- max(cancerData$year)
+popDataClean <- popData %>%
+  filter(Country.Code == "USA") %>%
+  gather(year, population, starts_with("X")) %>%
+  dplyr::select(year, population) %>%
+  mutate(year = extract_numeric(year)) %>%
+  filter(year %in% yearMin:yearMax)
+print(popDataClean)
+```
+
+### Calculate deaths per million
+Next we add the population of the US to every row, and now we can calculate
+cancer deaths per million people. I'll remove the _population_ variable
+after using it because it won't be needed any more
+
+```{r calc-deathsPerM}
+cancersByYear <- cancersByYear %>%
+  left_join(popDataClean, by = "year") %>%
+  mutate(deathsPerM = deaths / (population/1000000)) %>%
+  dplyr::select(-population)
+print(cancersByYear)
+```
+
+Very nice (well, we're looking at numbers of deaths... so I guess "nice"
+isn't the right word to describe what we're seeing. But data-wise, very nice!)  
+Now if we want to plot this information, it will be much easier to do so if we
+get it back into a tidy tall/long format. So let's do that.
+
+```{r tidy-big-data}
+cancersByYear <- cancersByYear %>%
+  gather(stat, value, -year) %>%
+  arrange(year)
+print(head(cancersByYear))
+```
+
+Alright, we're ready to plot. In this tidy format, it's very trivial to plot
+all the pieces of information for a given year. I will be omitting the 
+mortalityRateDrop variable since it's not that informative and plotting
+4 variables looks much better than 5 (a 2x2 square vs ... awkwardness) 
+
+```{r plot-big-data, fig.width = 11, fig.align = "center"}
+p <-
+  ggplot(cancersByYear %>% filter(stat != "mortalityRateDrop")) +
+  geom_point(aes(x = as.factor(year), y = value), size = 3) + 
+  geom_line(aes(x = as.factor(year), y = value, group = 1)) + 
+  facet_wrap(~ stat, scales = "free_y") +
+  theme_bw(20) +
+  theme(axis.text.x = element_text(angle = 270, vjust = 0.5)) +
+  xlab("year")
+print(p)
+ggsave(file.path(HW_DIR, "cancerCombinedStats.pdf"), p)
+```
+
+So pretty! And we're done!
