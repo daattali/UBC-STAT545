@@ -15,4 +15,4 @@ This repository can serve as a sampler with many references showing how to perfo
 - [Tutorial on colours](./reference/colours.md) and [colour names](./reference/colors_black_bg.pdf)   
 - [Examples of ggplot2](./reference/ggplot2.md)
 - [R lines types](./reference/r_line_types.png) and [R symbols](./reference/r_symbols.png) 	
-- [Homework 7](./hw/hw7_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin/hw7_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin.md) - showing how to do general data manipulation using tidyr, plyr, dplyr, ggplot, spin
+- [Homework 7](./hw/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin.md) - showing how to do general data manipulation using tidyr, plyr, dplyr, ggplot, spin

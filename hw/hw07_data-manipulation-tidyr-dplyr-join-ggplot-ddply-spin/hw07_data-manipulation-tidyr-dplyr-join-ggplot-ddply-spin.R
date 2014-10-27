@@ -1,6 +1,6 @@
 #+ define-dirs, include = F
 DATA_DIR <- file.path("data")
-HW_NAME <- "hw7_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin"
+HW_NAME <- "hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin"
 HW_DIR <- file.path("hw", HW_NAME)
 
 #+ spin-code, eval = F, include = F
