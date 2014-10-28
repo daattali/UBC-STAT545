@@ -14,5 +14,6 @@ This repository can serve as a sampler with many references showing how to perfo
 - [Global terrorism project](./terrorism-project/report.md) - has many examples of reshaping, plotting, data cleaning, factor manipulation, using pretty tables, complex manipulation of data, using world maps, and more
 - [Tutorial on colours](./reference/colours.md) and [colour names](./reference/colors_black_bg.pdf)   
 - [Examples of ggplot2](./reference/ggplot2.md)
-- [R lines types](./reference/r_line_types.png) and [R symbols](./reference/r_symbols.png) 	
+- [R lines types](./reference/r_line_types.png) and [R symbols](./reference/r_symbols.png)
+- [dplyr join cheatsheet](./reference/dplyr_join_cheatsheet.md) made by Jenny Bryan 	
 - [Homework 7](./hw/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin.md) - showing how to do general data manipulation using tidyr, plyr, dplyr, ggplot, spin
