@@ -6,7 +6,7 @@
 Dean Attali  
 Nov 1 2014 
 
-Last updated: 2014-11-02 22:14:38
+Last updated: 2014-11-02 22:17:19
 
 ## Overview
 In this assignment I will clean up a dirty dataset to get it ready for analysis
@@ -16,7 +16,7 @@ using various string operations and regexes.
 
 ### Loading dirty Gapminder
 I will load the data with `strip.white` = TRUE and FALSE and compare the difference
-#### strip.white = TRUE
+#### strip.white = FALSE
 
 
 ```r
@@ -25,7 +25,7 @@ gDatRaw <- read.table(file.path(DATA_DIR, "gapminderDataFiveYear_dirty.txt"),
                       strip.white = FALSE)
 ```
 
-#### strip.white = FALSE
+#### strip.white = TRUE
 
 
 ```r

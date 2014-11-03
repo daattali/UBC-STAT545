@@ -49,11 +49,11 @@ library(tidyr)
 #' ### Loading dirty Gapminder
 #' I will load the data with `strip.white` = TRUE and FALSE and compare the difference
 
-#' #### strip.white = TRUE
+#' #### strip.white = FALSE
 gDatRaw <- read.table(file.path(DATA_DIR, "gapminderDataFiveYear_dirty.txt"),
                       header = TRUE, sep = "\t", row.names = NULL, as.is = TRUE,
                       strip.white = FALSE)
-#' #### strip.white = FALSE
+#' #### strip.white = TRUE
 gDatRawStrip <- read.table(file.path(DATA_DIR, "gapminderDataFiveYear_dirty.txt"),
                       header = TRUE, sep = "\t", row.names = NULL, as.is = TRUE,
                       strip.white = TRUE)

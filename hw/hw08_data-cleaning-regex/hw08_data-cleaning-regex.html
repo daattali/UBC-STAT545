@@ -206,7 +206,7 @@ hr {
 <p>Dean Attali<br/>
 Nov 1 2014 </p>
 
-<p>Last updated: 2014-11-02 22:14:38</p>
+<p>Last updated: 2014-11-02 22:17:19</p>
 
 <h2>Overview</h2>
 
@@ -217,14 +217,14 @@ using various string operations and regexes.  </p>
 
 <p>I will load the data with <code>strip.white</code> = TRUE and FALSE and compare the difference</p>
 
-<h4>strip.white = TRUE</h4>
+<h4>strip.white = FALSE</h4>
 
 <pre><code class="r">gDatRaw &lt;- read.table(file.path(DATA_DIR, &quot;gapminderDataFiveYear_dirty.txt&quot;),
                       header = TRUE, sep = &quot;\t&quot;, row.names = NULL, as.is = TRUE,
                       strip.white = FALSE)
 </code></pre>
 
-<h4>strip.white = FALSE</h4>
+<h4>strip.white = TRUE</h4>
 
 <pre><code class="r">gDatRawStrip &lt;- read.table(file.path(DATA_DIR, &quot;gapminderDataFiveYear_dirty.txt&quot;),
                       header = TRUE, sep = &quot;\t&quot;, row.names = NULL, as.is = TRUE,
