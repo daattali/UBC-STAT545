@@ -1,5 +1,8 @@
 #!usr/bin/make -f
 
+# need to do this to get "make" to work in git bash
+# SHELL=cmd.exe
+
 all: report.html
 
 clean:
