@@ -206,7 +206,7 @@ hr {
 <p>Dean Attali<br/>
 Oct 2014 </p>
 
-<p>Last updated: 2014-10-27 15:46:11</p>
+<p>Last updated: 2014-11-05 11:35:42</p>
 
 <h2>Overview</h2>
 
@@ -238,7 +238,7 @@ was at every year that we have cancer data for.</p>
 (I convert the dataframe to a tbl_df just for better visualization purposes)</p>
 
 <pre><code class="r">(deathsDat &lt;- tbl_df(
-  read.table(file.path(DATA_DIR, &quot;cancerDeathsUS.txt&quot;), header = T)))
+    read.table(file.path(DATA_DIR, &quot;cancerDeathsUS.txt&quot;), header = T)))
 </code></pre>
 
 <pre><code>## Source: local data frame [299 x 5]
@@ -297,11 +297,11 @@ cancer sites for the years 1999 to 2011.</p>
 <pre><code class="r">dDatClean &lt;- deathsDat
 colnames(dDatClean) &lt;- tolowerfirst(colnames(dDatClean))
 dDatClean &lt;- dDatClean %&gt;%
-  dplyr::select(leading.Cancer.Sites, year, deaths) %&gt;%
-  rename(cancerLocation = leading.Cancer.Sites)
+    dplyr::select(leading.Cancer.Sites, year, deaths) %&gt;%
+    rename(cancerLocation = leading.Cancer.Sites)
 dDatClean &lt;- dDatClean %&gt;%
-  filter(cancerLocation != &quot;All Sites Combined&quot;) %&gt;%
-  droplevels
+    filter(cancerLocation != &quot;All Sites Combined&quot;) %&gt;%
+    droplevels
 print(dDatClean)
 </code></pre>
 
@@ -330,16 +330,16 @@ I will perform the same basic cleaning as on the previous dataset, since they
 both came from the same source and have the same structure</p>
 
 <pre><code class="r">casesDat &lt;- tbl_df(
-  read.table(file.path(DATA_DIR, &quot;cancerIncidenceUS.txt&quot;), header = T))
+    read.table(file.path(DATA_DIR, &quot;cancerIncidenceUS.txt&quot;), header = T))
 cDatClean &lt;- casesDat
 colnames(cDatClean) &lt;- tolowerfirst(colnames(cDatClean))
 cDatClean &lt;- cDatClean %&gt;%
-  dplyr::select(leading.Cancer.Sites, year, count) %&gt;%
-  rename(cancerLocation = leading.Cancer.Sites,
-         cases = count)
+    dplyr::select(leading.Cancer.Sites, year, count) %&gt;%
+    rename(cancerLocation = leading.Cancer.Sites,
+                 cases = count)
 cDatClean &lt;- cDatClean %&gt;%
-  filter(cancerLocation != &quot;All Sites Combined&quot;) %&gt;%
-  droplevels
+    filter(cancerLocation != &quot;All Sites Combined&quot;) %&gt;%
+    droplevels
 print(cDatClean)
 </code></pre>
 
@@ -403,10 +403,10 @@ locations in both datasets and the intersection of them (ie. this shows
 which cancer locations are not shared by the two)</p>
 
 <pre><code class="r">setdiff(
-  union(levels(dDatClean$cancerLocation),
-        levels(cDatClean$cancerLocation)),
-  intersect(levels(dDatClean$cancerLocation),
-            levels(cDatClean$cancerLocation)))
+    union(levels(dDatClean$cancerLocation),
+                levels(cDatClean$cancerLocation)),
+    intersect(levels(dDatClean$cancerLocation),
+                        levels(cDatClean$cancerLocation)))
 </code></pre>
 
 <pre><code>## [1] &quot;Urinary Bladder&quot;                      
@@ -423,8 +423,8 @@ to match the other</p>
 </code></pre>
 
 <pre><code class="r">cDatClean$cancerLocation &lt;-
-  cDatClean$cancerLocation %&gt;%
-  revalue(c(&quot;Urinary Bladder, invasive and in situ&quot; = &quot;Urinary Bladder&quot;))
+    cDatClean$cancerLocation %&gt;%
+    revalue(c(&quot;Urinary Bladder, invasive and in situ&quot; = &quot;Urinary Bladder&quot;))
 identical(levels(cDatClean$cancerLocation), levels(dDatClean$cancerLocation))
 </code></pre>
 
@@ -469,8 +469,8 @@ a fat/wide format, and we want to get it to a long/tall format.  Another thing
 I want to do is to sort the observations by year instead of by cancer type.</p>
 
 <pre><code class="r">cancerData &lt;- cancerData %&gt;%
-  gather(stat, freq, deaths, cases) %&gt;%
-  arrange(year, cancerLocation)
+    gather(stat, freq, deaths, cases) %&gt;%
+    arrange(year, cancerLocation)
 print(cancerData)
 </code></pre>
 
@@ -507,13 +507,13 @@ holding the order of the cancer types by which one had the most cases in the
 most recent timepoint, and then I recreate the factor using this ordering. </p>
 
 <pre><code class="r">cancerLocationsOrder &lt;- cancerData %&gt;%
-  filter(stat == &quot;cases&quot;,
-         year == max(year)) %&gt;%
-  arrange(desc(freq)) %&gt;%
-  first %&gt;%
-  as.character
+    filter(stat == &quot;cases&quot;,
+                 year == max(year)) %&gt;%
+    arrange(desc(freq)) %&gt;%
+    first %&gt;%
+    as.character
 cancerData$cancerLocation &lt;-
-  factor(cancerData$cancerLocation, levels = cancerLocationsOrder)
+    factor(cancerData$cancerLocation, levels = cancerLocationsOrder)
 </code></pre>
 
 <p>For brevity, I am not printing out the new order, but the plot will give
@@ -527,23 +527,23 @@ it&#39;s better to use an existing palette, such as from <code>RColorBrewer</cod
 After plotting, I also save the plot as a PDF</p>
 
 <pre><code class="r">c22 &lt;- c(&quot;dodgerblue2&quot;,&quot;#E31A1C&quot;, # red
-         &quot;green4&quot;,
-         &quot;#6A3D9A&quot;, # purple
-         &quot;#FF7F00&quot;, # orange
-         &quot;black&quot;,&quot;gold1&quot;,
-         &quot;skyblue2&quot;,&quot;#FB9A99&quot;, # lt pink
-         &quot;palegreen2&quot;,
-         &quot;#CAB2D6&quot;, # lt purple
-         &quot;#FDBF6F&quot;, # lt orange
-         &quot;gray70&quot;, &quot;khaki2&quot;, &quot;maroon&quot;, &quot;orchid1&quot;, &quot;deeppink1&quot;, &quot;blue1&quot;,
-         &quot;darkturquoise&quot;, &quot;green1&quot;, &quot;yellow4&quot;, &quot;brown&quot;)
+                 &quot;green4&quot;,
+                 &quot;#6A3D9A&quot;, # purple
+                 &quot;#FF7F00&quot;, # orange
+                 &quot;black&quot;,&quot;gold1&quot;,
+                 &quot;skyblue2&quot;,&quot;#FB9A99&quot;, # lt pink
+                 &quot;palegreen2&quot;,
+                 &quot;#CAB2D6&quot;, # lt purple
+                 &quot;#FDBF6F&quot;, # lt orange
+                 &quot;gray70&quot;, &quot;khaki2&quot;, &quot;maroon&quot;, &quot;orchid1&quot;, &quot;deeppink1&quot;, &quot;blue1&quot;,
+                 &quot;darkturquoise&quot;, &quot;green1&quot;, &quot;yellow4&quot;, &quot;brown&quot;)
 p &lt;-
-  ggplot(cancerData, aes(x = year, y = freq)) +
-  geom_point(aes(col = cancerLocation, group = cancerLocation), size = 2) +
-  geom_line(aes(col = cancerLocation, group = cancerLocation), size = 0.7) +
-  facet_wrap(~ stat) +
-  theme_bw(15) +
-  scale_colour_manual(values = c22)
+    ggplot(cancerData, aes(x = year, y = freq)) +
+    geom_point(aes(col = cancerLocation, group = cancerLocation), size = 2) +
+    geom_line(aes(col = cancerLocation, group = cancerLocation), size = 0.7) +
+    facet_wrap(~ stat) +
+    theme_bw(15) +
+    scale_colour_manual(values = c22)
 print(p)
 </code></pre>
 
@@ -570,16 +570,16 @@ original data.
 First use <code>ddply</code> to write a file for every cancer type</p>
 
 <pre><code class="r">invisible( # invisible = I don&#39;t want to see the output from ddply
-  ddply(cancerData, ~cancerLocation,
-        function(x) {
-          fileName &lt;- file.path(
-            HW_DIR,
-            paste0(&quot;cDatTest-&quot;, gsub(&quot; &quot;, &quot;_&quot;, x$cancerLocation[1]), &quot;.csv&quot;))
-          write.table(dplyr::select(x, -cancerLocation),
-                      fileName,
-                      quote = F, sep = &quot;,&quot;, row.names = F)
-        }
-  )
+    ddply(cancerData, ~cancerLocation,
+                function(x) {
+                    fileName &lt;- file.path(
+                        HW_DIR,
+                        paste0(&quot;cDatTest-&quot;, gsub(&quot; &quot;, &quot;_&quot;, x$cancerLocation[1]), &quot;.csv&quot;))
+                    write.table(dplyr::select(x, -cancerLocation),
+                                            fileName,
+                                            quote = F, sep = &quot;,&quot;, row.names = F)
+                }
+    )
 )
 </code></pre>
 
@@ -617,10 +617,10 @@ print(basename(cancerFiles))
 the information in each file.</p>
 
 <pre><code class="r">cancerFilesData &lt;- ldply(cancerFiles, function(x) {
-  tmpData &lt;- read.table(file.path(x), header = T, sep = &quot;,&quot;, row.names = NULL)
-  cancerLoc &lt;- gsub(&quot;.*cDatTest-(.*).csv$&quot;, &quot;\\1&quot;, x)
-  cancerLoc &lt;- gsub(&quot;_&quot;, &quot; &quot;, cancerLoc)
-  tmpData &lt;- tmpData %&gt;% mutate(cancerLocation = cancerLoc)
+    tmpData &lt;- read.table(file.path(x), header = T, sep = &quot;,&quot;, row.names = NULL)
+    cancerLoc &lt;- gsub(&quot;.*cDatTest-(.*).csv$&quot;, &quot;\\1&quot;, x)
+    cancerLoc &lt;- gsub(&quot;_&quot;, &quot; &quot;, cancerLoc)
+    tmpData &lt;- tmpData %&gt;% mutate(cancerLocation = cancerLoc)
 })
 cancerFilesData$cancerLocation &lt;- as.factor(cancerFilesData$cancerLocation)
 </code></pre>
@@ -657,13 +657,13 @@ I personally perfer the <code>ddply</code> way, but I&#39;m not sure if it&#39;s
 objectively more elegant or if it&#39;s because I&#39;m more used to it.</p>
 
 <pre><code class="r">cancersByYearPlyr &lt;- ddply(cancerData,
-                       .(year, stat),
-                       summarize,
-                       freq = sum(freq))
+                                                     .(year, stat),
+                                                     summarize,
+                                                     freq = sum(freq))
 cancersByYearDplyr &lt;- cancerData %&gt;%
-  group_by(year, stat) %&gt;%
-  summarize(freq = sum(freq)) %&gt;%
-  ungroup
+    group_by(year, stat) %&gt;%
+    summarize(freq = sum(freq)) %&gt;%
+    ungroup
 </code></pre>
 
 <p>Let&#39;s make sure that both methods resulted in the same dataframe</p>
@@ -700,9 +700,9 @@ the previous year, which isn&#39;t terribly useful but I just wanted to use the
 
 <pre><code class="r">cancersByYear &lt;- cancersByYearPlyr
 cancersByYear &lt;- tbl_df(cancersByYear) %&gt;%
-  spread(stat, freq) %&gt;%
-  mutate(mortalityRate = deaths/cases,
-         mortalityRateDrop = lag(mortalityRate) - mortalityRate)
+    spread(stat, freq) %&gt;%
+    mutate(mortalityRate = deaths/cases,
+                 mortalityRateDrop = lag(mortalityRate) - mortalityRate)
 print(cancersByYear)
 </code></pre>
 
@@ -766,11 +766,11 @@ print(popData)
 <pre><code class="r">yearMin &lt;- min(cancerData$year)
 yearMax &lt;- max(cancerData$year)
 popDataClean &lt;- popData %&gt;%
-  filter(Country.Code == &quot;USA&quot;) %&gt;%
-  gather(year, population, starts_with(&quot;X&quot;)) %&gt;%
-  dplyr::select(year, population) %&gt;%
-  mutate(year = extract_numeric(year)) %&gt;%
-  filter(year %in% yearMin:yearMax)
+    filter(Country.Code == &quot;USA&quot;) %&gt;%
+    gather(year, population, starts_with(&quot;X&quot;)) %&gt;%
+    dplyr::select(year, population) %&gt;%
+    mutate(year = extract_numeric(year)) %&gt;%
+    filter(year %in% yearMin:yearMax)
 print(popDataClean)
 </code></pre>
 
@@ -799,9 +799,9 @@ cancer deaths per million people. I&#39;ll remove the <em>population</em> variab
 after using it because it won&#39;t be needed any more</p>
 
 <pre><code class="r">cancersByYear &lt;- cancersByYear %&gt;%
-  left_join(popDataClean, by = &quot;year&quot;) %&gt;%
-  mutate(deathsPerM = deaths / (population/1000000)) %&gt;%
-  dplyr::select(-population)
+    left_join(popDataClean, by = &quot;year&quot;) %&gt;%
+    mutate(deathsPerM = deaths / (population/1000000)) %&gt;%
+    dplyr::select(-population)
 print(cancersByYear)
 </code></pre>
 
@@ -829,8 +829,8 @@ Now if we want to plot this information, it will be much easier to do so if we
 get it back into a tidy tall/long format. So let&#39;s do that.</p>
 
 <pre><code class="r">cancersByYear &lt;- cancersByYear %&gt;%
-  gather(stat, value, -year) %&gt;%
-  arrange(year)
+    gather(stat, value, -year) %&gt;%
+    arrange(year)
 print(head(cancersByYear))
 </code></pre>
 
@@ -851,13 +851,13 @@ mortalityRateDrop variable since it&#39;s not that informative and plotting
 4 variables looks much better than 5 (a 2x2 square vs &hellip; awkwardness) </p>
 
 <pre><code class="r">p &lt;-
-  ggplot(cancersByYear %&gt;% filter(stat != &quot;mortalityRateDrop&quot;)) +
-  geom_point(aes(x = as.factor(year), y = value), size = 3) + 
-  geom_line(aes(x = as.factor(year), y = value, group = 1)) + 
-  facet_wrap(~ stat, scales = &quot;free_y&quot;) +
-  theme_bw(20) +
-  theme(axis.text.x = element_text(angle = 270, vjust = 0.5)) +
-  xlab(&quot;year&quot;)
+    ggplot(cancersByYear %&gt;% filter(stat != &quot;mortalityRateDrop&quot;)) +
+    geom_point(aes(x = as.factor(year), y = value), size = 3) + 
+    geom_line(aes(x = as.factor(year), y = value, group = 1)) + 
+    facet_wrap(~ stat, scales = &quot;free_y&quot;) +
+    theme_bw(20) +
+    theme(axis.text.x = element_text(angle = 270, vjust = 0.5)) +
+    xlab(&quot;year&quot;)
 print(p)
 </code></pre>
 
@@ -870,6 +870,46 @@ print(p)
 </code></pre>
 
 <p>So pretty! And we&#39;re done!</p>
+
+<hr/>
+
+<h3>Aside: Trick to reorder levels of factor based on dataframe row order</h3>
+
+<p>If you have a dataframe arranged in a specific way and you want the levels
+of a factor to be ordered in the same order as the rows are, use
+<code>df &lt;- mutate(df, col = factor(col, col))</code><br/>
+Example:</p>
+
+<pre><code class="r">df &lt;- data.frame(
+    num = 5:1,
+    word = c(&quot;five&quot;, &quot;four&quot;, &quot;three&quot;, &quot;two&quot;, &quot;one&quot;))
+levels(df$word)
+</code></pre>
+
+<pre><code>## [1] &quot;five&quot;  &quot;four&quot;  &quot;one&quot;   &quot;three&quot; &quot;two&quot;
+</code></pre>
+
+<p>Levels are alphabetical by default</p>
+
+<pre><code class="r">df$word
+</code></pre>
+
+<pre><code>## [1] five  four  three two   one  
+## Levels: five four one three two
+</code></pre>
+
+<p>Right now the order (of the dataframe) is 5,4,3,2,1</p>
+
+<pre><code class="r">df &lt;- df %&gt;%
+    arrange(num) %&gt;%   # rearrange the df in the order we want (1,2,3,4,5)
+    mutate(word = factor(word, word)) # this line reorders the factor in the same order
+levels(df$word)
+</code></pre>
+
+<pre><code>## [1] &quot;one&quot;   &quot;two&quot;   &quot;three&quot; &quot;four&quot;  &quot;five&quot;
+</code></pre>
+
+<p>Now the levels are 1,2,3,4,5</p>
 
 </body>
 

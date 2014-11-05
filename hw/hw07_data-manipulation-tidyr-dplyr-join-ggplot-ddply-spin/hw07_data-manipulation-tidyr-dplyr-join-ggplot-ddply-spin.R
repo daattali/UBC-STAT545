@@ -64,7 +64,7 @@ library(ggplot2)
 
 #+ define-tolowerfirst, include = F
 tolowerfirst <- function(x) {
-  return(paste0(tolower(substring(x, 1, 1)), substring(x, 2)))
+	return(paste0(tolower(substring(x, 1, 1)), substring(x, 2)))
 }
 
 #' ### Read and clean the datasets
@@ -75,7 +75,7 @@ tolowerfirst <- function(x) {
 #' Read in the dataset that contains the number of deaths per cancer type per year
 #' (I convert the dataframe to a tbl_df just for better visualization purposes)
 (deathsDat <- tbl_df(
-  read.table(file.path(DATA_DIR, "cancerDeathsUS.txt"), header = T)))
+	read.table(file.path(DATA_DIR, "cancerDeathsUS.txt"), header = T)))
 (levels(deathsDat$Leading.Cancer.Sites))
 (unique(deathsDat$Year))
 #' We can see the dataset has `r nrow(deathsDat)` observations and `r ncol(deathsDat)`
@@ -92,11 +92,11 @@ tolowerfirst <- function(x) {
 dDatClean <- deathsDat
 colnames(dDatClean) <- tolowerfirst(colnames(dDatClean))
 dDatClean <- dDatClean %>%
-  dplyr::select(leading.Cancer.Sites, year, deaths) %>%
-  rename(cancerLocation = leading.Cancer.Sites)
+	dplyr::select(leading.Cancer.Sites, year, deaths) %>%
+	rename(cancerLocation = leading.Cancer.Sites)
 dDatClean <- dDatClean %>%
-  filter(cancerLocation != "All Sites Combined") %>%
-  droplevels
+	filter(cancerLocation != "All Sites Combined") %>%
+	droplevels
 print(dDatClean)
 #' Looks good!
 
@@ -107,16 +107,16 @@ print(dDatClean)
 #' I will perform the same basic cleaning as on the previous dataset, since they
 #' both came from the same source and have the same structure
 casesDat <- tbl_df(
-  read.table(file.path(DATA_DIR, "cancerIncidenceUS.txt"), header = T))
+	read.table(file.path(DATA_DIR, "cancerIncidenceUS.txt"), header = T))
 cDatClean <- casesDat
 colnames(cDatClean) <- tolowerfirst(colnames(cDatClean))
 cDatClean <- cDatClean %>%
-  dplyr::select(leading.Cancer.Sites, year, count) %>%
-  rename(cancerLocation = leading.Cancer.Sites,
-         cases = count)
+	dplyr::select(leading.Cancer.Sites, year, count) %>%
+	rename(cancerLocation = leading.Cancer.Sites,
+				 cases = count)
 cDatClean <- cDatClean %>%
-  filter(cancerLocation != "All Sites Combined") %>%
-  droplevels
+	filter(cancerLocation != "All Sites Combined") %>%
+	droplevels
 print(cDatClean)
 print(levels(cDatClean$cancerLocation))
 #' Looks good! This dataset has the exact same dimensions as the deaths dataset,
@@ -135,18 +135,18 @@ print(levels(cDatClean$cancerLocation))
 #' which cancer locations are not shared by the two)
 #+ show-diff-levels
 setdiff(
-  union(levels(dDatClean$cancerLocation),
-        levels(cDatClean$cancerLocation)),
-  intersect(levels(dDatClean$cancerLocation),
-            levels(cDatClean$cancerLocation)))
+	union(levels(dDatClean$cancerLocation),
+				levels(cDatClean$cancerLocation)),
+	intersect(levels(dDatClean$cancerLocation),
+						levels(cDatClean$cancerLocation)))
 
 #+ fix-diff-levels
 #' There is an easy fix: just change the name of that level in one of the datasets
 #' to match the other
 identical(levels(cDatClean$cancerLocation), levels(dDatClean$cancerLocation))
 cDatClean$cancerLocation <-
-  cDatClean$cancerLocation %>%
-  revalue(c("Urinary Bladder, invasive and in situ" = "Urinary Bladder"))
+	cDatClean$cancerLocation %>%
+	revalue(c("Urinary Bladder, invasive and in situ" = "Urinary Bladder"))
 identical(levels(cDatClean$cancerLocation), levels(dDatClean$cancerLocation))
 #' Now we have proof that the levels are identical
 
@@ -166,8 +166,8 @@ print(cancerData)
 #' I want to do is to sort the observations by year instead of by cancer type.
 #+ tidy-cancer-data
 cancerData <- cancerData %>%
-  gather(stat, freq, deaths, cases) %>%
-  arrange(year, cancerLocation)
+	gather(stat, freq, deaths, cases) %>%
+	arrange(year, cancerLocation)
 print(cancerData)
 #' Hooray for `tidyr`! Also, doesn't this row ordering make you happier?
 #' (Perhaps for you it doesn't....?)
@@ -184,13 +184,13 @@ print(cancerData)
 #' most recent timepoint, and then I recreate the factor using this ordering. 
 #+ reorder-cancer-location
 cancerLocationsOrder <- cancerData %>%
-  filter(stat == "cases",
-         year == max(year)) %>%
-  arrange(desc(freq)) %>%
-  first %>%
-  as.character
+	filter(stat == "cases",
+				 year == max(year)) %>%
+	arrange(desc(freq)) %>%
+	first %>%
+	as.character
 cancerData$cancerLocation <-
-  factor(cancerData$cancerLocation, levels = cancerLocationsOrder)
+	factor(cancerData$cancerLocation, levels = cancerLocationsOrder)
 #' For brevity, I am not printing out the new order, but the plot will give
 #' us confirmation that it worked
 
@@ -201,23 +201,23 @@ cancerData$cancerLocation <-
 #' After plotting, I also save the plot as a PDF
 #+ plot-basic-data, fig.width = 11, fig.align = "center"
 c22 <- c("dodgerblue2","#E31A1C", # red
-         "green4",
-         "#6A3D9A", # purple
-         "#FF7F00", # orange
-         "black","gold1",
-         "skyblue2","#FB9A99", # lt pink
-         "palegreen2",
-         "#CAB2D6", # lt purple
-         "#FDBF6F", # lt orange
-         "gray70", "khaki2", "maroon", "orchid1", "deeppink1", "blue1",
-         "darkturquoise", "green1", "yellow4", "brown")
+				 "green4",
+				 "#6A3D9A", # purple
+				 "#FF7F00", # orange
+				 "black","gold1",
+				 "skyblue2","#FB9A99", # lt pink
+				 "palegreen2",
+				 "#CAB2D6", # lt purple
+				 "#FDBF6F", # lt orange
+				 "gray70", "khaki2", "maroon", "orchid1", "deeppink1", "blue1",
+				 "darkturquoise", "green1", "yellow4", "brown")
 p <-
-  ggplot(cancerData, aes(x = year, y = freq)) +
-  geom_point(aes(col = cancerLocation, group = cancerLocation), size = 2) +
-  geom_line(aes(col = cancerLocation, group = cancerLocation), size = 0.7) +
-  facet_wrap(~ stat) +
-  theme_bw(15) +
-  scale_colour_manual(values = c22)
+	ggplot(cancerData, aes(x = year, y = freq)) +
+	geom_point(aes(col = cancerLocation, group = cancerLocation), size = 2) +
+	geom_line(aes(col = cancerLocation, group = cancerLocation), size = 0.7) +
+	facet_wrap(~ stat) +
+	theme_bw(15) +
+	scale_colour_manual(values = c22)
 print(p)
 ggsave(file.path(HW_DIR, "cancerTypesStats.pdf"), p)
 #' This is perhaps not the bestest way to show this data, but it suffices
@@ -225,7 +225,7 @@ ggsave(file.path(HW_DIR, "cancerTypesStats.pdf"), p)
 #' have so many more deaths than any other cancer, even though there are two other
 #' cancers with similar incidences. I will not make any more comments about the
 #' plot since the purpose of this assignment is more about data manipulation than plotting
- 
+
 #' ### Practice with ddply, lapply, dlply, batch reading of files
 #' Just as a fun exercise, now I will take the cancer data, split it up by
 #' cancer location, and write the output of every cancer type to a separate file.
@@ -235,16 +235,16 @@ ggsave(file.path(HW_DIR, "cancerTypesStats.pdf"), p)
 #' First use `ddply` to write a file for every cancer type
 #+ ddply-write-files 
 invisible( # invisible = I don't want to see the output from ddply
-  ddply(cancerData, ~cancerLocation,
-        function(x) {
-          fileName <- file.path(
-            HW_DIR,
-            paste0("cDatTest-", gsub(" ", "_", x$cancerLocation[1]), ".csv"))
-          write.table(dplyr::select(x, -cancerLocation),
-                      fileName,
-                      quote = F, sep = ",", row.names = F)
-        }
-  )
+	ddply(cancerData, ~cancerLocation,
+				function(x) {
+					fileName <- file.path(
+						HW_DIR,
+						paste0("cDatTest-", gsub(" ", "_", x$cancerLocation[1]), ".csv"))
+					write.table(dplyr::select(x, -cancerLocation),
+											fileName,
+											quote = F, sep = ",", row.names = F)
+				}
+	)
 )
 
 #' Now let's see that these files were actually created
@@ -256,10 +256,10 @@ print(basename(cancerFiles))
 #' the information in each file.
 #+ batch-read-files
 cancerFilesData <- ldply(cancerFiles, function(x) {
-  tmpData <- read.table(file.path(x), header = T, sep = ",", row.names = NULL)
-  cancerLoc <- gsub(".*cDatTest-(.*).csv$", "\\1", x)
-  cancerLoc <- gsub("_", " ", cancerLoc)
-  tmpData <- tmpData %>% mutate(cancerLocation = cancerLoc)
+	tmpData <- read.table(file.path(x), header = T, sep = ",", row.names = NULL)
+	cancerLoc <- gsub(".*cDatTest-(.*).csv$", "\\1", x)
+	cancerLoc <- gsub("_", " ", cancerLoc)
+	tmpData <- tmpData %>% mutate(cancerLocation = cancerLoc)
 })
 cancerFilesData$cancerLocation <- as.factor(cancerFilesData$cancerLocation)
 
@@ -286,13 +286,13 @@ file.remove(cancerFiles)
 #' objectively more elegant or if it's because I'm more used to it.
 #+ cancer-group-by-year
 cancersByYearPlyr <- ddply(cancerData,
-                       .(year, stat),
-                       summarize,
-                       freq = sum(freq))
+													 .(year, stat),
+													 summarize,
+													 freq = sum(freq))
 cancersByYearDplyr <- cancerData %>%
-  group_by(year, stat) %>%
-  summarize(freq = sum(freq)) %>%
-  ungroup
+	group_by(year, stat) %>%
+	summarize(freq = sum(freq)) %>%
+	ungroup
 
 #' Let's make sure that both methods resulted in the same dataframe
 #+ check-group-by-equality
@@ -312,9 +312,9 @@ print(head(cancersByYearDplyr))
 #+ add-mortalityRate
 cancersByYear <- cancersByYearPlyr
 cancersByYear <- tbl_df(cancersByYear) %>%
-  spread(stat, freq) %>%
-  mutate(mortalityRate = deaths/cases,
-         mortalityRateDrop = lag(mortalityRate) - mortalityRate)
+	spread(stat, freq) %>%
+	mutate(mortalityRate = deaths/cases,
+				 mortalityRateDrop = lag(mortalityRate) - mortalityRate)
 print(cancersByYear)
 
 
@@ -331,11 +331,11 @@ print(popData)
 yearMin <- min(cancerData$year)
 yearMax <- max(cancerData$year)
 popDataClean <- popData %>%
-  filter(Country.Code == "USA") %>%
-  gather(year, population, starts_with("X")) %>%
-  dplyr::select(year, population) %>%
-  mutate(year = extract_numeric(year)) %>%
-  filter(year %in% yearMin:yearMax)
+	filter(Country.Code == "USA") %>%
+	gather(year, population, starts_with("X")) %>%
+	dplyr::select(year, population) %>%
+	mutate(year = extract_numeric(year)) %>%
+	filter(year %in% yearMin:yearMax)
 print(popDataClean)
 
 #' ### Calculate deaths per million
@@ -344,9 +344,9 @@ print(popDataClean)
 #' after using it because it won't be needed any more
 #+ calc-deathsPerM
 cancersByYear <- cancersByYear %>%
-  left_join(popDataClean, by = "year") %>%
-  mutate(deathsPerM = deaths / (population/1000000)) %>%
-  dplyr::select(-population)
+	left_join(popDataClean, by = "year") %>%
+	mutate(deathsPerM = deaths / (population/1000000)) %>%
+	dplyr::select(-population)
 print(cancersByYear)
 
 #' Very nice (well, we're looking at numbers of deaths... so I guess "nice"
@@ -356,8 +356,8 @@ print(cancersByYear)
 #' get it back into a tidy tall/long format. So let's do that.
 #+ tidy-big-data
 cancersByYear <- cancersByYear %>%
-  gather(stat, value, -year) %>%
-  arrange(year)
+	gather(stat, value, -year) %>%
+	arrange(year)
 print(head(cancersByYear))
 
 #' Alright, we're ready to plot. In this tidy format, it's very trivial to plot
@@ -366,14 +366,34 @@ print(head(cancersByYear))
 #' 4 variables looks much better than 5 (a 2x2 square vs ... awkwardness) 
 #+ plot-big-data, fig.width = 11, fig.align = "center"
 p <-
-  ggplot(cancersByYear %>% filter(stat != "mortalityRateDrop")) +
-  geom_point(aes(x = as.factor(year), y = value), size = 3) + 
-  geom_line(aes(x = as.factor(year), y = value, group = 1)) + 
-  facet_wrap(~ stat, scales = "free_y") +
-  theme_bw(20) +
-  theme(axis.text.x = element_text(angle = 270, vjust = 0.5)) +
-  xlab("year")
+	ggplot(cancersByYear %>% filter(stat != "mortalityRateDrop")) +
+	geom_point(aes(x = as.factor(year), y = value), size = 3) + 
+	geom_line(aes(x = as.factor(year), y = value, group = 1)) + 
+	facet_wrap(~ stat, scales = "free_y") +
+	theme_bw(20) +
+	theme(axis.text.x = element_text(angle = 270, vjust = 0.5)) +
+	xlab("year")
 print(p)
 ggsave(file.path(HW_DIR, "cancerCombinedStats.pdf"), p)
 
 #' So pretty! And we're done!
+#'
+#' ---------------------
+
+#' ### Aside: Trick to reorder levels of factor based on dataframe row order
+#' If you have a dataframe arranged in a specific way and you want the levels
+#' of a factor to be ordered in the same order as the rows are, use
+#' `df <- mutate(df, col = factor(col, col))`  
+#' Example:
+df <- data.frame(
+	num = 5:1,
+	word = c("five", "four", "three", "two", "one"))
+levels(df$word)
+#' Levels are alphabetical by default
+df$word
+#' Right now the order (of the dataframe) is 5,4,3,2,1
+df <- df %>%
+	arrange(num) %>%   # rearrange the df in the order we want (1,2,3,4,5)
+	mutate(word = factor(word, word)) # this line reorders the factor in the same order
+levels(df$word)
+#' Now the levels are 1,2,3,4,5
