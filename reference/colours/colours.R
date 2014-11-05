@@ -1,6 +1,4 @@
-setwd("School//UBC//STAT 545A//tutorials/")
-
-gDat <- read.delim("gapminderDataFiveYear.txt")
+gDat <- read.delim(file.path("data", "gapminderDataFiveYear.txt"))
 
 # change plotting symbol to circle (store original settings in opar)
 opar <- par(pch = 19)
@@ -90,7 +88,7 @@ xyplot(lifeExp ~ gdpPercap | continent, jDat,
                                                    col = c("orange", "blue"))))
 
 # use predefined set of colours
-countryColors <- read.delim(file = "gapminderCountryColors.txt", as.is = 3)
+countryColors <- read.delim(file = file.path("data", "gapminderCountryColors.txt"), as.is = 3)
 str(countryColors)
 countryColors <- countryColors[match(levels(jDat$country), countryColors$country), ]
 str(countryColors)
@@ -101,7 +99,7 @@ xyplot(lifeExp ~ gdpPercap | continent, jDat,
                                                    col = countryColors$color)))
 
 # storing graphical parameters for reuse
-(continentColors <- read.delim(file = "gapminderContinentColors.txt", as.is = 3))
+(continentColors <- read.delim(file = file.path("data", "gapminderContinentColors.txt"), as.is = 3))
 (continentColors <- continentColors[match(levels(jDat$continent), continentColors$continent), ])
 coolNewPars <-list(superpose.symbol = list(
   pch = 21, cex = 2, col = "gray20", fill = continentColors$color))
@@ -137,7 +135,7 @@ q + geom_point(aes(size = sqrt(pop/pi)), pch = 21)
 (r <- r + facet_wrap(~ continent))
 r + aes(fill = continent)
 
-countryColors <- read.delim(file = "gapminderCountryColors.txt", as.is = 3)
+countryColors <- read.delim(file = file.path("data", "gapminderCountryColors.txt"), as.is = 3)
 jColors <- countryColors$color
 names(jColors) <- countryColors$country
 r + aes(fill = country) + scale_fill_manual(values = jColors)

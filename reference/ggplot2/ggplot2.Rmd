@@ -1,12 +1,12 @@
 ggplot2
 ========================================================
 ```{r}
-gDat <- read.delim("gapminderDataFiveYear.txt")
+gDat <- read.delim(file.path("../../data", "gapminderDataFiveYear.txt"))
 str(gDat)
 
 library(ggplot2)
 
-ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # error!
+# ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # error!
 p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # just initializes
 p + layer(geom = "point")
 p + geom_point()

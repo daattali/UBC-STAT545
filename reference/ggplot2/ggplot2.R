@@ -1,4 +1,4 @@
-gDat <- read.delim("gapminderDataFiveYear.txt")
+gDat <- read.delim(file.path("data", "gapminderDataFiveYear.txt"))
 str(gDat)
 
 library(ggplot2)

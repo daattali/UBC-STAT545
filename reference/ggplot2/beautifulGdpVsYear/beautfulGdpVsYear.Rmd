@@ -2,7 +2,7 @@ Beautiful GDP vs Year
 ============================
 
 ```{r}
-kDat <- read.delim("gapminderWithColorsAndSorted.txt", as.is = 7) # protect colour
+kDat <- read.delim(file.path("../../../data", "gapminderWithColorsAndSorted.txt"), as.is = 7) # protect colour
 library(lattice)
 str(kDat)
 jYear <- c(1952, 2007)
@@ -48,7 +48,7 @@ xyplot(lifeExp ~ gdpPercap | factor(year), yDat, aspect = 2/3,
        })
 
 # adding a legend (key)
-continentColors <- read.delim("gapminderContinentColors.txt", as.is = 3) # protect colour
+continentColors <- read.delim(file.path("../../../data", "gapminderContinentColors.txt"), as.is = 3) # protect colour
 continentKey <-
   with(continentColors,
        list(x = 0.95, y = 0.05, corner = c(1, 0),

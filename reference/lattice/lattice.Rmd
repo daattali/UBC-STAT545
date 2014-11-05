@@ -1,7 +1,7 @@
 Lattice
 ================
 ```{r}
-gDat <- read.delim("gapminderDataFiveYear.txt")
+gDat <- read.delim(file.path("../../data", "gapminderDataFiveYear.txt"))
 hDat <- subset(gDat, year %in% c(1952,2007))
 
 library(lattice)
@@ -91,14 +91,14 @@ hexbinplot(lifeExp ~ gdpPercap, iDat,
            scales = list(x = list(log = 10, equispaced.log = FALSE)),
            aspect = 1, xbins = 30)
 
+lifeExpSpread <- ddply(jDat, ~ continent + year, summarize,
+                       sdGdpPercap = sd(gdpPercap), iqrGdpPercap = IQR(gdpPercap),
+                       madGdpPercap = mad(gdpPercap))
+
 xyplot(sdGdpPercap + iqrGdpPercap + madGdpPercap ~ year, lifeExpSpread,
  subset = continent == "Africa", type = "b", ylab = "measure of spread",
   auto.key = list(x = 0.07, y = 0.85, corner = c(0, 1)))
 
-
-lifeExpSpread <- ddply(jDat, ~ continent + year, summarize,
-                       sdGdpPercap = sd(gdpPercap), iqrGdpPercap = IQR(gdpPercap),
-                       madGdpPercap = mad(gdpPercap))
 xyplot(sdGdpPercap + iqrGdpPercap + madGdpPercap ~ year, lifeExpSpread,
        group = reorder(continent, sdGdpPercap), layout = c(3, 1),
        type = "b", ylab = "measure of spread",
