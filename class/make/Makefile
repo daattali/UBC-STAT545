@@ -3,10 +3,12 @@
 # need to do this to get "make" to work in git bash
 # SHELL=cmd.exe
 
+# replace "del" with "rm" on unix machines
+
 all: report.html
 
 clean:
-	rm -f words.tsv histogram.tsv histogram.png report.html
+	del words.tsv histogram.tsv histogram.png report.html
 
 .PHONY: all clean
 .DELETE_ON_ERROR:
@@ -28,6 +30,7 @@ histogram.tsv: histogram.R words.tsv
 # Plot a histogram of word lengths
 histogram.png: histogram.tsv
 	Rscript -e 'library(ggplot2);qplot(wordLengths,Freq,data=read.delim("$<"));ggsave("$@")'
+	del Rplots.pdf
 
 # Render the report
 report.html: report.Rmd histogram.tsv histogram.png
