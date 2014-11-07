@@ -8,23 +8,24 @@
 all: report.html
 
 clean:
-	del words.tsv histogram.tsv histogram.png report.html
+	del words.txt histogram.tsv histogram.png report.html
 
 .PHONY: all clean
 .DELETE_ON_ERROR:
 .SECONDARY:
 
 # Download the dictionary
-words.tsv:
-	Rscript -e 'cat(file="words.tsv", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer = FALSE))'
+words.txt:
+#	Rscript -e 'cat(file="words.txt", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer = FALSE))'
+	Rscript -e 'download.file("http://svnweb.freebsd.org/base/head/share/dict/web2?view=co", destfile = "words.txt")'
 
 # Copy the dictionary to our working directory.
 # This rules works on Mac OS and Linux, but not on Windows.
-#words.tsv: /usr/share/dict/words
+#words.txt: /usr/share/dict/words
 #	cp $< $@
 
 # Generate a table of the word length frequency
-histogram.tsv: histogram.R words.tsv
+histogram.tsv: histogram.R words.txt
 	Rscript $<
 
 # Plot a histogram of word lengths
@@ -43,7 +44,7 @@ report.html: report.Rmd histogram.tsv histogram.png
 # shell commands instead of an R script.
 
 # Count the length of each word using awk
-#lengths.tsv: words.tsv
+#lengths.tsv: words.txt
 #	awk '{print length}' $< >$@
 
 # Generate a histogram of the word lengths using shell commands
