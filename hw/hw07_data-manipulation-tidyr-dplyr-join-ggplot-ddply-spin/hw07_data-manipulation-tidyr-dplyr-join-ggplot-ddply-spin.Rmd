@@ -13,23 +13,34 @@ HW_DIR <- file.path("hw", HW_NAME)
 # is wrapped around an if(FALSE) so that it is not executed when the script is ran,
 # and it will only do this R -> markdown/HTML conversion when these lines are
 # ran explicitly. 
+library(knitr)
+library(markdown)
+
+spinMyR <- function() {
+	# - anything R related uses knit_root.dir (such as reading files)
+	# - anything knitr related uses knit_base.dir
+	# - fig.path is set RELATIVE to knit_base.dir, BUT because of a bug the folder
+	#   also gets created relative to the root.dir. If all the variables aren't
+	#   set up properly, figures won't show
+	opts_knit$set(root.dir = getwd())
+	opts_knit$set(base.dir = HW_DIR)
+	opts_chunk$set(fig.path = file.path("markdown-figs", .Platform$file.sep))
+	opts_chunk$set(tidy = FALSE)
+	dir.create(
+		file.path(opts_knit$get("base.dir"), opts_chunk$get("fig.path")),
+		showWarnings = FALSE)
+	
+	spin(file.path(HW_DIR, paste0(HW_NAME, ".R")), knit = F)
+	knit(file.path(HW_DIR, paste0(HW_NAME, ".Rmd")),
+			 file.path(HW_DIR, paste0(HW_NAME, ".md")))
+	markdownToHTML(file.path(HW_DIR, paste0(HW_NAME, ".md")),
+								 file.path(HW_DIR, paste0(HW_NAME, ".html")))
+	# because of a bug in knitr/markdown, the figs directory is created in the
+	# working directory as well but with nothing in it
+	suppressWarnings(unlink("markdown-figs", recursive = TRUE))
+}
 if (FALSE) {
-  library(knitr)
-  library(markdown)
-  
-  spinMyR <- function() {
-    opts_knit$set(root.dir = getwd())
-    opts_knit$set(base.dir = HW_DIR)
-    opts_chunk$set(fig.path = "markdown-figs-")
-    opts_chunk$set(tidy = FALSE)
-    
-    spin(file.path(HW_DIR, paste0(HW_NAME, ".R")), knit = F)
-    knit(file.path(HW_DIR, paste0(HW_NAME, ".Rmd")),
-         file.path(HW_DIR, paste0(HW_NAME, ".md")))
-    markdownToHTML(file.path(HW_DIR, paste0(HW_NAME, ".md")),
-                   file.path(HW_DIR, paste0(HW_NAME, ".html")))
-  }
-  spinMyR()
+	spinMyR()
 }
 ```
 

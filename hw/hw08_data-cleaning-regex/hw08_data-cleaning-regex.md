@@ -6,7 +6,7 @@
 Dean Attali  
 Nov 1 2014 
 
-Last updated: 2014-11-02 22:17:19
+Last updated: 2014-11-07 23:56:26
 
 ## Overview
 In this assignment I will clean up a dirty dataset to get it ready for analysis

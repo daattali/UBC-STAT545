@@ -6,7 +6,7 @@
 Dean Attali  
 Oct 2014 
 
-Last updated: 2014-11-05 11:35:42
+Last updated: 2014-11-07 23:51:07
 
 ## Overview
 In this assignment, I found a dataset with information about cancer incidences
@@ -371,7 +371,7 @@ p <-
 print(p)
 ```
 
-<img src="markdown-figs-plot-basic-data-1.png" title="plot of chunk plot-basic-data" alt="plot of chunk plot-basic-data" style="display: block; margin: auto;" />
+<img src="markdown-figs/plot-basic-data-1.png" title="plot of chunk plot-basic-data" alt="plot of chunk plot-basic-data" style="display: block; margin: auto;" />
 
 ```r
 ggsave(file.path(HW_DIR, "cancerTypesStats.pdf"), p)
@@ -719,7 +719,7 @@ p <-
 print(p)
 ```
 
-<img src="markdown-figs-plot-big-data-1.png" title="plot of chunk plot-big-data" alt="plot of chunk plot-big-data" style="display: block; margin: auto;" />
+<img src="markdown-figs/plot-big-data-1.png" title="plot of chunk plot-big-data" alt="plot of chunk plot-big-data" style="display: block; margin: auto;" />
 
 ```r
 ggsave(file.path(HW_DIR, "cancerCombinedStats.pdf"), p)
