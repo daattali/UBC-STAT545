@@ -25,9 +25,8 @@ spinMyR <- function() {
 	opts_knit$set(base.dir = HW_DIR)
 	opts_chunk$set(fig.path = file.path("markdown-figs", .Platform$file.sep))
 	opts_chunk$set(tidy = FALSE)
-	dir.create(
-		file.path(opts_knit$get("base.dir"), opts_chunk$get("fig.path")),
-		showWarnings = FALSE)
+	FULL_FIG_PATH <- file.path(opts_knit$get("base.dir"), opts_chunk$get("fig.path"))
+	dir.create(FULL_FIG_PATH, showWarnings = FALSE)
 	
 	spin(file.path(HW_DIR, paste0(HW_NAME, ".R")), knit = F)
 	knit(file.path(HW_DIR, paste0(HW_NAME, ".Rmd")),
@@ -37,6 +36,9 @@ spinMyR <- function() {
 	# because of a bug in knitr/markdown, the figs directory is created in the
 	# working directory as well but with nothing in it
 	suppressWarnings(unlink("markdown-figs", recursive = TRUE))
+	if (0 == length(list.files(FULL_FIG_PATH))) {
+		suppressWarnings(unlink(FULL_FIG_PATH, recursive = TRUE))
+	}
 }
 if (FALSE) {
 	spinMyR()
