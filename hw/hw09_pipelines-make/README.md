@@ -10,6 +10,8 @@ Initially, I wanted to use a cool new dataset from the web, but it was difficult
 I have developed a short pipeline that begins with downloading the raw data, cleans the data, produces several tabular results in `csv` format, generates a couple images using these results, and finally generates a markdown and HTML documents as final output using these two images.  The results and images produced here are a small excerpt from the project I did last year ([available
 here](../../terrorism-project)), but they are enough to demonstrate how to use `make` in a proficient way.
 
+### Output
+
 The [Makefile](./Makefile) responsible for this pipeline produces [this markdown document](./hw09_pipelines-make-report.md) (or [its corresponding HTML](./hw09_pipelines-make-report.html)).
 
 ### Pipeline
