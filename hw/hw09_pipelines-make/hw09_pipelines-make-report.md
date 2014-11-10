@@ -27,7 +27,7 @@ The regions are sorted by the number of total attacks over all years combined.
 
 ![*Fig. 2* Attacks by region in 5 year intervals](attackByRegion5YearBin.png)
 
-From this set of plots it is much clearer what the terrorist activity situation
+From this set of plots it is pretty clear what the terrorist activity situation
 was at different regions at different time periods. It's very clear how bad South
 Asia and the Middle East are getting recently, and how Central America has
 improved drastically since the 1980's.  
