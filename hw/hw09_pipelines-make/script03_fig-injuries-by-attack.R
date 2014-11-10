@@ -6,7 +6,7 @@ injuryByAttack <- read.table("injuryByAttack.csv", header = TRUE,
 															row.names = NULL, sep = ",", quote = "\"")
 
 # read the order in which the attack levels should be and reorder the data
-attackTypeOrder <- read.table("attackTypeOrder.txt", header = FALSE,
+attackTypeOrder <- read.table("injuryByAttack-attackTypeOrder.txt", header = FALSE,
 															row.names = NULL, quote = "\"")
 attackTypeOrder <- attackTypeOrder %>% first
 injuryByAttack <-
@@ -25,4 +25,4 @@ ggplot(injuryByAttack, aes(x = attacktype, y = value, fill = stat)) +
 	theme_bw(20) +
 	theme(panel.grid.major.y = element_blank(),
 				plot.title = element_text(face="bold"))
-ggsave("injuryByAttack.png", width = 8, height = 6)
+ggsave("injuryByAttack.png", width = 10, height = 6)

@@ -1,0 +1,97 @@
+"region","bin","nattacks"
+"Central America","[1970,1975)",87
+"Central America","[1975,1980)",953
+"Central America","[1980,1985)",4815
+"Central America","[1985,1990)",2781
+"Central America","[1990,1995)",1450
+"Central America","[1995,2000)",418
+"Central America","[2000,2005)",39
+"Central America","[2005,2010]",22
+"East Asia","[1970,1975)",9
+"East Asia","[1975,1980)",69
+"East Asia","[1980,1985)",37
+"East Asia","[1985,1990)",74
+"East Asia","[1990,1995)",236
+"East Asia","[1995,2000)",179
+"East Asia","[2000,2005)",53
+"East Asia","[2005,2010]",39
+"Eastern Europe","[1970,1975)",20
+"Eastern Europe","[1975,1980)",4
+"Eastern Europe","[1980,1985)",14
+"Eastern Europe","[1985,1990)",22
+"Eastern Europe","[1990,1995)",162
+"Eastern Europe","[1995,2000)",440
+"Eastern Europe","[2000,2005)",252
+"Eastern Europe","[2005,2010]",85
+"Middle East","[1970,1975)",183
+"Middle East","[1975,1980)",903
+"Middle East","[1980,1985)",1657
+"Middle East","[1985,1990)",1273
+"Middle East","[1990,1995)",3386
+"Middle East","[1995,2000)",2092
+"Middle East","[2000,2005)",1749
+"Middle East","[2005,2010]",7806
+"North America","[1970,1975)",916
+"North America","[1975,1980)",562
+"North America","[1980,1985)",288
+"North America","[1985,1990)",161
+"North America","[1990,1995)",207
+"North America","[1995,2000)",434
+"North America","[2000,2005)",166
+"North America","[2005,2010]",131
+"Oceania","[1970,1975)",6
+"Oceania","[1975,1980)",4
+"Oceania","[1980,1985)",22
+"Oceania","[1985,1990)",57
+"Oceania","[1990,1995)",61
+"Oceania","[1995,2000)",54
+"Oceania","[2000,2005)",16
+"Oceania","[2005,2010]",14
+"South America","[1970,1975)",273
+"South America","[1975,1980)",723
+"South America","[1980,1985)",3782
+"South America","[1985,1990)",5915
+"South America","[1990,1995)",3979
+"South America","[1995,2000)",1789
+"South America","[2000,2005)",700
+"South America","[2005,2010]",600
+"South Asia","[1970,1975)",5
+"South Asia","[1975,1980)",46
+"South Asia","[1980,1985)",365
+"South Asia","[1985,1990)",2508
+"South Asia","[1990,1995)",2199
+"South Asia","[1995,2000)",2640
+"South Asia","[2000,2005)",1793
+"South Asia","[2005,2010]",8192
+"Southeast Asia","[1970,1975)",31
+"Southeast Asia","[1975,1980)",157
+"Southeast Asia","[1980,1985)",248
+"Southeast Asia","[1985,1990)",838
+"Southeast Asia","[1990,1995)",983
+"Southeast Asia","[1995,2000)",661
+"Southeast Asia","[2000,2005)",793
+"Southeast Asia","[2005,2010]",2391
+"Sub-Saharan Africa","[1970,1975)",16
+"Sub-Saharan Africa","[1975,1980)",221
+"Sub-Saharan Africa","[1980,1985)",446
+"Sub-Saharan Africa","[1985,1990)",1130
+"Sub-Saharan Africa","[1990,1995)",1728
+"Sub-Saharan Africa","[1995,2000)",965
+"Sub-Saharan Africa","[2000,2005)",583
+"Sub-Saharan Africa","[2005,2010]",1468
+"USSR","[1970,1975)",0
+"USSR","[1975,1980)",1
+"USSR","[1980,1985)",0
+"USSR","[1985,1990)",7
+"USSR","[1990,1995)",315
+"USSR","[1995,2000)",480
+"USSR","[2000,2005)",553
+"USSR","[2005,2010]",854
+"Western Europe","[1970,1975)",1130
+"Western Europe","[1975,1980)",3527
+"Western Europe","[1980,1985)",2485
+"Western Europe","[1985,1990)",2244
+"Western Europe","[1990,1995)",2406
+"Western Europe","[1995,2000)",1524
+"Western Europe","[2000,2005)",778
+"Western Europe","[2005,2010]",743

@@ -30,5 +30,5 @@ attackTypeOrder <-
 	dplyr::select(attacktype) %>%
 	first %>%
 	rev
-write.table(attackTypeOrder, "attackTypeOrder.txt", col.names = FALSE,
+write.table(attackTypeOrder, "injuryByAttack-attackTypeOrder.txt", col.names = FALSE,
 						row.names = FALSE, quote = TRUE)

@@ -1,23 +1,48 @@
-# Dean Attali's STAT 545 work
-This repository contains all my coursework from UBC STAT 545.  
-At this time (2014-10-25) I am a second year UBC graduate student in Bioinformatics, working in Martin Hirst's epigenomics lab.  I took the first half of this course in 2013 as my first ever introduction to R, and completed the second half of the course in its 2014 offering.  
-This repository can serve as a sampler with many references showing how to perform basic useful stuff in R.
+# Homework 09
+
+How to use `make` to automate pipelines.  
+  
+--- 
+
+### Overview
+Initially, I wanted to use a cool new dataset from the web, but it was difficult finding a dataset that I a. found very interesting and b. was easily accessible via a URL (ie. did not involve clicking buttons/logging in/etc.).  Then I remembered that I have a copy of an [interesting dataset from last year's course](../../terrorism-project/globalterrorismdb.csv) about global terrorist attacks since 1970, so I will use that as my dataset.  
+
+I have developed a short pipeline that begins with downloading the raw data, cleans the data, produces several tabular results in `csv` format, generates a couple images using these results, and finally generates a markdown and HTML documents as final output using these two images.  The results and images produced here are a small excerpt from the project I did last year ([available
+here](../../terrorism-project)), but they are enough to demonstrate how to use `make` in a proficient way.
+
+The [Makefile](./Makefile) responsible for this pipeline produces [this markdown document](./hw09_pipelines-make-report.md) (or [its corresponding HTML](./hw09_pipelines-make-report.html)).
+
+### Pipeline
+Here is the workflow of my pipeline:  
+![*Fig. 1* Pipeline flowchart](stat545_make_pipeline.png)  
+> Disclaimer: I've never drawn a dependency graph so I'm sure this is a little weird and not super amazing, but it does the job and I think it's clear enough-ish?  
+
+Note that `make all` only cares about the final product (the markdown and HTML), and will not attempt to reproduce any of the intermediate files unless it is necessary.  
+
 
 ### Directory structure
-- [`data`](./data) - data files
-- [`hw`](./hw) - homework submissions for 2014 course
-- [`hw-noob`](./hw-noob) - homework submissions for 2013 course, when I was a complete R noob
-- [`reference`](./reference) - various tutorials/references/R scripts that can be useful in many future projects
-- [`terrorism-project`](./terrorism-project) - final project from 2013 course, very interesting analysis of global terrorism activity over time
+The directory might look a little intimidating, but the only files that are necessary (and that will remain after performing a `make clean`) are:    
 
-### Useful/interesting files
-- [Global terrorism project](./terrorism-project/report.md) - has many examples of reshaping, plotting, data cleaning, factor manipulation, using pretty tables, complex manipulation of data, using world maps, and more
-- [Tutorial on colours](./reference/colours/colours.md) and [colour names](./reference/colours/colors_black_bg.pdf)   
-- [Examples of ggplot2](./reference/ggplot2/ggplot2.md)
-- [R lines types](./reference/r_line_types.png) and [R symbols](./reference/r_symbols.png)
-- [dplyr join cheatsheet](./reference/dplyr_join_cheatsheet/dplyr_join_cheatsheet.md) by Jenny Bryan 	
-- [Regular expressions cheatsheet](./reference/regex/regularExpressions.md) by Gloria Li 
-- [Automated pipelines / make](./reference/make/slides.md) by Shaun Jackman
-- [Homework 7](./hw/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin.md) - showing how to do general data manipulation using tidyr, plyr, dplyr, ggplot, spin
-- [Homework 8](./hw/hw08_data-cleaning-regex/hw08_data-cleaning-regex.md) - examples of data cleaning and regular expressions  
-- [Homework 9[(./hw/hw09_pipelines-make) - how to use `make` to automate pipelines
+- README.md  
+- Makefile  
+- script0[1-5]*.R  
+- stat545_make_pipeline.png  
+- hw09_pipelines-make-report.Rmd  
+
+
+### How to run
+If you have the contents of this directory, or at least the necessary files mentioned above, you can simply run `make clean all` to reproduce the outputs.  
+
+Note that the raw data is 70MB so it may take a few minutes to download.  There are instructions in the Makefile how to download the clean data to surpass this time-consuming step.
+
+Here are some things to try to fidget with the pipeline steps and ensure the [Makefile](./Makefile) is correct:
+
+- `make clean`: now only the files mentioned in the Directory Structure section should exist  
+- `make all`: the raw data will be downloaded and the whole pipeline will run, producing all the files that existed initially  
+- remove `globalterrorismdb_clean.csv`, run `make all`: nothing happens, as expected
+- remove `hw09_pipelines-make-report.md`, run `make all`: step 6 (Rmd -> md/html) gets run, the final markdown is restored
+- remove `hw09_pipelines-make-report.html` and `injuryByAttack.png`, run `make all`: steps 3 (generate the figure) and 6 (render) get run, the final HTML is restored
+- remove `hw09_pipelines-make-report.html`, `injuryByAttack.png`, and `injuryByAttack-attackTypeOrder.txt`, run `make all`: step 1 gets run (clean data - because we removed the clean data earlier and it is finally needed), then steps 2 and 3 that generate the figure, and then the render step is run as well to generate the HTML
+- edit `injuryByAttack.csv` and change one of the numeric values drastically, run `make all`: step 3 (generate figure) is run because the figure now has different data to show, then the HTML is rendered
+
+There are many more ways to test this out, you can also try editing one of the R scripts and see what happens - that can be left as an exercise to the reader :)
