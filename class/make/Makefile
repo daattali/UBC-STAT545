@@ -1,8 +1,5 @@
 #!usr/bin/make -f
 
-# need to do this to get "make" to work in git bash
-# SHELL=cmd.exe
-
 # replace "del" with "rm" on unix machines
 
 all: report.html

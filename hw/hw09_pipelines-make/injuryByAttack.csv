@@ -1,0 +1,19 @@
+"attacktype","stat","value"
+"Armed Assault","nkill",112636
+"Assassination","nkill",19477
+"Bombing/Explosion","nkill",74351
+"Facility Attack","nkill",3303
+"Hijacking","nkill",3600
+"Hostage (Barricade)","nkill",1232
+"Hostage (Kidnapping)","nkill",3981
+"Unarmed Assault","nkill",640
+"Unknown","nkill",9306
+"Armed Assault","nwound",67504
+"Assassination","nwound",9375
+"Bombing/Explosion","nwound",208192
+"Facility Attack","nwound",4550
+"Hijacking","nwound",391
+"Hostage (Barricade)","nwound",833
+"Hostage (Kidnapping)","nwound",1312
+"Unarmed Assault","nwound",1990
+"Unknown","nwound",5055

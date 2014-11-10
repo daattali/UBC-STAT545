@@ -13,4 +13,4 @@ RnwWeave: Sweave
 LaTeX: pdfLaTeX
 
 BuildType: Makefile
-MakefilePath: class
+MakefilePath: hw/hw09_pipelines-make
