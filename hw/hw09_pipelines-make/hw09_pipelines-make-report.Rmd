@@ -10,6 +10,10 @@ here](../../terrorism-project)).
   
 ---  
   
+The dataset used here is called the Global Terrorism Database
+([available here])(http://www.start.umd.edu/gtd/), and contains over 100,000
+terrorist incidents worldwide, with over 100 different attributes for each incident. 
+
 Let's start with a very basic, yet upsetting, statistic in the data: the number of people wounded and killed by each attack type overall.
 
 ![*Fig. 1* Injuries by attack type](injuryByAttack.png)
