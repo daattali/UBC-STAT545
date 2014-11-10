@@ -29,6 +29,7 @@ The directory might look a little intimidating, but the only files that are nece
 - stat545_make_pipeline.png  
 - hw09_pipelines-make-report.Rmd  
 
+Note that not all the files produced by `make` are included here.  The raw dataset and the clean dataset, which are both several MB large, are omitted because of their size and because they can be found [elsewhere](../../terrorism-project/globalterrorismdb.csv).
 
 ### How to run
 If you have the contents of this directory, or at least the necessary files mentioned above, you can simply run `make clean all` to reproduce the outputs.  
