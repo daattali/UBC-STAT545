@@ -5,7 +5,7 @@ How to use `make` to automate pipelines.
 --- 
 
 ### Overview
-Initially, I wanted to use a cool new dataset from the web, but it was difficult finding a dataset that I a. found very interesting and b. was easily accessible via a URL (ie. did not involve clicking buttons/logging in/etc.).  Then I remembered that I have a copy of an [interesting dataset from last year's course](../../terrorism-project/globalterrorismdb.csv) about global terrorist attacks since 1970, so I will use that as my dataset.  
+Initially, I wanted to use a cool new dataset from the web, but it was difficult finding a dataset that a. I found very interesting and b. was easily accessible via a URL (ie. did not involve clicking buttons/logging in/etc.).  Then I remembered that I have a copy of an [interesting dataset from last year's course](../../terrorism-project/globalterrorismdb.csv) about global terrorist attacks since 1970, so I will use that as my dataset.  
 
 I have developed a short pipeline that begins with downloading the raw data, cleans the data, produces several tabular results in `csv` format, generates a couple images using these results, and finally generates a markdown and HTML documents as final output using these two images.  The results and images produced here are a small excerpt from the project I did last year ([available
 here](../../terrorism-project)), but they are enough to demonstrate how to use `make` in a proficient way.
@@ -34,7 +34,7 @@ Note that not all the files produced by `make` are included here.  The raw datas
 ### How to run
 If you have the contents of this directory, or at least the necessary files mentioned above, you can simply run `make clean all` to reproduce the outputs.  
 
-Note that the raw data is 70MB so it may take a few minutes to download.  There are instructions in the Makefile how to download the clean data to surpass this time-consuming step.
+Note that the raw data is 70MB so it may take a few minutes to download.  There are instructions in the Makefile how to download the clean data to bypass this time-consuming step.
 
 Here are some things to try to fidget with the pipeline steps and ensure the [Makefile](./Makefile) is correct:
 
