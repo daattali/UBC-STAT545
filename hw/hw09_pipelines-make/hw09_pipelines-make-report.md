@@ -23,6 +23,7 @@ are the highest.
 Now let's see how many terrorist attacks occurred at the different world regions,
 binned to intervals of 5 years (the code for this binning is not trivial,
 you can [look at the source](./script04_calc-attack-per-region-year-bin.R)).
+The regions are sorted by the number of total attacks over all years combined.
 
 ![*Fig. 2* Attacks by region in 5 year intervals](attackByRegion5YearBin.png)
 
