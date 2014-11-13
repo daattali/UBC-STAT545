@@ -18,6 +18,7 @@ This repository can serve as a sampler with many references showing how to perfo
 - [dplyr join cheatsheet](./reference/dplyr_join_cheatsheet/dplyr_join_cheatsheet.md) by Jenny Bryan 	
 - [Regular expressions cheatsheet](./reference/regex/regularExpressions.md) by Gloria Li 
 - [Automated pipelines / make](./reference/make/slides.md) by Shaun Jackman
+- [Creating R packages](./reference/packages/packages.md) by Bernhard Konrad  
 - [Homework 7](./hw/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin) - showing how to do general data manipulation using tidyr, plyr, dplyr, ggplot, spin
 - [Homework 8](./hw/hw08_data-cleaning-regex) - examples of data cleaning and regular expressions  
 - [Homework 9](./hw/hw09_pipelines-make) - how to use `make` to automate pipelines
