@@ -15,6 +15,7 @@ shinyUI(fluidPage(
 		)
 	),
 	
+	# enclose the header in its own section to style it nicer
 	div(id = "headerSection",
 		titlePanel("Cancer data in the United States"),
 	
@@ -22,45 +23,55 @@ shinyUI(fluidPage(
 		em(
 			span("Created by "),
 			a("Dean Attali", href = "mailto:daattali@gmail.com"), br(),
-			span("November 21 2014")
+			span("November 21, 2014")
 		)
 	),
 	
 	# show a loading message initially
 	div(
 		id = "loadingContent",
-		h3("Loading...")
+		h2("Loading...")
 	),	
 	
 	# all content goes here, and is hidden initially until the page fully loads
 	div(id = "allContent", class = " hideme",
+		
+		# sidebar - filters for the data
 		sidebarLayout(
 			sidebarPanel(
 				h3("Filter data"),
-				
+
+				# show all the cancers or just specific types?
 				selectInput(
 					"subsetType", "",
 					c("Show all cancer types" = "all",
 						"Select specific types" = "specific"),
 					selected = "all"),
 				
+				# which cancer types to show
 				conditionalPanel(
 					"input.subsetType == 'specific'",
 					uiOutput("cancerTypeUi")
 				), br(),
 				
+				# whether to combine all data in a given year or not
 				checkboxInput("showIndividual",
 											"Show data per each cancer type",
 											TRUE), br(),
 				
+				# what years to show
 				span("Years:"),
 				textOutput("yearText", inline = TRUE), br(),
 				uiOutput("yearUi"), br(),
 
-				uiOutput("variablesUi"),shiny::hr(),
-				
+				# what variables to show
+				uiOutput("variablesUi"),
+
+				# button to update the data
+				shiny::hr(),
 				actionButton("updateBtn", "Update Data"),
 				
+				# footer - where the data was obtained
 				br(), br(), br(), br(),
 				p("Data was obtained from ",
 					a("the United States CDC",
@@ -70,6 +81,8 @@ shinyUI(fluidPage(
 					href = "http://wonder.cdc.gov/cancer.html",
 					target = "_blank")
 			),
+			
+			# main panel has two tabs - one to show the data, one to plot it
 			mainPanel(wellPanel(
 				tabsetPanel(
 					id = "resultsTab", type = "tabs",
@@ -80,12 +93,14 @@ shinyUI(fluidPage(
 						
 						downloadButton("downloadData", "Download table"),
 						br(), br(),
+						
 						span("Table format:"),
 						radioButtons(inputId = "tableViewForm",
 												 label = "",
 												 choices = c("Wide" = "wide", "Long" = "long"),
 												 inline = TRUE),
 						br(),
+						
 						tableOutput("dataTable")
 					),
 					

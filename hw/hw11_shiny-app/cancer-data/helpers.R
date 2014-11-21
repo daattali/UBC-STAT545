@@ -1,22 +1,33 @@
+# Dean Attali
+# November 21 2014
+
+# Helper functions for the cancer-data shiny app
+
 library(plyr)
 library(dplyr)
-library(tidyr)
-library(ggplot2)
 
 DATA_DIR <- file.path("data")
 
+# Read the data and get it ready for the app
 getData <- function() {
+	
+	# read the data file
 	cDat <- read.table(file.path(DATA_DIR, "cancerData.csv"), sep = ",",
 										 header = TRUE, row.names = NULL)
 	
+	# re-order the cancerType factor based on the order that was saved
 	cDatTypeOrder <- read.table(file.path(DATA_DIR,
 																			"cancerData-order-cancerType.txt"),
 																	header = FALSE, row.names = NULL, sep = ",")
 	cDatTypeOrder <- cDatTypeOrder %>% first
 	cDat <- cDat %>%
 		mutate(cancerType = factor(cancerType, cDatTypeOrder))
+	
+	cDat
 }
 
+# Our data has 22 cancer types, so when plotting I wanted to have a good
+# set of 22 unique colours
 getPlotCols <- function() {
 	c22 <- c("dodgerblue2","#E31A1C", # red
 					 "green4",
@@ -32,6 +43,7 @@ getPlotCols <- function() {
 	c22
 }
 
+# Format a range of years in a nice, easy-to-read way
 formatYearsText <- function(years) {
 	if (min(years) == max(years)) {
 		return(min(years))

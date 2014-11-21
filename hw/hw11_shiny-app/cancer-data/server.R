@@ -4,63 +4,99 @@
 # This is the server portion of a shiny app shows cancer data in the United
 # States
 
-source("helpers.R")
+source("helpers.R")  # have the helper functions avaiable
 
+library(shiny)
 library(plyr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 
+# Get the raw data
 cDatRaw <- getData()
+
+# Get the list of colours to use for plotting
 plotCols <- getPlotCols()
 
 shinyServer(function(input, output, session) {
 	
-	# we need to have a quasi-variable flag to indicate when the plot
-	# area was adjusted
-	dataValues <- reactiveValues(
-		appLoaded = FALSE
-	)
+	# =========== BUILDING THE INPUTS ===========
 	
-	observe({
-		if (dataValues$appLoaded) {
-			return(NULL)
+	# Create select box input for choosing cancer types
+	output$cancerTypeUi <- renderUI({
+		selectizeInput("cancerType", "",
+									 levels(cDatRaw$cancerType),
+									 selected = NULL, multiple = TRUE,
+									 options = list(placeholder = "Select cancer types"))
+	})	
+	
+	# Create select box input to choose variables to show
+	output$variablesUi <- renderUI({
+		selectizeInput("variablesSelect", "Variables to show:",
+									 unique(as.character(cDatRaw$stat)),
+									 selected = unique(cDatRaw$stat), multiple = TRUE,
+									 options = list(placeholder = "Select variables to show"))
+	})	
+	
+	# Show the years selected (because of the bugs in the slider mentioned below)
+	output$yearText <- renderText({
+		if (is.null(input$years)) {
+			return(formatYearsText(range(cDatRaw$year)))
 		}
-		if(!is.null(input$years)) {
-			dataValues$appLoaded <- TRUE
-			
-			session$sendCustomMessage(type = "equalizeHeight",
-																message = list(target = "dataPlot",
-																							 by = "resultsTab")) 			
-		}
+		
+		formatYearsText(input$years)
+	})	
+	
+	# Create slider for selecting year range
+	# NOTE: there are some minor bugs with sliderInput rendered in renderUI
+	# https://github.com/rstudio/shiny/issues/587
+	output$yearUi <- renderUI({
+		sliderInput("years", 
+								label = "",
+								min = min(cDatRaw$year), max = max(cDatRaw$year),
+								value = range(cDatRaw$year),
+								step = 1,
+								format = "####")
 	})
+	
+	
+	# ============== MANIPULATE THE DATA ================
 
+	# The dataset to show/plot, which is the raw data after filtering based on
+	# the user inputs
 	cDat <- reactive({
-		# add dependency on the update button (only update when button is clicked)
+		# Add dependency on the update button (only update when button is clicked)
 		input$updateBtn	
 		
-		isolate(
-			if (is.null(input$years)) {
-				return(cDatRaw)
-			}
-		)
+		# If the app isn't fully loaded yet, just return the raw data 
+		if (!dataValues$appLoaded) {
+			return(cDatRaw)
+		}
 		
 		data <- cDatRaw
 		
+		# Add all the filters to the data based on the user inputs
+		# wrap in an isolate() so that the data won't update every time an input
+		# is changed
 		isolate({
+			
+			# Filter years
 			data <- data %>%
 				filter(year >= input$years[1] & year <= input$years[2])
 			
+			# Filter what variables to show
 			if (!is.null(input$variablesSelect)) {
 				data <- data %>%
 					filter(stat %in% input$variablesSelect)
 			}
 			
+			# Filter cancer types
 			if (input$subsetType == "specific" & !is.null(input$cancerType)) {
 				data <- data %>%
 					filter(cancerType %in% input$cancerType)
 			}
 			
+			# See if the user wants to show data per cancer type or all combined
 			if (!input$showIndividual) {
 				data <- data %>%
 					group_by(year, stat) %>%
@@ -76,12 +112,19 @@ shinyServer(function(input, output, session) {
 		data
 	})
 	
+	# The data to show in a table, which is essentially the same data as above
+	# with all the filters, but formatted differently:
+	# - Format the numbers to look better in a table
+	# - Change the data to wide/long format (the filtered data above is long)
 	cDatTable <- reactive({
 		data <- cDat()
 		
+		# In numeric columns show 2 digits past the decimal and don't show
+		# decimal if the number is a whole integer
 		data <- data %>%
 			mutate(value = formatC(data$value, format = "fg", digits = 2))		
 		
+		# Change the data to wide format if the user wants it
 		if (input$tableViewForm == "wide") {
 			data <- data %>%
 				spread(stat, value)
@@ -90,51 +133,18 @@ shinyServer(function(input, output, session) {
 		data
 	})
 	
-	# create select box input for choosing cancer types
-	output$cancerTypeUi <- renderUI({
-		selectizeInput("cancerType", "",
-									 levels(cDatRaw$cancerType),
-									 selected = NULL, multiple = TRUE,
-									 options = list(placeholder = "Select cancer types"))
-	})	
-
-	output$variablesUi <- renderUI({
-		selectizeInput("variablesSelect", "Variables to show:",
-									 unique(as.character(cDatRaw$stat)),
-									 selected = unique(cDatRaw$stat), multiple = TRUE,
-									 options = list(placeholder = "Select variables to show"))
-	})	
 	
+	# ============= TAB TO SHOW DATA IN TABLE ===========
 	
-	# create slider for selecting year range
-	# NOTE: there are some minor bugs with sliderInput rendered in renderUI
-	# https://github.com/rstudio/shiny/issues/587
-	output$yearUi <- renderUI({
-		sliderInput("years", 
-							label = "",
-							min = min(cDatRaw$year), max = max(cDatRaw$year),
-							value = range(cDatRaw$year),
-							step = 1,
-							format = "####")
-	})
+	# Show the data in a table
+	output$dataTable <- renderTable(
+		{
+			cDatTable()
+		},
+		include.rownames = FALSE
+	)
 	
-	output$yearText <- renderText({
-		if (is.null(input$years)) {
-			return(formatYearsText(range(cDatRaw$year)))
-		}
-		
-		formatYearsText(input$years)
-	})
-	
-	output$dataTable <- renderTable({
-		data <- cDatTable()
-		if (is.null(data) | nrow(data) == 0) {
-			return(NULL)
-		}
-		data
-	},
-	include.rownames=FALSE)
-	
+	# Allow user to download the data, simply save as csv
 	output$downloadData <- downloadHandler(
 		filename = function() { 
 			"cancerData.csv"
@@ -147,25 +157,19 @@ shinyServer(function(input, output, session) {
 		}
 	)	
 	
-	output$downloadPlot <- downloadHandler(
-		filename = function() {
-			"cancerDataPlot.pdf"
-		},
-		
-		content = function(file) {
-			pdf(file = file,
-					width = 12,
-					height = 12 / buildPlot()$aspectRatio)
-			print(buildPlot()$p)
-			dev.off()
-		}
-	)	
 	
+	# ============= TAB TO PLOT DATA ===========
+	
+	# Function to build the plot object
 	buildPlot <- reactive({
+		
+		# Basic ggplot object
 		p <-
 			ggplot(cDat()) +
 			aes(x = as.factor(year), y = value)
 		
+		# If showing individual cancer types, group each type together, otherwise
+		# just connect all the dots as one group
 		isolate(
 			if (input$showIndividual) {
 				p <- p + aes(group = cancerType, col = cancerType)
@@ -173,6 +177,8 @@ shinyServer(function(input, output, session) {
 				p <- p + aes(group = 1)
 			}
 		)
+		
+		# Facet per variable, add points and lines, and make the graph pretty
 		p <- p +
 			facet_wrap(~stat, scales = "free_y", ncol = 2) +
 			geom_point() +
@@ -188,42 +194,61 @@ shinyServer(function(input, output, session) {
 			theme(panel.grid.minor = element_blank(),
 						panel.grid.major.x = element_blank())
 		
-		width <- reactive({
-			input$plotDim
-		})
-
-		height <- reactive({
-			if (length(unique(cDat()$stat)) <= 2) {
-				(input$plotDim + 200) / 2
-			} else {
-				input$plotDim
-			}
-		})
-		
-		aspectRatio <- reactive({
-			width() / height()
-		})
-		
-		return(list(
-			p = p,
-			width = width(),
-			height = height(),
-			aspectRatio = aspectRatio()
-		))
+		p
 	})	
 	
+	# Show the plot, use the width/height that javascript calculated
 	output$dataPlot <-
 		renderPlot(
 			{
-				buildPlot()$p
+				buildPlot()
 			},
-			height = function(){ buildPlot()$height },
-			width = function(){ buildPlot()$width },
+			height = function(){ input$plotDim },
+			width = function(){ input$plotDim },
 			units = "px",
 			res = 100
 		)
 
-	# ------------ show form content and hide loading message
+	# Allow user to download the plot
+	output$downloadPlot <- downloadHandler(
+		filename = function() {
+			"cancerDataPlot.pdf"
+		},
+		
+		content = function(file) {
+			pdf(file = file,
+					width = 12,
+					height = 12)
+			print(buildPlot())
+			dev.off()
+		}
+	)		
+	
+	
+	# ========== LOADING THE APP ==========
+	
+	# We need to have a quasi-variable flag to indicate when the app is loaded
+	dataValues <- reactiveValues(
+		appLoaded = FALSE
+	)
+	
+	# Wait for the years input to be rendered as a proxy to determine when the app
+	# is loaded. Once loaded, call the javascript funtion to fix the plot area
+	# (see www/helper-script.js for more information)
+	observe({
+		if (dataValues$appLoaded) {
+			return(NULL)
+		}
+		if(!is.null(input$years)) {
+			dataValues$appLoaded <- TRUE
+			
+			session$sendCustomMessage(type = "equalizePlotHeight",
+																message = list(target = "dataPlot",
+																							 by = "resultsTab")) 			
+		}
+	})
+	
+	# Show form content and hide loading message
 	session$sendCustomMessage(type = "hide",
 														message = list(id = "loadingContent"))
 	session$sendCustomMessage(type = "show",

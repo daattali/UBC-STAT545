@@ -1,3 +1,6 @@
+// This file listens for messages from the shiny app and
+// redirects them to javascript
+
 Shiny.addCustomMessageHandler("show",
   function(message) {
     show(message.id);
@@ -10,8 +13,8 @@ Shiny.addCustomMessageHandler("hide",
   }
 );
 
-Shiny.addCustomMessageHandler("equalizeHeight",
+Shiny.addCustomMessageHandler("equalizePlotHeight",
   function(message) {
-    equalizeHeight(message.target, message.by);
+    equalizePlotHeight(message.target, message.by);
   }
 );
