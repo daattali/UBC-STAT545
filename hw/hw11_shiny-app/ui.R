@@ -54,6 +54,8 @@ shinyUI(fluidPage(
 				
 				uiOutput("yearUi"), br(),
 
+				uiOutput("variablesUi"), br(),
+				
 				actionButton("updateBtn", "Update Data"),
 				
 				br(), br(), br(), br(),

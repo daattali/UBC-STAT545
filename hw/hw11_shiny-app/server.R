@@ -1,5 +1,5 @@
 # Dean Attali
-# November 2014
+# November 21 2014
 
 # This is the server portion of a shiny app shows cancer data in the United
 # States
@@ -10,9 +10,6 @@ library(plyr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-
-#TODO disable update if "select specific cancer types" none selected
-# TODO add filtering of variables
 
 cDatRaw <- getData()
 plotCols <- getPlotCols()
@@ -54,7 +51,12 @@ shinyServer(function(input, output, session) {
 			data <- data %>%
 				filter(year >= input$years[1] & year <= input$years[2])
 			
-			if (input$subsetType == "specific") {
+			if (!is.null(input$variablesSelect)) {
+				data <- data %>%
+					filter(stat %in% input$variablesSelect)
+			}
+			
+			if (input$subsetType == "specific" & !is.null(input$cancerType)) {
 				data <- data %>%
 					filter(cancerType %in% input$cancerType)
 			}
@@ -95,13 +97,21 @@ shinyServer(function(input, output, session) {
 									 selected = NULL, multiple = TRUE,
 									 options = list(placeholder = "Select cancer types"))
 	})	
+
+	output$variablesUi <- renderUI({
+		selectizeInput("variablesSelect", "Variables to show:",
+									 unique(as.character(cDatRaw$stat)),
+									 selected = unique(cDatRaw$stat), multiple = TRUE,
+									 options = list(placeholder = "Select variables to show"))
+	})	
+	
 	
 	# create slider for selecting year range
 	# NOTE: there are some minor bugs with sliderInput rendered in renderUI
 	# https://github.com/rstudio/shiny/issues/587
 	output$yearUi <- renderUI({
 		sliderInput("years", 
-							label = "Years",
+							label = "Years:",
 							min = min(cDatRaw$year), max = max(cDatRaw$year),
 							value = c(min(cDatRaw$year), max(cDatRaw$year)),
 							step = 1,
