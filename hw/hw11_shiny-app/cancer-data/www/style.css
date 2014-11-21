@@ -1,5 +1,5 @@
 body {
-	background: url("http://medleyweb.com/wp-content/uploads/2012/06/Seamless-Web-Background-Patterns-for-Your-Site-26.jpg")
+	background: url("background.jpg") repeat;
 }
 
 .container-fluid {

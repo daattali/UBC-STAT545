@@ -65,7 +65,10 @@ shinyUI(fluidPage(
 				p("Data was obtained from ",
 					a("the United States CDC",
 						href = "http://wonder.cdc.gov/cancer.html",
-						target = "_blank"))
+						target = "_blank")),
+				a(img(src = "us-cdc.png", alt = "US CDC"),
+					href = "http://wonder.cdc.gov/cancer.html",
+					target = "_blank")
 			),
 			mainPanel(wellPanel(
 				tabsetPanel(
