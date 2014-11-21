@@ -2,7 +2,11 @@
 
 Building a Shiny app
 
-### Overview
+### Demo
+The app was deployed to shinyapps.io and is available at
+[http://daattali.shinyapps.io/cancer-data](http://daattali.shinyapps.io/cancer-data)
+
+### Details
 I built an app that allows users to explore data about cancer incidences/deaths
 in the US.  The data was taken from
 [the US CDC](http://wonder.cdc.gov/cancer.html).  
@@ -23,9 +27,5 @@ javascript).  Most of these are the result of very persistent Googling and
 experimenting since almost all these techniques are not documented anywhere.
 
 ### Code
-The source code for the is [all here](./cancer-data).  To run the app locally,
+The source code for the app is [all here](./cancer-data).  To run the app locally,
 ensure `shiny` package is installed and run `runApp("cancer-data")`.
-
-### Demo
-The app was deployed to shinyapps.io and is available at
-[http://daattali.shinyapps.io/cancer-data](http://daattali.shinyapps.io/cancer-data)
