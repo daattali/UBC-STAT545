@@ -31,3 +31,11 @@ getPlotCols <- function() {
 					 "darkturquoise", "green1", "yellow4", "brown")
 	c22
 }
+
+formatYearsText <- function(years) {
+	if (min(years) == max(years)) {
+		return(min(years))
+	} else {
+		return(paste(years, collapse = " - "))	
+	}
+}

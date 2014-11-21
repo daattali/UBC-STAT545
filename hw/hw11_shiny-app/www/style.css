@@ -1,3 +1,41 @@
+body {
+	background: url("http://medleyweb.com/wp-content/uploads/2012/06/Seamless-Web-Background-Patterns-for-Your-Site-26.jpg")
+}
+
+.container-fluid {
+	padding: 0;
+}
+
+#headerSection {
+	background: #323232;
+	margin: -10px 0 20px;
+	color: #DAA4A4;
+	padding: 0 20px 20px;
+} 
+
+#allContent {
+	padding: 0 20px;
+}
+
+.nav-tabs > li > a {
+	font-size: 1.5em;
+}
+
+#dataTable > table {
+	background: #FAFAFA;
+}
+
+.well {
+	background: #FCFCFC;
+}
+
 .hideme {
   display: none !important;
 }
+
+#updateBtn {
+	font-size: 1.3em;
+	font-weight: bold;
+	padding: 10px 20px;
+}
+

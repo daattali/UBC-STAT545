@@ -1,5 +1,5 @@
 # Dean Attali
-# November 2014
+# November 21 2014
 
 # This is the ui portion of a shiny app shows cancer data in the United States
 
@@ -15,15 +15,16 @@ shinyUI(fluidPage(
 		)
 	),
 	
-	titlePanel("Cancer data in the United States"),
+	div(id = "headerSection",
+		titlePanel("Cancer data in the United States"),
 	
-	# author info
-	em(
-		span("Created by "),
-		a("Dean Attali", href = "mailto:daattali@gmail.com"), br(),
-		span("November 2014")
+		# author info
+		em(
+			span("Created by "),
+			a("Dean Attali", href = "mailto:daattali@gmail.com"), br(),
+			span("November 21 2014")
+		)
 	),
-	shiny::hr(),
 	
 	# show a loading message initially
 	div(
@@ -52,9 +53,11 @@ shinyUI(fluidPage(
 											"Show data per each cancer type",
 											TRUE), br(),
 				
+				span("Years:"),
+				textOutput("yearText", inline = TRUE), br(),
 				uiOutput("yearUi"), br(),
 
-				uiOutput("variablesUi"), br(),
+				uiOutput("variablesUi"),shiny::hr(),
 				
 				actionButton("updateBtn", "Update Data"),
 				
@@ -64,7 +67,7 @@ shinyUI(fluidPage(
 						href = "http://wonder.cdc.gov/cancer.html",
 						target = "_blank"))
 			),
-			mainPanel(
+			mainPanel(wellPanel(
 				tabsetPanel(
 					id = "resultsTab", type = "tabs",
 					
@@ -72,11 +75,13 @@ shinyUI(fluidPage(
 					tabPanel(
 						title = "Show data", id = "tableTab",
 						
-						downloadButton("downloadData", "Download data"),
+						downloadButton("downloadData", "Download table"),
 						br(), br(),
-						checkboxInput("tableFormWide",
-													"Show data in wide (vs long) form",
-													TRUE),
+						span("Table format:"),
+						radioButtons(inputId = "tableViewForm",
+												 label = "",
+												 choices = c("Wide" = "wide", "Long" = "long"),
+												 inline = TRUE),
 						br(),
 						tableOutput("dataTable")
 					),
@@ -90,7 +95,7 @@ shinyUI(fluidPage(
 						plotOutput("dataPlot")
 					)
 				)
-			)
+			))
 		)
 	)
 ))

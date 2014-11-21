@@ -82,7 +82,7 @@ shinyServer(function(input, output, session) {
 		data <- data %>%
 			mutate(value = formatC(data$value, format = "fg", digits = 2))		
 		
-		if (input$tableFormWide) {
+		if (input$tableViewForm == "wide") {
 			data <- data %>%
 				spread(stat, value)
 		}
@@ -111,11 +111,19 @@ shinyServer(function(input, output, session) {
 	# https://github.com/rstudio/shiny/issues/587
 	output$yearUi <- renderUI({
 		sliderInput("years", 
-							label = "Years:",
+							label = "",
 							min = min(cDatRaw$year), max = max(cDatRaw$year),
-							value = c(min(cDatRaw$year), max(cDatRaw$year)),
+							value = range(cDatRaw$year),
 							step = 1,
 							format = "####")
+	})
+	
+	output$yearText <- renderText({
+		if (is.null(input$years)) {
+			return(formatYearsText(range(cDatRaw$year)))
+		}
+		
+		formatYearsText(input$years)
 	})
 	
 	output$dataTable <- renderTable({
@@ -145,8 +153,10 @@ shinyServer(function(input, output, session) {
 		},
 		
 		content = function(file) {
-			pdf(file = file, width = 12, height = 10)
-			print(buildPlot())
+			pdf(file = file,
+					width = 12,
+					height = 12 / buildPlot()$aspectRatio)
+			print(buildPlot()$p)
 			dev.off()
 		}
 	)	
@@ -178,16 +188,37 @@ shinyServer(function(input, output, session) {
 			theme(panel.grid.minor = element_blank(),
 						panel.grid.major.x = element_blank())
 		
-		p
+		width <- reactive({
+			input$plotDim
+		})
+
+		height <- reactive({
+			if (length(unique(cDat()$stat)) <= 2) {
+				(input$plotDim + 200) / 2
+			} else {
+				input$plotDim
+			}
+		})
+		
+		aspectRatio <- reactive({
+			width() / height()
+		})
+		
+		return(list(
+			p = p,
+			width = width(),
+			height = height(),
+			aspectRatio = aspectRatio()
+		))
 	})	
 	
 	output$dataPlot <-
 		renderPlot(
 			{
-				buildPlot()
+				buildPlot()$p
 			},
-			height = function(){ input$plotDim },
-			width = function(){ input$plotDim },
+			height = function(){ buildPlot()$height },
+			width = function(){ buildPlot()$width },
 			units = "px",
 			res = 100
 		)

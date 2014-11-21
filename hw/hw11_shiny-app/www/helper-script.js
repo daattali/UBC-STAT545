@@ -22,10 +22,8 @@ function hide(id) {
 function equalizeHeight(target, by) {
 	var eBy = document.getElementById(by);
 	var width = eBy.scrollWidth;
-	var height = width + 200;
 	var eTarget = document.getElementById(target);
-	eTarget.style.height = height + "px";
+	eTarget.style.height = width + "px";
 	
 	Shiny.onInputChange("plotDim", width);
-	console.log("A");
 }
