@@ -28,4 +28,4 @@ experimenting since almost all these techniques are not documented anywhere.
 
 ### Code
 The source code for the app is [all here](./cancer-data).  To run the app locally,
-ensure `shiny` package is installedb set your working directory to this directory, and run `runApp("cancer-data")`.
+ensure `shiny` package is installed and loaded, set your working directory to this directory, and run `runApp("cancer-data")`.
