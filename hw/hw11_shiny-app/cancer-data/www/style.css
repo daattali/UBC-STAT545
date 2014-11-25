@@ -40,3 +40,6 @@ body {
 	padding: 10px 20px;
 }
 
+#yearText {
+	display: inline;
+}

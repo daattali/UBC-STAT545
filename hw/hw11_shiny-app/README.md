@@ -3,8 +3,9 @@
 Building a Shiny app
 
 ### Demo
-The app was deployed to shinyapps.io and is available at
-[http://daattali.shinyapps.io/cancer-data](http://daattali.shinyapps.io/cancer-data)
+The app was deployed both to
+[shinyapps.io](http://daattali.shinyapps.io/cancer-data) and to
+[the UBC stats shinyapps server](http://shinyapps.stat.ubc.ca/daattali/cancer-data/). 
 
 ### Details
 I built an app that allows users to explore data about cancer incidences/deaths

@@ -60,8 +60,10 @@ shinyUI(fluidPage(
 											TRUE), br(),
 				
 				# what years to show
+				# Note: yearText should use "inline = TRUE" in newer shiny versions,
+				# but since the stats server has an old version I'm doing this in css
 				span("Years:"),
-				textOutput("yearText", inline = TRUE), br(),
+				textOutput("yearText"), br(),  
 				uiOutput("yearUi"), br(),
 
 				# what variables to show

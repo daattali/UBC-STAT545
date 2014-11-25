@@ -23,4 +23,5 @@ This repository can serve as a sampler with many references showing how to perfo
 - [Homework 8](./hw/hw08_data-cleaning-regex) - examples of data cleaning and regular expressions  
 - [Homework 9](./hw/hw09_pipelines-make) - how to use `make` to automate pipelines
 - [Homework 10](./hw/hw10_packages) - my very own package of useful R functions called `rsalad`, [available on GitHub](https://github.com/daattali/rsalad)  
-- [Homework 11](./hw/hw11_shiny-app) - a Shiny app exploring cancer data, a demo is available on [shinyapps.io](https://daattali.shinyapps.io/cancer-data/)
+- [Homework 11](./hw/hw11_shiny-app) - a Shiny app exploring cancer data, a demo is available on [shinyapps.io](https://daattali.shinyapps.io/cancer-data/) and on
+[the UBC stats shinyapps server](http://shinyapps.stat.ubc.ca/daattali/cancer-data/)
