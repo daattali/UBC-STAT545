@@ -7,6 +7,7 @@
 source("helpers.R")  # have the helper functions avaiable
 
 library(shiny)
+library(magrittr)
 library(plyr)
 library(dplyr)
 library(tidyr)
@@ -81,24 +82,24 @@ shinyServer(function(input, output, session) {
 		isolate({
 			
 			# Filter years
-			data <- data %>%
+			data %<>%
 				filter(year >= input$years[1] & year <= input$years[2])
 			
 			# Filter what variables to show
 			if (!is.null(input$variablesSelect)) {
-				data <- data %>%
+				data %<>%
 					filter(stat %in% input$variablesSelect)
 			}
 			
 			# Filter cancer types
 			if (input$subsetType == "specific" & !is.null(input$cancerType)) {
-				data <- data %>%
+				data %<>%
 					filter(cancerType %in% input$cancerType)
 			}
 			
 			# See if the user wants to show data per cancer type or all combined
 			if (!input$showIndividual) {
-				data <- data %>%
+				data %<>%
 					group_by(year, stat) %>%
 					summarise(value =
 											ifelse(stat[1] != "mortalityRate",
@@ -121,12 +122,12 @@ shinyServer(function(input, output, session) {
 		
 		# In numeric columns show 2 digits past the decimal and don't show
 		# decimal if the number is a whole integer
-		data <- data %>%
+		data %<>%
 			mutate(value = formatC(data$value, format = "fg", digits = 2))		
 		
 		# Change the data to wide format if the user wants it
 		if (input$tableViewForm == "wide") {
-			data <- data %>%
+			data %<>%
 				spread(stat, value)
 		}
 		
@@ -186,7 +187,7 @@ shinyServer(function(input, output, session) {
 			theme_bw() +
 			theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
 			scale_color_manual(values = plotCols) +
-			theme(legend.position = "bottom")+
+			theme(legend.position = "bottom") +
 			guides(color = guide_legend(title = "",
 																	ncol = 4,
 																	override.aes = list(size = 4))) +

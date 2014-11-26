@@ -3,8 +3,7 @@
 
 # Helper functions for the cancer-data shiny app
 
-library(plyr)
-library(dplyr)
+library(magrittr)
 
 DATA_DIR <- file.path("data")
 
@@ -19,8 +18,9 @@ getData <- function() {
 	cDatTypeOrder <- read.table(file.path(DATA_DIR,
 																			"cancerData-order-cancerType.txt"),
 																	header = FALSE, row.names = NULL, sep = ",")
-	cDatTypeOrder <- cDatTypeOrder %>% first
-	cDat <- cDat %>%
+	cDatTypeOrder %<>%
+		first
+	cDat %<>%
 		mutate(cancerType = factor(cancerType, cDatTypeOrder))
 	
 	cDat
