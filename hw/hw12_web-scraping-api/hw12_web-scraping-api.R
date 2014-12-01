@@ -471,12 +471,11 @@ analyzeVars(expense_RnD_Percent_of_GDP, laureatesPerM)
 #' thing I could think if. In their defence, maybe adding nationality is a
 #' debated issue because a laureate can have multiple nationalities?
 #' - Using Hadley Wickham's `rvest` package was amazing.
-
-#' 
-#' -------------
-#' 
+#'
 #' <br/><br/>
 #' 
+#' -------------
+#'  
 #' #### Session info:
 #+ show-sessionInfo
 sessionInfo()

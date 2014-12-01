@@ -2,7 +2,7 @@
 Dean Attali  
 Nov 29 2014 
 
-Last updated: 2014-11-30 21:22:35
+Last updated: 2014-11-30 21:27:45
 
 ## Overview
 I wanted to see if there's any relationship between the amount of money
@@ -705,10 +705,10 @@ thing I could think if. In their defence, maybe adding nationality is a
 debated issue because a laureate can have multiple nationalities?
 - Using Hadley Wickham's `rvest` package was amazing.
 
--------------
-
 <br/><br/>
 
+-------------
+ 
 #### Session info:
 
 

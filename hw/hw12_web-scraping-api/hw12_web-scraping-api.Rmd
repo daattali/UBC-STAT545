@@ -275,7 +275,7 @@ as the return type because I ran into too many problems with csv and also
 because this way I can simply extract the number of unique "person id"
 to know how many laureates were returned.
 
-```{r get-laureates-api, cache = TRUE}
+```{r get-laureates-api}
 laureatesPerCountry <- sapply(countriesRnD2$countryCode, function(x) {
 	apiCallBorn <- buildNobelPrizeApi(method = "laureate",
 																		format = "json",
@@ -520,10 +520,10 @@ thing I could think if. In their defence, maybe adding nationality is a
 debated issue because a laureate can have multiple nationalities?
 - Using Hadley Wickham's `rvest` package was amazing.
 
--------------
-
 <br/><br/>
 
+-------------
+ 
 #### Session info:
 
 ```{r show-sessionInfo}
