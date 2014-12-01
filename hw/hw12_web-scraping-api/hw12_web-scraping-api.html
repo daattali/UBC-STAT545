@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Homework 12 - Web scraping and APIs</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Homework 12 - Web scraping and APIs</h1>
+
+<p>Dean Attali<br/>
+Nov 29 2014 </p>
+
+<p>Last updated: 2014-11-30 21:17:46</p>
+
+<h2>Overview</h2>
+
+<p>I wanted to see if there&#39;s any relationship between the amount of money
+a country spends on research and development (R&amp;D) and the number of Nobel
+Prize laureates produed by the country.<br/>
+I expect that there is such a relationship to some extent. While money spent
+on R&amp;D does not necessarily mean the money is going towards science-based R&amp;D
+(for example, it can be spent on military research), in general I expect that 
+if a lot of  money is spent on research, there would be more people winning a 
+Nobel Prize.  To measure this, I will scrape for data on total money spent
+on R&amp;D per country from Wikipedia, and combine it with information from
+the Nobel Prize API.
+Furthermore, to give smaller countries a chance to shine, I also want to look
+at relative metrics. Looking at how much money a country spends and how many
+laureates they have is an absolute metric.  I expect that countries that
+spend a larger portion of their GDP on research will have more laureates
+per capita.  For exapmle, I hypothesize that generally a country that 
+spends 5% of their GDP on research rather than 1% will have a larger
+portion of the population get Nobel Prizes.  To measure this, I will use the
+same data sources as above, but also combine information about the population
+of each country to calculate the number of laureates per million citizens.</p>
+
+<p>Note: Some of the code in this script relies on functions available in the
+<code>rsalad</code> package that I developed, and can be installed with
+<code>devtools::install_github(&quot;daattali/rsalad&quot;)</code>. Moreover, this script
+is being directly converted to Rmarkdown and HTML using
+<code>rsalad::spinMyR(&quot;hw12_web-scraping-api.R&quot;, wd = &quot;hw/hw12_web-scraping-api&quot;)</code>
+with the working directory being the root directory of this repository.</p>
+
+<h2>Load packages</h2>
+
+<p>As always, the first step is to load all the necessary packages</p>
+
+<pre><code class="r">suppressPackageStartupMessages({
+    library(plyr)
+    library(dplyr)
+    library(magrittr)
+    library(rvest)
+    library(jsonlite)
+    library(ggplot2)
+  library(Hmisc)
+  library(rsalad)  #  devtools::install_github(&quot;daattali/rsalad&quot;)
+})
+</code></pre>
+
+<h2>Retrieve spendings on R&amp;D per country</h2>
+
+<p>The first piece of information we&#39;ll retrieve is a table telling us how much 
+money different countries spend on R&amp;D.  There is a nice Wikipedia page with 
+such a table, so we can scrape it very easily using Hadley Wickham&#39;s <code>rvest</code>
+package.<br/>
+Note: It literally took me 60 seconds to learn how to parse a table from
+Wikipedia using this new package. Hadley is awesome.<br/>
+Note 2: I&#39;m not showing the raw table because the formatting is very messed
+up because of the rawness of the text in the table. I will show the table
+soon after cleaning it up a bit.</p>
+
+<pre><code class="r">wikiRnDPageUrl &lt;- &quot;http://en.wikipedia.org/wiki/List_of_countries_by_research_and_development_spending&quot;
+wikiRnDPage &lt;- rvest::html(wikiRnDPageUrl)
+wikiRnDTable &lt;-
+    wikiRnDPage %&gt;%
+    html_node(&quot;table&quot;) %&gt;%
+    html_table
+</code></pre>
+
+<p>Now clean up the data a little bit - remove the columns we don&#39;t care about,
+rename the ones we do want to keep, and fix the formatting of the numeric
+variables (Wikipedia sometimes puts footnote references beside numbers
+so we need to clean that up)</p>
+
+<pre><code class="r">countriesRnD &lt;-
+    wikiRnDTable %&gt;%
+    select(-grep(&quot;(Rank)|(Source)|(Expenditure.*per capita)|(Year)&quot;,
+                             colnames(.),
+                             ignore.case = TRUE))
+countryIdx &lt;- grep(&quot;country&quot;, colnames(countriesRnD), ignore.case = TRUE)
+totalExpenseIdx &lt;- grep(&quot;Expenditure&quot;, colnames(countriesRnD), ignore.case = TRUE)
+gdpPercentIdx &lt;- grep(&quot;%&quot;, colnames(countriesRnD), ignore.case = TRUE)
+colnames(countriesRnD)[countryIdx] &lt;- &quot;country&quot;
+colnames(countriesRnD)[totalExpenseIdx] &lt;- &quot;expense_RnD_billion_USD&quot;
+colnames(countriesRnD)[gdpPercentIdx] &lt;- &quot;expense_RnD_Percent_of_GDP&quot;
+
+countriesRnD %&lt;&gt;%
+    mutate(expense_RnD_Percent_of_GDP =
+                    as.numeric(sub(&quot;%&quot;, &quot;&quot;, expense_RnD_Percent_of_GDP))) %&gt;%
+    mutate(expense_RnD_billion_USD =
+                    as.numeric(sub(&quot;([0-9\\.]*).*&quot;, &quot;\\1&quot;, expense_RnD_billion_USD)))
+</code></pre>
+
+<p>The R&amp;D table is ready. Let&#39;s just take a quick look at it. Which countries
+spend the most on R&amp;D?</p>
+
+<pre><code class="r">knitr::kable(head(countriesRnD %&gt;% arrange(desc(expense_RnD_billion_USD))))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">country</th>
+<th align="right">expense_RnD_billion_USD</th>
+<th align="right">expense_RnD_Percent_of_GDP</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">United States</td>
+<td align="right">405.3</td>
+<td align="right">2.70</td>
+</tr>
+<tr>
+<td align="left">China</td>
+<td align="right">296.8</td>
+<td align="right">1.97</td>
+</tr>
+<tr>
+<td align="left">Japan</td>
+<td align="right">160.3</td>
+<td align="right">3.67</td>
+</tr>
+<tr>
+<td align="left">Germany</td>
+<td align="right">69.5</td>
+<td align="right">2.30</td>
+</tr>
+<tr>
+<td align="left">South Korea</td>
+<td align="right">65.4</td>
+<td align="right">4.36</td>
+</tr>
+<tr>
+<td align="left">France</td>
+<td align="right">42.2</td>
+<td align="right">1.90</td>
+</tr>
+</tbody></table>
+
+<p>It looks like the US spends way more than anyone else, and China and Japan
+are also very big on research spendings. I can believe that.<br/>
+Now let&#39;s see who spends the most on R&amp;D relative to their GDP</p>
+
+<pre><code class="r">knitr::kable(head(countriesRnD %&gt;% arrange(desc(expense_RnD_Percent_of_GDP))))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">country</th>
+<th align="right">expense_RnD_billion_USD</th>
+<th align="right">expense_RnD_Percent_of_GDP</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">South Korea</td>
+<td align="right">65.4</td>
+<td align="right">4.36</td>
+</tr>
+<tr>
+<td align="left">Israel</td>
+<td align="right">9.7</td>
+<td align="right">3.93</td>
+</tr>
+<tr>
+<td align="left">Japan</td>
+<td align="right">160.3</td>
+<td align="right">3.67</td>
+</tr>
+<tr>
+<td align="left">Sweden</td>
+<td align="right">11.9</td>
+<td align="right">3.30</td>
+</tr>
+<tr>
+<td align="left">Finland</td>
+<td align="right">6.3</td>
+<td align="right">3.10</td>
+</tr>
+<tr>
+<td align="left">United States</td>
+<td align="right">405.3</td>
+<td align="right">2.70</td>
+</tr>
+</tbody></table>
+
+<p>Seems like this category has less extreme outlires. South Korea, Israel,
+Japan, Sweden and Finland spend more than 3% of their GDP on R&amp;D.</p>
+
+<h2>Retrieve number of nobel laureates per country</h2>
+
+<p>Next we need to get data about how many nobel laureates each country has.
+The official site of the Nobel Prize has a RESTful API
+<a href="http://www.nobelprize.org/nobel_organizations/nobelmedia/nobelprize_org/developer/">available here</a>
+that will get us the info we want. Their API is very basic and you can see
+some of my complaints about it at the bottom of this report, but it worked.  </p>
+
+<p>The nice thing about this API is that it does not require any registration
+or special settings - anyone can access it by simply performing an HTTP GET
+request.  </p>
+
+<h3>Mandatory sidetrack: building the API call for Nobel Prize API</h3>
+
+<p>In order to use the API, we need to have a good way of building the URLs
+to make the API calls. The following two functions are very simple:<br/>
+<code>buildQueryString</code> simply converts a list of parameters (key=value pairs)
+to a query string that can be used in an API call (for example,
+<code>list(&quot;a&quot; = &quot;b&quot;, &quot;A&quot; = &quot;B&quot;)</code> gets coded as <code>a=b&amp;A=B</code>).<br/>
+<code>buildNobelPrizeApi</code> returns a URL that can be used to query the Nobel Prize
+API, given a method and a desired output format. </p>
+
+<pre><code class="r">buildQueryString &lt;- function(params = list()) {
+    queryString &lt;- paste(names(params), as.character(params),
+                                             sep = &quot;=&quot;, collapse = &quot;&amp;&quot;)
+    queryString
+}
+
+nobelApiBase &lt;- &quot;http://api.nobelprize.org&quot;
+buildNobelPrizeApi &lt;- function(method, format, params = list(), version = &quot;v1&quot;) {
+    apiCall &lt;- paste0(nobelApiBase, &quot;/&quot;, version, &quot;/&quot;, method, &quot;.&quot;,
+                                        format, &quot;?&quot;, buildQueryString(params))
+    apiCall
+}
+</code></pre>
+
+<h3>Back to business: get list of coutries supported by Nobel Prize API</h3>
+
+<p>In order to be able to query for laureates by country using this API and
+merge it with the table we scraped earlier from Wikipedia, we need to make
+sure we have a mapping of countries that is consistent between the two
+sources.  The Nobel Prize API has a method that simply returns a list of 
+countries it supports with the country name and 2-letter country code, so
+let&#39;s get that list first. The API supports both CSV and JSON return formats,
+and I will choose CSV since it&#39;s more compact and is more native to R. </p>
+
+<pre><code class="r">apiCall &lt;- buildNobelPrizeApi(&quot;country&quot;, &quot;csv&quot;)
+nobelPrizeCountriesResponse &lt;- RCurl::getURL(apiCall)
+nobelPrizeCountries &lt;- read.table(text = nobelPrizeCountriesResponse,
+                                                                    header = TRUE, row.names = NULL,
+                                                                    sep = &quot;,&quot;, quote = &quot;\&quot;&quot;)
+knitr::kable(head(nobelPrizeCountries))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">name</th>
+<th align="left">code</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Alsace, then Germany</td>
+<td align="left">DE</td>
+</tr>
+<tr>
+<td align="left">Alsace</td>
+<td align="left">DE</td>
+</tr>
+<tr>
+<td align="left">Germany</td>
+<td align="left">DE</td>
+</tr>
+<tr>
+<td align="left">Argentina</td>
+<td align="left">AR</td>
+</tr>
+<tr>
+<td align="left">Australia</td>
+<td align="left">AU</td>
+</tr>
+<tr>
+<td align="left">Austria</td>
+<td align="left">AT</td>
+</tr>
+</tbody></table>
+
+<h3>Map coutries from Wikipedia to countries in Nobel Prize</h3>
+
+<p>Now that we have a list of countries supported by Nobel Prize API, we will
+create a mapping between a country name in the Wikipedia table to the 
+country&#39;s 2-letter code. For each country in the wikipedia table,
+we simply grep for that name in the Nobel Prize API list of countries
+and use the first result&#39;s 2-letter code.</p>
+
+<pre><code class="r">countryMap &lt;-
+    sapply(countriesRnD$country, function(x) {
+        nobelPrizeCountries[grep(x, nobelPrizeCountries$name)[1],]$code
+    }) %&gt;%
+    data.frame() %&gt;%
+    set_colnames(&quot;countryCode&quot;) %&gt;%
+    mutate(country = rownames(.)) %&gt;%
+    set_rownames(NULL)
+knitr::kable(head(countryMap))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">countryCode</th>
+<th align="left">country</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">NA</td>
+<td align="left">United States</td>
+</tr>
+<tr>
+<td align="left">CN</td>
+<td align="left">China</td>
+</tr>
+<tr>
+<td align="left">JP</td>
+<td align="left">Japan</td>
+</tr>
+<tr>
+<td align="left">DE</td>
+<td align="left">Germany</td>
+</tr>
+<tr>
+<td align="left">KR</td>
+<td align="left">South Korea</td>
+</tr>
+<tr>
+<td align="left">FR</td>
+<td align="left">France</td>
+</tr>
+</tbody></table>
+
+<p>Let&#39;s see which countries were not able to be mapped</p>
+
+<pre><code class="r">countryMap[is.na(countryMap$countryCode), &quot;country&quot;]
+</code></pre>
+
+<pre><code>##  [1] &quot;United States&quot; &quot;Singapore&quot;     &quot;Malaysia&quot;      &quot;Saudi Arabia&quot; 
+##  [5] &quot;Thailand&quot;      &quot;Morocco&quot;       &quot;Kazakhstan&quot;    &quot;Estonia&quot;      
+##  [9] &quot;Philippines&quot;   &quot;Uruguay&quot;       &quot;Sudan&quot;         &quot;Uganda&quot;       
+## [13] &quot;Botswana&quot;      &quot;Ethiopia&quot;
+</code></pre>
+
+<p>Hmm.. Most of these countries I&#39;m ok with because I can believe they never
+got a Nobel Prize, hence they don&#39;t exist in the Nobel Prize API. But the US
+we definitely have to fix.  The fact that it&#39;s showing up here means that
+the Nobel Prize API did not have a country named &ldquo;USA&rdquo;. I&#39;m pretty sure
+they do have the US, and that its 2-letter code is &ldquo;US&rdquo;, so let&#39;s try to see
+if that&#39;s true.</p>
+
+<pre><code class="r">nobelPrizeCountries %&gt;% filter(code == &quot;US&quot;)
+</code></pre>
+
+<pre><code>##   name code
+## 1  USA   US
+</code></pre>
+
+<p>Ah huh, that was the problem - Nobel Prize API calls them &ldquo;USA&rdquo; instead of
+&ldquo;United States&rdquo;. No worries, we&#39;ll just fix that manually</p>
+
+<pre><code class="r">countryMap[countryMap$country == &quot;United States&quot;, &quot;countryCode&quot;] &lt;- &quot;US&quot;
+</code></pre>
+
+<p>There is one more country we need to fix, but I&#39;m only doing this because
+I carried out the full analysis and saw a problem at the end. Even though
+the Nobel Prize API claims that the United Kingdom is represented by &ldquo;UK&rdquo;,
+I noticed that I was not getting any hits for &ldquo;UK&rdquo; when querying their API
+(later in the analysis). This seemed strange to me, so I dug into it a little
+bit, and discovered that British prize winners are listed under &ldquo;GB&rdquo;. So
+the API lied to me&hellip;.. We need to use &ldquo;GB&rdquo; (Great Britain) instead of &ldquo;UK&rdquo;.</p>
+
+<pre><code class="r">nobelPrizeCountries %&gt;% filter(name == &quot;United Kingdom&quot;)
+</code></pre>
+
+<pre><code>##             name code
+## 1 United Kingdom   UK
+</code></pre>
+
+<pre><code class="r">countryMap[countryMap$country == &quot;United Kingdom&quot;, &quot;countryCode&quot;] &lt;- &quot;GB&quot;
+</code></pre>
+
+<p>Alright, now we have a nice mapping from country name in wikipedia table
+to 2-letter code in Nobel Prize data. Let&#39;s merge the two, so that the
+R&amp;D table will have the country code for each country.</p>
+
+<pre><code class="r">countriesRnD2 &lt;- left_join(countriesRnD, countryMap, by = &quot;country&quot;)
+countriesRnD2 &lt;- countriesRnD2[complete.cases(countriesRnD2), ]
+countriesRnD2 %&lt;&gt;%
+    mutate(countryCode = as.character(countryCode))
+knitr::kable(head(countriesRnD2))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">country</th>
+<th align="right">expense_RnD_billion_USD</th>
+<th align="right">expense_RnD_Percent_of_GDP</th>
+<th align="left">countryCode</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">United States</td>
+<td align="right">405.3</td>
+<td align="right">2.70</td>
+<td align="left">US</td>
+</tr>
+<tr>
+<td align="left">China</td>
+<td align="right">296.8</td>
+<td align="right">1.97</td>
+<td align="left">CN</td>
+</tr>
+<tr>
+<td align="left">Japan</td>
+<td align="right">160.3</td>
+<td align="right">3.67</td>
+<td align="left">JP</td>
+</tr>
+<tr>
+<td align="left">Germany</td>
+<td align="right">69.5</td>
+<td align="right">2.30</td>
+<td align="left">DE</td>
+</tr>
+<tr>
+<td align="left">South Korea</td>
+<td align="right">65.4</td>
+<td align="right">4.36</td>
+<td align="left">KR</td>
+</tr>
+<tr>
+<td align="left">France</td>
+<td align="right">42.2</td>
+<td align="right">1.90</td>
+<td align="left">FR</td>
+</tr>
+</tbody></table>
+
+<h3>Get number of nobel laureates from each country using API</h3>
+
+<p>Now we have a table with how much each country spends on R&amp;D for countries
+that are suppored by the Nobel Prize API.  The next step is to use the API
+to see how many nobel prize winners each country has had in history. 
+Unfortunately, the API does not provide an easy answer for the question
+&ldquo;Which laureates have nationality X?&rdquo;. Perhaps it&#39;s because that question
+is a little more complex because a nobel laureate can have multiple
+nationalities, in which case I&#39;m not sure which country claims to have
+&ldquo;one of its citizens get the prize&rdquo;. Anyway, the API only provides a function
+to query for laureates by country of birth or country of death, so that&#39;s 
+what we&#39;ll have to use. It might not be 100% accurate because just because
+someone was born/died in a country doesn&#39;t mean they got their prize with
+that country, but it&#39;s the best proxy for the question I&#39;m asking.</p>
+
+<p>First I will define a function that converts JSON to an R object and reaplces
+all <code>&quot;\r\n&quot;</code> caracters with a space because they were causing problems in
+parsing.</p>
+
+<pre><code class="r">myFromJSON &lt;- function(x) {
+    fromJSON(gsub(&quot;\r\n&quot;,&quot; &quot;, x))
+}
+</code></pre>
+
+<p>Now to the real work: for every country in our R&amp;D table, query the Nobel
+Prize API for all nobel laureates that were born or died in that country,
+and tally how many each country has. In these API calls I&#39;m using JSON
+as the return type because I ran into too many problems with csv and also
+because this way I can simply extract the number of unique &ldquo;person id&rdquo;
+to know how many laureates were returned.</p>
+
+<pre><code class="r">laureatesPerCountry &lt;- sapply(countriesRnD2$countryCode, function(x) {
+    apiCallBorn &lt;- buildNobelPrizeApi(method = &quot;laureate&quot;,
+                                                                        format = &quot;json&quot;,
+                                                                        params = list(&quot;bornCountryCode&quot; = x))
+    response &lt;- RCurl::getURL(apiCallBorn)
+    if (response == &quot;&quot; || length(myFromJSON(response) %&gt;% extract2(1)) == 0) {
+        born &lt;- c()
+    } else {
+        born &lt;- myFromJSON(response) %&gt;% extract2(1) %&gt;% select(id) %&gt;% first
+    }
+
+    apiCallDied &lt;- buildNobelPrizeApi(method = &quot;laureate&quot;,
+                                                                            format = &quot;json&quot;,
+                                                                            params = list(&quot;diedCountryCode&quot; = x))
+    response &lt;- RCurl::getURL(apiCallDied)
+    if (response == &quot;&quot; || length(myFromJSON(response) %&gt;% extract2(1)) == 0) {
+        died &lt;- c()
+    } else {
+        died &lt;- myFromJSON(response) %&gt;% extract2(1) %&gt;% select(id) %&gt;% first
+    }
+
+    laureatesFromCountry &lt;- unique(c(born, died))
+    numLaureates &lt;- length(laureatesFromCountry)
+    numLaureates
+})
+</code></pre>
+
+<p>The result from <code>sapply</code> is a named list, so let&#39;s convert it to a nice 
+data.frame with proper variable names</p>
+
+<pre><code class="r">laureatesPerCountry %&lt;&gt;%
+    data.frame() %&gt;%
+    set_colnames(&quot;numLaureates&quot;) %&gt;%
+    mutate(countryCode = rownames(.)) %&gt;%
+    set_rownames(NULL)
+knitr::kable(head(laureatesPerCountry %&gt;% arrange(desc(numLaureates))))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="right">numLaureates</th>
+<th align="left">countryCode</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">316</td>
+<td align="left">US</td>
+</tr>
+<tr>
+<td align="right">112</td>
+<td align="left">GB</td>
+</tr>
+<tr>
+<td align="right">96</td>
+<td align="left">DE</td>
+</tr>
+<tr>
+<td align="right">66</td>
+<td align="left">FR</td>
+</tr>
+<tr>
+<td align="right">33</td>
+<td align="left">CH</td>
+</tr>
+<tr>
+<td align="right">32</td>
+<td align="left">SE</td>
+</tr>
+</tbody></table>
+
+<p>Looks good! Looks like the US has way more nobel prize winners than anyone
+else. On we go - now let&#39;s merge this information (number of laureates per
+country) with our table containing research spendings.</p>
+
+<pre><code class="r">countriesLaureatesRnD &lt;- left_join(countriesRnD2, laureatesPerCountry,
+                                                                     by = &quot;countryCode&quot;)
+knitr::kable(head(countriesLaureatesRnD))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">countryCode</th>
+<th align="left">country</th>
+<th align="right">expense_RnD_billion_USD</th>
+<th align="right">expense_RnD_Percent_of_GDP</th>
+<th align="right">numLaureates</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">US</td>
+<td align="left">United States</td>
+<td align="right">405.3</td>
+<td align="right">2.70</td>
+<td align="right">316</td>
+</tr>
+<tr>
+<td align="left">CN</td>
+<td align="left">China</td>
+<td align="right">296.8</td>
+<td align="right">1.97</td>
+<td align="right">11</td>
+</tr>
+<tr>
+<td align="left">JP</td>
+<td align="left">Japan</td>
+<td align="right">160.3</td>
+<td align="right">3.67</td>
+<td align="right">21</td>
+</tr>
+<tr>
+<td align="left">DE</td>
+<td align="left">Germany</td>
+<td align="right">69.5</td>
+<td align="right">2.30</td>
+<td align="right">96</td>
+</tr>
+<tr>
+<td align="left">KR</td>
+<td align="left">South Korea</td>
+<td align="right">65.4</td>
+<td align="right">4.36</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="left">FR</td>
+<td align="left">France</td>
+<td align="right">42.2</td>
+<td align="right">1.90</td>
+<td align="right">66</td>
+</tr>
+</tbody></table>
+
+<h2>Retrieve population of countries</h2>
+
+<p>The last piece of information I want for the analysis is the population
+size of each country.  There are obviously many sources for such information.
+I could have used Jenny Bryan&#39;s <code>Gapminder</code> package, for example, but a
+better source I found was from <a href="http://www.geonames.org/countries/">GeoNames</a>
+since they have the 2-letter code for each country, so it&#39;ll be easier to 
+merge with our data.</p>
+
+<p>Once again, I will use Hadley Wickham&#39;s <code>rvest</code> package, this time to scrape
+a table of country populations from GeoNames. I&#39;m still excited by how
+easy this is!</p>
+
+<pre><code class="r">countryPopUrl &lt;- &quot;http://www.geonames.org/countries/&quot;
+countryPopulationPage &lt;- rvest::html(countryPopUrl)
+countryPop &lt;-
+  countryPopulationPage %&gt;%
+  html_nodes(&quot;table&quot;) %&gt;%
+  extract2(2) %&gt;%
+    html_table
+knitr::kable(head(countryPop))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">ISO-3166alpha2</th>
+<th align="left">ISO-3166alpha3</th>
+<th align="right">ISO-3166numeric</th>
+<th align="left">fips</th>
+<th align="left">Country</th>
+<th align="left">Capital</th>
+<th align="left">Area in km²</th>
+<th align="left">Population</th>
+<th align="left">Continent</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">AD</td>
+<td align="left">AND</td>
+<td align="right">20</td>
+<td align="left">AN</td>
+<td align="left">Andorra</td>
+<td align="left">Andorra la Vella</td>
+<td align="left">468.0</td>
+<td align="left">84,000</td>
+<td align="left">EU</td>
+</tr>
+<tr>
+<td align="left">AE</td>
+<td align="left">ARE</td>
+<td align="right">784</td>
+<td align="left">AE</td>
+<td align="left">United Arab Emirates</td>
+<td align="left">Abu Dhabi</td>
+<td align="left">82,880.0</td>
+<td align="left">4,975,593</td>
+<td align="left">AS</td>
+</tr>
+<tr>
+<td align="left">AF</td>
+<td align="left">AFG</td>
+<td align="right">4</td>
+<td align="left">AF</td>
+<td align="left">Afghanistan</td>
+<td align="left">Kabul</td>
+<td align="left">647,500.0</td>
+<td align="left">29,121,286</td>
+<td align="left">AS</td>
+</tr>
+<tr>
+<td align="left">AG</td>
+<td align="left">ATG</td>
+<td align="right">28</td>
+<td align="left">AC</td>
+<td align="left">Antigua and Barbuda</td>
+<td align="left">St. John&#39;s</td>
+<td align="left">443.0</td>
+<td align="left">86,754</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">AI</td>
+<td align="left">AIA</td>
+<td align="right">660</td>
+<td align="left">AV</td>
+<td align="left">Anguilla</td>
+<td align="left">The Valley</td>
+<td align="left">102.0</td>
+<td align="left">13,254</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">AL</td>
+<td align="left">ALB</td>
+<td align="right">8</td>
+<td align="left">AL</td>
+<td align="left">Albania</td>
+<td align="left">Tirana</td>
+<td align="left">28,748.0</td>
+<td align="left">2,986,952</td>
+<td align="left">EU</td>
+</tr>
+</tbody></table>
+
+<p>Cool. Let&#39;s just clean that up a bit - only retain the few variables we need,
+change their names, and strip the formatting from the population variable.</p>
+
+<pre><code class="r">countryPop %&lt;&gt;% 
+    set_colnames(sub(&quot;ISO-3166alpha2&quot;, &quot;countryCode&quot;, colnames(.)) %&gt;%
+                 tolowerfirst) %&gt;%
+    mutate(population = as.numeric((gsub(&quot;,&quot;, &quot;&quot;, population)))) %&gt;%
+  select(countryCode, population)
+knitr::kable(head(countryPop))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">countryCode</th>
+<th align="right">population</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">AD</td>
+<td align="right">84000</td>
+</tr>
+<tr>
+<td align="left">AE</td>
+<td align="right">4975593</td>
+</tr>
+<tr>
+<td align="left">AF</td>
+<td align="right">29121286</td>
+</tr>
+<tr>
+<td align="left">AG</td>
+<td align="right">86754</td>
+</tr>
+<tr>
+<td align="left">AI</td>
+<td align="right">13254</td>
+</tr>
+<tr>
+<td align="left">AL</td>
+<td align="right">2986952</td>
+</tr>
+</tbody></table>
+
+<p>Looks good. Now the final step of data preparation - merge this information
+into our data. Let&#39;s make sure that we don&#39;t have any missing values in any 
+of the observations.</p>
+
+<pre><code class="r">dataFinal &lt;- left_join(countriesLaureatesRnD, countryPop,
+                                   by = &quot;countryCode&quot;)
+sum(!complete.cases(dataFinal))
+</code></pre>
+
+<pre><code>## [1] 0
+</code></pre>
+
+<p>Awesome. Now, remeber that the main reason I wanted to know the population of 
+each country is so that we can see how many laureates a country has relative 
+to their size, so let&#39;s add a variable for number of laureates per million 
+people.  And this is how our final data looks like:</p>
+
+<pre><code class="r">dataFinal %&lt;&gt;%
+    mutate(laureatesPerM = numLaureates / population * 1000000) %&gt;%
+    arrange(desc(numLaureates))
+knitr::kable(head(dataFinal))
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">countryCode</th>
+<th align="left">country</th>
+<th align="right">expense_RnD_billion_USD</th>
+<th align="right">expense_RnD_Percent_of_GDP</th>
+<th align="right">numLaureates</th>
+<th align="right">population</th>
+<th align="right">laureatesPerM</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">US</td>
+<td align="left">United States</td>
+<td align="right">405.3</td>
+<td align="right">2.7</td>
+<td align="right">316</td>
+<td align="right">310232863</td>
+<td align="right">1.018590</td>
+</tr>
+<tr>
+<td align="left">GB</td>
+<td align="left">United Kingdom</td>
+<td align="right">38.4</td>
+<td align="right">1.7</td>
+<td align="right">112</td>
+<td align="right">62348447</td>
+<td align="right">1.796356</td>
+</tr>
+<tr>
+<td align="left">DE</td>
+<td align="left">Germany</td>
+<td align="right">69.5</td>
+<td align="right">2.3</td>
+<td align="right">96</td>
+<td align="right">81802257</td>
+<td align="right">1.173562</td>
+</tr>
+<tr>
+<td align="left">FR</td>
+<td align="left">France</td>
+<td align="right">42.2</td>
+<td align="right">1.9</td>
+<td align="right">66</td>
+<td align="right">64768389</td>
+<td align="right">1.019016</td>
+</tr>
+<tr>
+<td align="left">CH</td>
+<td align="left">Switzerland</td>
+<td align="right">7.5</td>
+<td align="right">2.3</td>
+<td align="right">33</td>
+<td align="right">7581000</td>
+<td align="right">4.352988</td>
+</tr>
+<tr>
+<td align="left">SE</td>
+<td align="left">Sweden</td>
+<td align="right">11.9</td>
+<td align="right">3.3</td>
+<td align="right">32</td>
+<td align="right">9555893</td>
+<td align="right">3.348719</td>
+</tr>
+</tbody></table>
+
+<h2>Data is ready - analysis time!</h2>
+
+<p>Now that we have the data ready, it&#39;s time for the fun stuff, can we 
+spot any correlations between the variables in our data?</p>
+
+<h3>Easily test the correlation of two variables</h3>
+
+<p>I want to test out different combinations of variables, so I&#39;ll create a
+function that will accept two variables from the data and perform a basic
+analysis. It will plot the two variables against each other and calculate
+the Pearson correlation between them and the significance of the correlation.
+(note that I&#39;ll be performing 4 tests, so I&#39;m using a simple Bonferroni
+correction)</p>
+
+<pre><code class="r">NUM_TESTS &lt;- 4
+analyzeVars &lt;- function(...) {
+  # Parse the x and y variabels
+  vars &lt;- as.character(substitute(list(...)))[-1L]
+  x &lt;- vars[1]
+  y &lt;- vars[2]
+
+  # Generate scatterplot of x and y
+  p &lt;- ggplot(dataFinal, aes_string(x, y)) + geom_point() + theme_bw(18)
+  print(p)
+
+  # Calculate correlation
+  corResult &lt;-
+    dataFinal %&gt;%
+    {rcorr(extract2(., x),
+          extract2(., y))}
+
+  cor &lt;- corResult[[&#39;r&#39;]][2]
+  pval &lt;- p.adjust(corResult[[&#39;P&#39;]][2], method = &quot;bonferroni&quot;, n = NUM_TESTS)
+
+  cat(paste0(&quot;Looking at `&quot;, x, &quot;` and `&quot;, y, &quot;`:\n&quot;,
+             &quot;Correlation: &quot;, round(cor, 3), &quot;\n&quot;,
+             &quot;p-value (corrected) for the correlation: &quot;, round(pval, 3)))
+}
+</code></pre>
+
+<h3>USD spent on R&amp;D vs number of Nobel laureates</h3>
+
+<p>Let&#39;s see if there is any relationship between a country&#39;s spending on R&amp;D
+and the number of Nobel laureated the country produces. </p>
+
+<pre><code class="r">analyzeVars(expense_RnD_billion_USD, numLaureates)
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAbFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrY6AAA6ADo6AGY6OpA6ZmY6kNtmAABmADpmOgBmtv9/f3+QOgCQOjqQZgCQ2/+2ZgC2///bkDrbkJDbtmbb25Db///l5eX6+vr/tmb/25D//7b//9v///+3iATpAAAACXBIWXMAAAsSAAALEgHS3X78AAAST0lEQVR4nO2di3biRgJE5dnYnklwwnjXmOx6gm39/z+uXg0ySELgUrfKunXOBBuGqqm+qPVEyXK0SGWp/wEojQC/UAF+oQL8QgX4hQrwCxXgFyrAL1SAX6gAv1ABfqEC/EIF+IXqM+B/IicJwZ8+9etSj38u/PuXBkzt71MA8FJ/nwKAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUv95Fsg6sAJe6j/LAlnWQR7wUv9ZFgD8QsEz1S8VfJcAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xS4CPz7Y5bdNY+r1mOn1WBsn2zGLVVAGvCbu4L1qvhzl789HB67rQZj+2QzbqkCkoB//f6U59vbl+pxd3jsthqM7ZPNuKUKSLaOL5f4ivXrj+fw2G01GNsnm3FLFZAIfLFSL2BvK+Dfn8JjXl/P9/MX8tHFW/W7b88d4Ds+Q4Oftz7ZLDCpAtLtzr0/rpnq0wUkAV8s7HmxGb+uWJcbd81jt9VgbJ9sxi1VQBLwxcJegWZ3Ll1AugM45QLOAZxkARyyvS4A8EGAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CSvD/nOjX6VNaTR3wdQuwxEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FDgHfnP7km+y7K765e0hy7495/n7Y5at8sNjp9VgbJ9sxi1VQCzw2+z2ZZdlNd+3h+K/22/P74931c/hsdtqMLZPNuOWKiAS+PfH25f3x5un8jHPd+XS/vbn0+v3p+KX25fw2G01GNsnm3FLFRAJfLk8v94XaLcl80oF7Yr164/n8Fi+r9DPX8hH58DfFbP9ungMy3U5vW8r4N+fwmP3Z2jw89YnmwUmVUCsdXyxXVdszu3223Ald8AnDIgFvthuv3kqZvuGe/1Dx1TfYTUY2yebcUsVkGY/fndTLd0V63LjrnnsthqM7ZPNuKUKSAI+zOrszqULiAe+WMuvil248sdtVmnNAZx0AbHAv96XB2/eHgraZwX4CAHxturX+335cwJ8hICIB3DCgdqzGYCPEBAb/Abw8wiIPNVvm9NzgwJ8hIBY4MsTsaVunvKzAnyEgKi7c9mY5R3wUQK4Aue6AMAHAV7q71Pg3FZ9c+CG3bmZBMQAHzbsKgF+HgFRlvhtC/wqPyvARwiIPdWPEeAjBLBxd10A4IPOX4HDOn5OATGvuQP8jAIiXldfXnez43z8TAKin5blfPw8AiKCr66o3jHVzyMg2lRfAN80f84J8BECYm3c7eqvU4w6Pwf4CAHR9uPLg/QF+RGreMDHCOAAznUBgA8CvNTfp8AlX6g4I8BHCOALFdcFAD6IL1RI/X0K8IUKqb9PAb5QIfX3KcAXKqT+PgX4QoXU36cAX6iQ+vsU4ACO1N+nwLmzc6OW9U6rwdg+2YxbqoCIW/WjBfgIAdFOy47Zquu2Goztk824pQqItsRzseW8AgB/XQDgg9iql/r7FAC81N+nAFO91N+nAOCl/j4Fxk31Yy6rB3yMgNjr+A1n5+YREBs8F2LMJCAy+LcHwM8jIPrGHVP9PAJigx9zkg7wEQI4gHNdAOCDAC/19ynAPXCk/j4FuAeO1N+nAPfAkfr7FOAeOFJ/nwLcA0fq71OAe+BI/X0KcA8cqb9PAeU9cP450a/Tp7SaOuDrFuAAjtTfpwDgpf4+BTgfL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FOD/Oyf19ykAeKm/TwEO4Ej9fQoAXurvUwDwUn+fAiNvcMg6fiYB0S7EYONuXgHRLr0acyK+22owtk8245YqINoSz33u5hUQ7dIr7nM3r4BoW/Ub1vGzCmDj7roAwAexcSf19ynAxp3U36fAuf/92Hc27mYVEG2qZx0/rwDAXxcA+CBO0kj9fQoAXurvU4CpXurvUwDwUn+fAtzEWOrvU4CbGEv9fQpwXb3U36cANzGW+vsU4CbGUn+fAtzEWOrvU4ADOFJ/nwKAl/r7FODSK6m/TwFuYiz19ylwbuNuzCG7bqvB2D7ZjFuqgGjgufRqXgHRrrkbsx/XbTUY2yebcUsVEO2au/sRN6rvthqM7ZPNuKUK4LTsdQGADwK81N+nAAdwpP4+BdKDz9qZNuOWKuDrgC/XI4ffbMYtVQDgRwd8EOCDkoNnqk/jnx78B9mMW6oAwF8XAPggwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PgQvBvz+u8/q+h6vWY6fVYGyfbMYtVUAi8AXpdX0lXnkZZnjsthqM7ZPNuKUKSAN+m/3217q5+d3u9iU8dlsNxvbJZtxSBaQB//dzNdVXrF9/PIfHvD65+vMX8tE16/htBfz7U3js/gwNft76ZLPApApIunEH+HQBScF3TPUdVoOxfTrplQ3/iwB/rf814CvW5cZd89htNRjbp+NeHy/M+nwA4IOuAR9xdw7wU/nP/QAOU/1E/hyylfr7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FAC81N+nAOCl/j4FAC/19ykAeKm/TwHAS/19CgBe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BeYBfn+nG5txSxXwtcAf7m1lM26pAgB/UcBegA+aBXim+vj+8wC/l824pQoA/HUBgA8CvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FFCC/+dEv06f0mrqgK9bgCVe6u9TAPBSf58CgJf6+xQAvNTfpwDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KQB4qb9PAcBL/X0KAF7q71MA8FJ/nwKAl/r7FIgCPhttazNuqQKswFf3LxwH32bcUgXYgT/cvHJQNuOWKsAKfF4t8IBXBHiBr5yZ6hUBfuDbIf0pNuOWKsAZ/NCsbzNuqQIAPxAwIMAHxdmqPwphqr86wAn8yA36SjbjlioA8K2ACwT4oBRT/YBsxi1VgBX4C2QzbqkCAH9dAOCDYoM/M+3bjFuqAFfw5zb0oo3byO0OwI+QE/ixexqAHyGnqR7wSa7AmcEhW6b6j79OeCFGK6R/cbMZt1QBhuAP1oC/PsAKfMci3+dhM26pArzA56PXqTbjlirADvxI2YxbqgAf8BecocmNxi1VgA34S87J5kbjlioA8CHgMgE+KMJUD3hhgBX4PfrzHwKbcVMElKPxxcHXtiO+R7Uk8NVofFnwGeD79KXBfzxa28H96Jklgf/KU/2eet+SfjwHLAr8NQFG4NuPvX8hyGbcUgUYgc/yofNxS57qrwnwAH9Yw4/dmbcZt1QBbuDHymbcUgV4gG+mer5JowvwAJ/tNdbDZtxSBQC+FuCv9Z81+PPvA/y1/p8C//6YZas+q7wT/CXX1Y/4xAD+Wv/PgH9/vMvfHvbkx4C/6Js0gJ/Q/zPgX78/5fnu9qXbKt8fvxl3ZXUlpvpY/p8BXzF//fGc10B//jpRlp1/BiXRZ8BvK/DlYt/1GSr1dReYVAGzWOIBHz9gFuBbU32H1WBsn2zGLVXALMBXzIc27r7wuKUKmAX4s7tzX3jcUgXMAvzZAzhfeNxSBcwD/KDVYGyfbMYtVQDgrwsAfBDgpf4+BQAv9fcpAHipv08BwEv9fQoAXurvUwDwUn+fAoCX+vsUALzU36cA4KX+PgUAL/X3KaAEf6qs4zmppg74wgV04DsktosfsJgCgI/rP5sCgI/rP5sCkxdF8xTgFyrAL1SAX6gAv1ApwX+8Bleq98d1K0Ad9PaQZd+ep/OvDO/yCQOaLzhd4C8Ef3TVvVJFkfUhQB1UeW2/PU/ln+ebu8J0NVmBvBybm6eL/IXgj75ELdQ2++2v9SFAHbQrl/a3P5+m8q//4duD8QQjtf2j8LzEXwj+6Jt1Qv39XE31IWCSoGKwJvUvl/jpAl5//18B+xJ/Ifij79JKVYEPAVMElbPjhP7FuqownSzg/d/VdHWJP+Ab/7tpP1jVCmWygO0qTwh+uqm+AT/hTHlfbglNOtWXFaYKeP39peKcaKo/+hK1VBX4ECAP2t1UC8d0/tXW48N6qoBtfcOpi/w9dudq8FPtDYVJcbK9rTBfTbg7V5VItDtnewAnLDDTHsApF8CveQAHOQnwCxXgFyrAL1SAX6iWCL7Ziq/OxJ4+ffTs28Nd89P7Y7lDdvhzLqUxavarNqX3qj8ntpYM/mjs90+v289qwJdn/EuV7+rOia1Fgm+QbD7u6zZP77Kb9kHuA/hSI6G3U+qz/dlqn9idE1su4MNFMrtyOSn+UwznLmuG7nABze1/s8MRjHqJCi+21EbSek94evfh81CA3+3tj5b4juDulHxT/1J9irpzYssE/K6aG6uLTMorZW5f3h7+uK+fab/WPgRXk9+/2FJ7iT+8Z//0xyX67eFf98H+CHxHcEdKe4n/8MLImWMieYCvL716vb+rTqRti7EuFrZy4cnuWq8VPzXPVWfbysWr9caD2uv4w3v2QMLiWasIWoWgj+Br721W/RRMWimn6/jVhxc+5sSWB/j6tGk9ZJtqAN8eqsWlGLvDa+VsUPN+vW8gtN+4VwBfX/4Y3tMLPgQdg28+Tpubp5ZJK6Vjq77euAP8aO0aVOWU/fbQGuVi4T+8Vs+d1TUVm2aU22/ca1tvLFRAW+/pA79qgk7BV1P77kPwUcrBIC8/hVn/zBJbfuB31br0DPhqkIupvB98Q74D/PE6/lrwTWYz6TTWRQbr+PFqxrhUMVz/KQasnoHLgTy8djz+m2zdeuNBzchX+1Yd4E+26vN8v03ZN9V3gA822+Jzut/I2LTAs1V/XtVV483ycvNULkPtba7w2mH86zGtltL9Gw/ahn2rauPuGPzu497fuI27DvDFnLPOm931euuvmWW6c2LLA3yY61f1AlgsN81eVr22bl47jH+zf3VYyXcdqdnTDOB7jtz9cR92APp35zrA7/3K7GrN06xyOHJ3iaqRW1cTa7V7Vh9XqVeS4bXW+Ffk79ovtnRYyWbrU/Anx+pXvQdwSu/wyin4OjpsXYTNTY7Vf05H+07oUgF+oVoK+LCSPT58q/jbn39fAgH+83/78+9LIFfw6JMC/EIF+IUK8AsV4BcqwC9U/wdw7ldfIXMk0AAAAABJRU5ErkJggg==" alt="plot of chunk unnamed-chunk-2"/> </p>
+
+<pre><code>## Looking at `expense_RnD_billion_USD` and `numLaureates`:
+## Correlation: 0.739
+## p-value (corrected) for the correlation: 0
+</code></pre>
+
+<p>From the plot it looks like there is some relationship between total spending
+and number of laureates.  The statistical analysis does indeed show a fairly
+strong correlation that is very statistically significant. So it looks like
+my original hypothesis was correct (yeah, yeah, in science we can&#39;t say
+we &ldquo;proved&rdquo; this hypothesis - but I&#39;m just talking in plain English here).</p>
+
+<h3>USD spent on R&amp;D vs laureates per million people</h3>
+
+<p>So we saw that there is some correlation between a country&#39;s total spending
+and the number of laureates, but what if we look at number of laureates 
+relative to the country size? The reason I calculated laureates per million
+people is because I hypothesized that the total spendings do not affect
+this metric. Let&#39;s see.</p>
+
+<pre><code class="r">analyzeVars(expense_RnD_billion_USD, laureatesPerM)
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAbFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrY6AAA6ADo6AGY6OpA6ZmY6kNtmAABmADpmOgBmtv9/f3+QOgCQOjqQZgCQ2/+2ZgC2///bkDrbkJDbtmbb25Db///l5eX6+vr/tmb/25D//7b//9v///+3iATpAAAACXBIWXMAAAsSAAALEgHS3X78AAAQs0lEQVR4nO2djXajthaFSW+TzJ2xW8e9cdzbJPjn/d+xiB+DbQkjEOLo7L3XamdiR3yT80VCgMDZmYFMtvQ/gFkmFA8aigcNxYOG4kFD8aCheNBQPGgoHjQUDxqKBw3Fg4biQeMj/o1JORPEW1778mhf5du7BRkhIBSvmkHxoAyKB2VQPChjHvHf9/myvBY6ZISAsMerZnCoB2VQPCiD4kEZFA/KoHhQBsWDMigelEHxoAyKB2VQPCgjtvhs+HZkFkwLI7L4LBtuXmbBtDAoHpTBoR6UwckdKIPiQRkUD8qgeFAGxYMyKB6UQfGgDIoHZVA8KIPiQRkUD8qgeFAGxYMyKB6UQfGgDIoHZVA8KIPiQRkUD8qgeFAGxYMyKB6UQfGgDIoHZVA8KIPiQRkUD8oIJ/7w493RtGrv/REXMgumhRFM/Gn71Cfe5zbZOjILpoURTPz+V2+Pp3hhjFDiDz//4VCfEiOQ+NNf7/U+3nTtty8m3XiJ368eTe609BQtjDA9/vDzk+LTYoQRv8/KbOxN+znOyCyYFka043gtBdPCoHhQBk/ZgjIoHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UMY84r/v82V5LXTICAFhj1fN4FAPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UMYS4gd+2qjMgmlhLCB+6OcLyyyYFgbFgzI41IMyOLkDZVA8KIPiQRkUD8qgeFAGxYMyYokfeAjXjcyCaWFEEj/0pE03MgumhUHxoAwO9aAMTu5AGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGYHEn7ZZ9uJq2s9xRmbBtDACid+9FO5Xjqb9HGdkFkwLI4z4w4/383n//Glv2s9xRmbBtDDC7ePrHm/W0759MenGT3yxk790ePb4BBgBZ/X5bx/2pv0cZ2QWTAsjoPjTdmNv2s9xRmbBtDDCiC87+3FN8ekwwogvO3vOWX1CjIAncDi5S4nBU7agDIoHZVA8KIPiQRkUD8qgeFAGxYMyKB6UQfGgDIoHZcQU7/nkK5kF08KIKN73WXcyC6aFMUq8uSRzyWX5hbNpzaF4SYxxPX43RjyHekmMceLz7ir6h037Oc7ILJgWxth9/OE1yzZnRyhePmPC5G6fZU/vQ5r2c5yRWTAtjEmz+ut1N86m/RxnZBZMC2Pq4dxxPXxy5xmZBdPCmCT+uLaP9hQvnzFevBnnuY9PljFWvDmS56w+YcY48fse6/dN+znOyCyYFkbMM3eekVkwLYyI5+p9I7NgWhi8Hg/KGCv+tO05WU/x8hljxR/Xq7MzFC+fMXqozx3H8Jam/RxnZBZMC2N8j+fkLmkGxYMyOKsHZVA8KGOC+F2WrY5/2KZ4FC+fMVq8WXtViF/bTtpTvHzGaPG7bGOO5Q+vliU4FC+fMeUETnkSZ89ZfZKMyeJ3FJ8kY+pQv7ctsKd4+YzR4pszOFxzlyZj2uGc44aat+/7fFleCx0yQkB4Akc1g2fuQBkjxZvTN7Z7aKxN+znOyCyYFsY48bnrupy1aT/HGZkF08IYudjSzOV3ziXWFC+fMUr8cf1y+f+Apv0cZ2QWTAtjpHiz4M693pLi5TMoHpRB8aAMigdljBTPW6hSZ1A8KIOnbEEZFA/KGC9+9/xprszaJng94j2ebimzYFoYo8Xvs+fP8pS95eZJt3if59nKLJgWxljxp+3zpzllb/581LTDoXgpjCmLLcul1Z6rbDnUC2GMF/9SjPab4k+uq0+SMWGVrTmEzz338T6RWTAtjNHiT1uzwPbwanswBsXLZ/A4HpRB8aCMaevqeZt0sozR4nmbdNqMCbN63iadMmPKCRzv26T58WNyGJPFe9wm7fnBczILpoUxdaj3uU2a4gUxRosfc5s0h3o5jGmHc67bpH04zsgsmBYGT+CAMigelDF+Vl+fuOFTr9JkcHk1KGNcj993xPN6fJKMyUP9gKb9HGdkFkwLg5M7UMaUFTjcxyfMmLTmjuLTZUxZV3/48X7OeT0+Tcb0y7Ll9XhzgNd2fYqXz5givnwyQm5831yZp3j5jPFDfaF5V/9X27+sv6N4+YzRk7u8up2ic33O7PKtTfs5zsgsmBbG+ON4M7LnnQeb1o/EMb8Lb19MuvE8gdN9FBJ7vHxGqDN3V/dSUbx8RqAbKq4/Ypji5TPC3FDRzutsTfs5zsgsmBZGmBsq6su0G3vTfo4zMgumhRH1hgq/yCyYFkbMGyo8I7NgWhgxb6jwjMyCaWFEvaHCLzILpoXBGypAGVx6BcoYf3XO9bD6+6b9HGdkFkwLY8qs3hmKl88Yf1nWNquzN+3nOCOzYFoY43s8F1smzaB4UIawWX330QkyC6aFIUv81cNSZBZMC0PWUE/x0RiyxHOoj8aYOtTnts8S5+ROPmPyPn7Hq3NJMiaL50KMNBlTxR/XFJ8kY/rkjkN9kozJ4j0/cNAjMgumhSHrBM5VZBZMC4PiQRmjxfMZOGkzJqyypfiUGeOXXvEZOEkzJt9Qsedn0iTJmCK+fQZOf9N+jjMyC6aFMX6o7z4Dp79pP8cZmQXTwhi/2PLuGTjOpv0cZ2QWTAtj/HH87TNw3E37Oc7ILJgWBk/ggDIoHpQxSjw/oSJ9BsWDMjjUgzIoHpQRUbzfB4xKLZgWRjzxnh8pLLVgWhgUD8qYR/z3fb6+s8zyctB8zQ1QxHBDOLlTzeCsHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlUDwog+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlpCX+wf22WqRQ/E0e3WmtRQrF34TiwzGSEs+hPhwjLfEPQkYICMWrZlA8KCO++MGPQJJZMC2M6OKHP/xKZsG0MBYRP2xbMgumhRFZfOGc4kUw4oovpXOol8BYQPzQyCyYFkb8oX5wZBZMCyOY+NO2/chJm/jByi/fKLNgWhglxCrFT/xpm/WKHzzIt98os2BaGAZil+Ilfp/9/ifFp8QIJP7vDw71aTFCDfWXfbz5LXr7YtJN4Mmdlp6ihRFtVq+lYFoYFA/KoHhQBsWDMrgCB5QRT7zv5w0KLZgWRjTx3h87J7RgWhgUD8rgUA/K4OQOlEHxoAyKB2VQPCiD4kEZFA/KoHhQBsWDMigelEHxoAyKB2VQPCiD4kEZFA/KiHxZlnfLSmHEXYjB++PFMCgelMGhHpTByR0og+JBGRQPyqB4UAbFgzIoHpRB8aAMigdlxBTvefuczIJpYUQUn9meWN7zqyCzYFoYC4vvGwRkFkwLY+GhnuKXYiw9ueNQvxBjafE9kVkwLYylxA+Y38ssmBZGxIUY1189Ni+zYFoYscTfmKb4pRnziP++izF9/fX990zO1wzb1MpwQ2Yd6odEZk/Rwog31Hu0ryKzYFoYkcT7P+VOasG0MCgelMGhHpSx0HH8kMgsmBbGQsfxQyKzYFoYFA/K4FAPyljw6tyjXwWZBdPCWE78w8FfZsG0MCgelMGhHpTBFTigDIoHZVA8KIPiQRkUD8qgeFAGxYMyKB6UsZh4Lq9elrHU1bkBl2llFkwLY6nr8RS/MCPiYsvbe2m6f9gis2BaGHHF322E98cvxYg51FO8IEZc8bbXnVuRWTAtjKXF9yRuwYb+4yi+J84PKvBK1IIN/udRfE8o3soYHE3iOdR7RJF4x6S+NzILpoURVbzHJs5SC6aFEVO8xxZMZBZMCyPqPt5jE2epBdPC4OQOlEHxoAwO9aCMiJO7+9f6t3Lzwwz4vdEiRaH4jj3PmyaHjBhapOgT37VH8YsyAok/bbNs5Wp6vsztruxxqLfF/JjpiD9tX87H9cW8eyHGVbe9/5ySqy/lSYnAKCuUjvjDj/fzOX/+tDctmzdd/vql22/pfi1OSgxGYuJL54f/fpyrf/nb111K7/cv9X2NmeVr4CN+X4o33d72O1O1v98Ah/oFGWF6/ADxWgqmhRF8qLc07ec4I7NgWhiBJnfGee/kTk3BtDBiHc6pKZgWRqQTOHoKpoWx2G3SjyOzYFoYFA/KoHhQBsWDMigelEHxoAyKB2VQPCiD4kEZFA/KoHhQBsWDMigelDGPeEsy24uBQ0YQyHjxtkxtT8ZCEIrXxaB4UEY08UyioXjQUDxoKB40FA+aSeKvV1+Hzmm76TDmYB3XWfbbx7wMs82X87wMk/JONw/IFPE391sETvGP37SMOVjl9va/fczJOO9eiu2uZv05TE7bp3cvyBTxN7fPh80++/3PTcuYg5Wb3n78431ORrnNfbvtuWq2/1Vs2AcyRfzNPZVh8/dHOdQ3jNlYRZHmZpgePzPj8POfQrYPZIr4m7uoQ6cU3zDmYplRcV5Gscsqtjsz469y2PKBgIs33mf/5TL7lHkZ+9U5pvhZh/pa/LxD5OHVzIBm350UP8msjMPPz9JzrKH+5vb50CnFN4xZWPlT2SnmZFQTyPVm1p9jXz2Dygsi93CuEj/nYVAzGM7JaIatuQ/nyh8m1uFc6idwmo4y+wkc0/c0ncBhEg7Fg4biQUPxoKF40CCJr2fx5ZXY+5dvXj2uX+q/nbbmaKz97xGl3lB9PLUz2165OUsFUfxN7S8vb7qvhhFvrvibmFZ2zlKBEl8r2V0f49Yv59lT9+R2K95koPQupbran60uRDtnqUgX3yySyU0/Kf5XlDPP6tK1C2ie/5+1Zy6qHtW82UlXSadN83J+9ftQiM8vm7/p8RawnXLeVV+Uv0V2zlIRLj4vx8ZycYlZKfP8eVz/eq1e6b7XPQVXmb+82Um3x7dtLi9f9+jj+j+vzeZvxFvAFkq3x1+9MXDkmDmyxVfLrw6vL+WFtH1R66Kzmc6TvXTeK/5Wv1ZebTPdq9OwTXcf37a5CGm6Z5UCtGpA1+Krbe+z8m/NRjqU+3386uqNa85SkS2+umxalWxXFvC4LrtLUbv2PTMaVL4Pr7WEbsNLGvHV2semjVN8A7oVX/867Z7eOxvpUCyz+mpyR/GDk9eqzJB9XHeqXHT+9r1q7CzXVOzqKncbXrKvJgul0E4bl/hVDboXXw7t+RX4htJu4Gx+CzP3yLJU0hGfl/vSB+LLIhdDuVt8bd4i/nYfP1Z8zawHnXrTBYP7+OGpa2xSlOt/RcGqEdgUsn3vtv67bNNp2KaufHlsZRF/N6s/ny9zStdQbxHfbGZf/J5eJhm7jnjO6h+nXC1e95end9OHunOu5r22/lVNy156adhm3xxblZO7W/H59dHfsMmdRXwx5mzO9eF6NfurRxk7Z6nIFt+M9auqAxb9pj7KqvbW9Xtt/evjq3YnbztTc7HZiHecufv12hwAuA/nLOIv2zPscs9T73J45s4nZeU25cBaHp5V51WqnWTzXqf+pfmX7pudtDvZbHMv/u5c/cp5Asdsu3nnXnyFbmYXzXST5+qn5ebYiRkbigeNdvHNTvb29G2I757ebsFQ/Pjvnt5uwaQmngkUigcNxYOG4kFD8aCheND8C6P4Kv1caHzEAAAAAElFTkSuQmCC" alt="plot of chunk unnamed-chunk-3"/> </p>
+
+<pre><code>## Looking at `expense_RnD_billion_USD` and `laureatesPerM`:
+## Correlation: -0.037
+## p-value (corrected) for the correlation: 1
+</code></pre>
+
+<p>The plot does not show any clear sign of a relationship, and the statistical
+analysis shows that the correlation is almost 0 and statistically
+insignificant.  Again, this goes with what I expected.</p>
+
+<h3>Percent of GDP spent on R&amp;D vs number of Nobel laureates</h3>
+
+<p>I expect that there will be no significant relationship here. A country
+that spends a large portion of its GDP on research does not necessarily
+produce many Nobel laureates if the country is small for example. </p>
+
+<pre><code class="r">analyzeVars(expense_RnD_Percent_of_GDP, numLaureates)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-4"/> </p>
+
+<pre><code>## Looking at `expense_RnD_Percent_of_GDP` and `numLaureates`:
+## Correlation: 0.301
+## p-value (corrected) for the correlation: 0.083
+</code></pre>
+
+<p>From the plot we don&#39;t see a strong relationship between the two variables,
+and the p value is indeed not very significant, so nothing interesting here.</p>
+
+<h3>Percent of GDP spent on R&amp;D vs laureates per million people</h3>
+
+<p>Here I do expect to see a correlation - a country that spends a large
+portion of its GDP on research places more emphasis on research, so 
+this should equate to a larger proportion of their population winning
+scientific awards.  Both variables here are relative rathen than absolute,
+that&#39;s why I expect to see a relationship.</p>
+
+<pre><code class="r">analyzeVars(expense_RnD_Percent_of_GDP, laureatesPerM)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-5"/> </p>
+
+<pre><code>## Looking at `expense_RnD_Percent_of_GDP` and `laureatesPerM`:
+## Correlation: 0.455
+## p-value (corrected) for the correlation: 0.001
+</code></pre>
+
+<p>The plot clearly shows some correlation, and the statistical analysis
+agrees - a correlation of 0.455 which is very significant (p value ~0.001).
+This is again what I expected to see.</p>
+
+<h2>Conclusion</h2>
+
+<p>As expected, we saw that countries that spend more absolute money on research
+generally have more Nobel laureates, and countries that spend a larger
+fraction of their GDP on research (a relative measure) have more laureates
+per million people.</p>
+
+<h2>Rant about the Nobel Prize API</h2>
+
+<p>Any API will always have some problems and any developer will find things to
+complain about :) Here are the main big things that bugged me about using
+this API:  </p>
+
+<ul>
+<li>When getting the list of laureates for each country, I First tried using
+csv, but certain countries were giving me problems and it was unreasonably
+difficult to understand where the problem was. I then tried json in hopes
+that I will be able to get it working faster, which also gave problems. Both
+of them worked for most countries, but not for all of them. With JSON,
+sometimes an empty list (meaning a country who never had any nobel laureates)
+was returned as <code>&quot;&quot;</code> and sometimes as <code>{&quot;laureates&quot;:[]}</code>, which seems like
+a bad inconsistency from the API developers.<br/></li>
+<li>Another problem with JSON was that a few countries had <code>&quot;\r\n&quot;</code> in the
+text, which was causing errors in the JSON parsing. I ended up just writing
+a wrapper around <code>fromJSON</code> to remove those characters.<br/></li>
+<li>Mapping countries across sources was a big pain. Especially the fact that 
+the nobel laureates API specifically returned a mapping from
+&ldquo;United Kingdom&rdquo; -&gt; &ldquo;UK&rdquo;, yey a search for &ldquo;UK&rdquo; returned 0 laureates while a
+search for GB returned many. Not cool, Nobel Prize API.<br/></li>
+<li>I was a little disappointed that there was no way to perform an &ldquo;OR&rdquo;
+query, though that&#39;s not too surprising, it&#39;s not a feature that&#39;s commonly
+supported (I wanted to query for laureates &ldquo;born OR died IN country X&rdquo;).<br/></li>
+<li>One thing that surprised me is that the Nobel Prize API does not return
+a laureate&#39;s nationality, nor do they have a way to query by nationality.
+This is why I ended up searching by birth/death country, which is the closest
+thing I could think if. In their defence, maybe adding nationality is a
+debated issue because a laureate can have multiple nationalities?</li>
+<li>Using Hadley Wickham&#39;s <code>rvest</code> package was amazing.</li>
+</ul>
+
+<hr/>
+
+<p><br/><br/></p>
+
+<h4>Session info:</h4>
+
+<pre><code class="r">sessionInfo()
+</code></pre>
+
+<pre><code>## R version 3.1.2 (2014-10-31)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] splines   grid      stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] rsalad_0.0.1.2   Hmisc_3.14-6     Formula_1.1-2    survival_2.37-7 
+##  [5] lattice_0.20-29  ggplot2_1.0.0    jsonlite_0.9.13  rvest_0.1.0.9000
+##  [9] magrittr_1.5     dplyr_0.3.0.2    plyr_1.8.1      
+## 
+## loaded via a namespace (and not attached):
+##  [1] acepack_1.3-3.3     assertthat_0.1      cluster_1.15.3     
+##  [4] colorspace_1.2-4    DBI_0.3.1           digest_0.6.4       
+##  [7] evaluate_0.5.5      foreign_0.8-61      formatR_1.0        
+## [10] gtable_0.1.2        highr_0.4           httr_0.5           
+## [13] knitr_1.8           labeling_0.3        latticeExtra_0.6-26
+## [16] lazyeval_0.1.9      markdown_0.7.4      MASS_7.3-35        
+## [19] mime_0.2            munsell_0.4.2       nnet_7.3-8         
+## [22] parallel_3.1.2      proto_0.3-10        RColorBrewer_1.0-5 
+## [25] Rcpp_0.11.3         RCurl_1.95-4.3      reshape2_1.4       
+## [28] rpart_4.1-8         scales_0.2.4        selectr_0.2-2      
+## [31] stringr_0.6.2       tools_3.1.2         XML_3.98-1.1
+</code></pre>
+
+</body>
+
+</html>

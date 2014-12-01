@@ -19,9 +19,10 @@ This repository can serve as a sampler with many references showing how to perfo
 - [Regular expressions cheatsheet](./reference/regex/regularExpressions.md) by Gloria Li 
 - [Automated pipelines / make](./reference/make/slides.md) by Shaun Jackman
 - [Creating R packages](./reference/packages/packages.md) by Bernhard Konrad  
-- [Homework 7](./hw/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin) - showing how to do general data manipulation using tidyr, plyr, dplyr, ggplot, spin
-- [Homework 8](./hw/hw08_data-cleaning-regex) - examples of data cleaning and regular expressions  
-- [Homework 9](./hw/hw09_pipelines-make) - how to use `make` to automate pipelines
-- [Homework 10](./hw/hw10_packages) - my very own package of useful R functions called `rsalad`, [available on GitHub](https://github.com/daattali/rsalad)  
-- [Homework 11](./hw/hw11_shiny-app) - a Shiny app exploring cancer data, a demo is available on [shinyapps.io](https://daattali.shinyapps.io/cancer-data/) and on
-[the UBC stats shinyapps server](http://shinyapps.stat.ubc.ca/daattali/cancer-data/)
+- [Homework 7](./hw/hw07_data-manipulation-tidyr-dplyr-join-ggplot-ddply-spin#readme) - showing how to do general data manipulation using tidyr, plyr, dplyr, ggplot, spin
+- [Homework 8](./hw/hw08_data-cleaning-regex#readme) - examples of data cleaning and regular expressions  
+- [Homework 9](./hw/hw09_pipelines-make#readme) - how to use `make` to automate pipelines
+- [Homework 10](./hw/hw10_packages#readme) - my very own package of useful R functions called `rsalad`, [available on GitHub](https://github.com/daattali/rsalad)  
+- [Homework 11](./hw/hw11_shiny-app#readme) - a Shiny app exploring cancer data, a demo is available on [shinyapps.io](https://daattali.shinyapps.io/cancer-data/) and on
+[the UBC stats shinyapps server](http://shinyapps.stat.ubc.ca/daattali/cancer-data/)  
+- [Homework 12](./hw/hw12_web-scraping-api#readme) - how to scrape the web using R and use APIs to access information
