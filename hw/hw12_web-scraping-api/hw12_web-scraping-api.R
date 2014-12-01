@@ -252,7 +252,7 @@ myFromJSON <- function(x) {
 #' because this way I can simply extract the number of unique "person id"
 #' to know how many laureates were returned.
 
-#+ get-laureates-api, cache = TRUE
+#+ get-laureates-api
 laureatesPerCountry <- sapply(countriesRnD2$countryCode, function(x) {
 	apiCallBorn <- buildNobelPrizeApi(method = "laureate",
 																		format = "json",

@@ -14,12 +14,12 @@ on R&D does not necessarily mean the money is going towards science-based R&D
 if a lot of  money is spent on research, there would be more people winning a 
 Nobel Prize.  To measure this, I will scrape for data on total money spent
 on R&D per country from Wikipedia, and combine it with information from
-the Nobel Prize API.
+the Nobel Prize API.  
 Furthermore, to give smaller countries a chance to shine, I also want to look
 at relative metrics. Looking at how much money a country spends and how many
 laureates they have is an absolute metric.  I expect that countries that
 spend a larger portion of their GDP on research will have more laureates
-per capita.  For exapmle, I hypothesize that generally a country that 
+per capita.  For example, I hypothesize that generally a country that 
 spends 5% of their GDP on research rather than 1% will have a larger
 portion of the population get Nobel Prizes.  To measure this, I will use the
 same data sources as above, but also combine information about the population

@@ -9,8 +9,8 @@ on R&D and the number of Nobel laureates they produce.
 used to generate the Rmarkdown, markdown, and HTML documents.  
 
 > Note: that I didn't write a Rmarkdown manually, the R script generated all of 
-them `rsalad::spinMyR`. `rsalad` is a package I wrote that is available on 
-GitHub and can be installed with `devtools::install_github("daattali/rsalad").
+them using `rsalad::spinMyR`. `rsalad` is a package I wrote that is available on 
+GitHub and can be installed with `devtools::install_github("daattali/rsalad")`.
 The command to generate all the files was
 `rsalad::spinMyR("hw12_web-scraping-api.R", wd = "hw/hw12_web-scraping-api")`
 with the working directory being the root directory of this repository.
