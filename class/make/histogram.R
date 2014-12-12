@@ -1,5 +1,0 @@
-words <- read.delim("words.txt", stringsAsFactors = FALSE)[[1]]
-wordLengths <- nchar(words)
-counts <- table(wordLengths)
-write.table(counts, "histogram.tsv",
-						sep = "\t", row.names = FALSE, quote = FALSE)
