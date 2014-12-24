@@ -7,7 +7,7 @@ After a successful submission, the contents of the form are saved to a csv file 
 
 Every submission is its own csv file, so when we want to see all the results for a particular form, we need to have a (very simple) script concatenate all the csv files together or use the Download button.
 
-The app is currently deployed at (https://daattali.shinyapps.io/request-basic-info/)[https://daattali.shinyapps.io/request-basic-info/] for testing.
+The app is currently deployed at [https://daattali.shinyapps.io/request-basic-info/](https://daattali.shinyapps.io/request-basic-info/) for testing.
 
 Admins can see all the previously submitted responses and download them.
 
