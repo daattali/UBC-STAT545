@@ -1,5 +1,6 @@
 # Dean Attali's STAT 545 work
-This repository contains all my coursework from UBC STAT 545, as well as many other little projects I developed during the schoolyear.  
+STAT545 is a course at the University of British Columbia, taught by [Jenny Bryan](https://twitter.com/jennybryan).  
+This repository contains all my coursework from UBC STAT 545, as well as many other little projects I developed during the schoolyear.  I was also a TA for the course in its 2014 offering.   
 This repository can serve as a sampler with many references showing how to perform useful stuff in R.
 
 ### Directory structure
