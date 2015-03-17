@@ -22,7 +22,7 @@ shinyUI(fluidPage(
 		# author info
 		em(
 			span("Created by "),
-			a("Dean Attali", href = "mailto:daattali@gmail.com"), br(),
+			a("Dean Attali", href = "http://deanattali.com"), br(),
 			span("November 21, 2014")
 		)
 	),
