@@ -76,7 +76,7 @@ shinyUI(fluidPage(
   shiny::hr(),
   em(
     span("Created by "),
-    a("Dean Attali", href = "mailto:daattali@gmail.com"),
+    a("Dean Attali", href = "http://deanattali.com"),
     span(", Sept 2014"),
     br(), br()
   )
