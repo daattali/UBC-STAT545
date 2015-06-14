@@ -9,4 +9,4 @@ Every submission is its own csv file, so when we want to see all the results for
 
 The app is currently deployed [on my personal shiny server](http://daattali.com/shiny/request-basic-info/) for testing.
 
-Admins can see all the previously submitted responses and download them. When the app was given to students, it was hosted on a Shiny Server Pro that allowed authentication, and only if the logged in user was a staff member then they would see the admin panel. Since my shiny server is the free version (as opposed to the Pro version), it does not support authentication, so for illustration purposes I'm just setting every login to be an admin.
+Admins can see all the previously submitted responses and download them. When the app was given to students, it was hosted on a Shiny Server Pro that allowed authentication, and only if the logged in user was a course staff member then they would see the admin panel. Since my shiny server is the free version (as opposed to the Pro version), it does not support authentication, so for illustration purposes everyone is assumed to be an admin.
