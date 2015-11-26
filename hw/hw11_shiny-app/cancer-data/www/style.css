@@ -8,9 +8,9 @@ body {
 
 #headerSection {
 	background: #323232;
-	margin: -10px 0 20px;
+	margin: -25px 0 20px;
 	color: #DAA4A4;
-	padding: 0 20px 20px;
+	padding: 15px 20px;
 } 
 
 #allContent,
@@ -30,9 +30,6 @@ body {
 	background: #FCFCFC;
 }
 
-.hideme {
-  display: none !important;
-}
 
 #updateBtn {
 	font-size: 1.3em;

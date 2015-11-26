@@ -12,6 +12,7 @@ library(plyr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(shinyjs)
 
 # Get the raw data
 cDatRaw <- getData()
@@ -56,8 +57,7 @@ shinyServer(function(input, output, session) {
 								label = "",
 								min = min(cDatRaw$year), max = max(cDatRaw$year),
 								value = range(cDatRaw$year),
-								step = 1,
-								format = "####")
+								step = 1)
 	})
 	
 	
@@ -98,7 +98,7 @@ shinyServer(function(input, output, session) {
 			}
 			
 			# See if the user wants to show data per cancer type or all combined
-			if (!input$showIndividual) {
+			if (input$showGrouped) {
 				data %<>%
 					group_by(year, stat) %>%
 					summarise(value =
@@ -172,10 +172,10 @@ shinyServer(function(input, output, session) {
 		# If showing individual cancer types, group each type together, otherwise
 		# just connect all the dots as one group
 		isolate(
-			if (input$showIndividual) {
-				p <- p + aes(group = cancerType, col = cancerType)
+			if (input$showGrouped) {
+			  p <- p + aes(group = 1)
 			} else {
-				p <- p + aes(group = 1)
+			  p <- p + aes(group = cancerType, col = cancerType)
 			}
 		)
 		
@@ -183,8 +183,8 @@ shinyServer(function(input, output, session) {
 		p <- p +
 			facet_wrap(~stat, scales = "free_y", ncol = 2) +
 			geom_point() +
-			geom_line(show_guide = FALSE) +
-			theme_bw() +
+			geom_line(show.legend = FALSE) +
+			theme_bw(16) +
 			theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
 			scale_color_manual(values = plotCols) +
 			theme(legend.position = "bottom") +
@@ -243,15 +243,13 @@ shinyServer(function(input, output, session) {
 		if(!is.null(input$years)) {
 			dataValues$appLoaded <- TRUE
 			
-			session$sendCustomMessage(type = "equalizePlotHeight",
-																message = list(target = "dataPlot",
-																							 by = "resultsTab")) 			
+  		session$sendCustomMessage(type = "equalizePlotHeight",
+  															message = list(target = "dataPlot",
+  																						 by = "resultsTab"))
 		}
 	})
 	
 	# Show form content and hide loading message
-	session$sendCustomMessage(type = "hide",
-														message = list(id = "loadingContent"))
-	session$sendCustomMessage(type = "show",
-														message = list(id = "allContent")) 	
+	hide("loadingContent")
+	show("allContent")
 })

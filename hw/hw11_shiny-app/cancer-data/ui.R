@@ -4,9 +4,11 @@
 # This is the ui portion of a shiny app shows cancer data in the United States
 
 library(shiny)
+library(shinyjs)
 
-shinyUI(fluidPage(
-	
+fluidPage(
+  useShinyjs(),
+  
 	# add custom JS and CSS
 	singleton(
 		tags$head(includeScript(file.path('www', 'message-handler.js')),
@@ -34,7 +36,7 @@ shinyUI(fluidPage(
 	),	
 	
 	# all content goes here, and is hidden initially until the page fully loads
-	div(id = "allContent", class = " hideme",
+	hidden(div(id = "allContent",
 		
 		# sidebar - filters for the data
 		sidebarLayout(
@@ -55,14 +57,14 @@ shinyUI(fluidPage(
 				), br(),
 				
 				# whether to combine all data in a given year or not
-				checkboxInput("showIndividual",
-											"Show data per each cancer type",
-											TRUE), br(),
+				checkboxInput("showGrouped",
+											strong("Group all data in each year"),
+											FALSE), br(),
 				
 				# what years to show
 				# Note: yearText should use "inline = TRUE" in newer shiny versions,
 				# but since the stats server has an old version I'm doing this in css
-				span("Years:"),
+				strong(span("Years:")),
 				textOutput("yearText"), br(),  
 				uiOutput("yearUi"), br(),
 
@@ -93,6 +95,7 @@ shinyUI(fluidPage(
 					tabPanel(
 						title = "Show data", id = "tableTab",
 						
+						br(),
 						downloadButton("downloadData", "Download table"),
 						br(), br(),
 						
@@ -109,7 +112,7 @@ shinyUI(fluidPage(
 					# tab showing the data as plots
 					tabPanel(
 						title = "Plot data", id = "plotTab",
-						
+						br(),
 						downloadButton("downloadPlot", "Save figure"),
 						br(), br(),
 						plotOutput("dataPlot")
@@ -117,5 +120,5 @@ shinyUI(fluidPage(
 				)
 			))
 		)
-	)
-))
+	))
+)
